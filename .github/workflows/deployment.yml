@@ -1,0 +1,88 @@
+name: Baab Dashboard Deployment
+on:
+  push:
+    branches:
+      -  testing
+  pull_request:
+    branches:
+      - testing
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      BASE_URL: https://api-testing.baab.app/api/v1
+      ENV: testing
+      NODE_ENV: testing
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Use Node.js 16
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Clean Cache
+      run: npm cache clean -f
+    - name: Build static site
+      run: npm install && npm run generate
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume:   ${{ secrets.AWS_ROLE_ARN_TESTING }}
+        aws-region: ${{ secrets.AWS_REGION }}
+    - name: Deploy static site to S3 bucket
+      run: aws s3 sync ./dist/ s3://baab-admin-testing --delete
+
+  Notify:
+    name: Deployment Started Notification
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Notify
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_DEPLOY }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Deployment started by : {{ EVENT_PAYLOAD.head_commit.author.name }} commit message : {{ EVENT_PAYLOAD.head_commit.message }}'
+
+  Deployment_Successful:
+    name: Deployment Successful Notification
+    needs: [build, Notify]
+    if: success() && needs.Deploy.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Successful Deploy
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_DEPLOY }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: '{{ EVENT_PAYLOAD.ref }} Deployed successfully by : {{ EVENT_PAYLOAD.head_commit.author.name }} commit message : {{ EVENT_PAYLOAD.head_commit.message }}'
+
+  Deployment_Failures:
+    name: Deployment Failures Notification
+    needs: [build, Notify]
+    if: failure() && needs.Deploy.result == 'failure'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Successful Deploy
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_DEPLOY }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: '{{ EVENT_PAYLOAD.ref }} Deployed failure by : {{ EVENT_PAYLOAD.head_commit.author.name }} commit message : {{ EVENT_PAYLOAD.head_commit.message }}'
+ 
+ 
+
+   

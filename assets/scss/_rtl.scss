@@ -1,0 +1,91 @@
+@font-face {
+  font-family: 'BeinArabic';
+  src: url('../fonts/beinArBlack.ttf');
+  font-weight: bold;
+}
+@font-face {
+  font-family: 'BeinArabic';
+  src: url('../fonts/beinArNormal.ttf');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'BeinArabic';
+  src: url('../fonts/beinArNormal.ttf');
+}
+.v-application--is-rtl {
+  * {
+    font-family: 'BeinArabic';
+  }
+  .notify.unread .unread-circle {
+    left: auto !important;
+    right: 7px !important;
+  }
+  .notify-alert .close {
+    left: -3px !important;
+    right: auto !important;
+  }
+}
+
+.arabic-font {
+  font-family: 'BeinArabic' !important;
+}
+
+.pagination-row {
+  .v-text-field > .v-input__control > .v-input__slot:before,
+  .v-text-field > .v-input__control > .v-input__slot:after {
+    left: 7px;
+    right: -7px;
+  }
+  
+}
+
+// ========== Start Date Picker Style ==========
+
+.ar {
+  .mx-datepicker-main {
+    button,
+    th {
+      font-family: 'BeinArabic' !important;
+      font-weight: 300;
+    }
+  }
+
+  .mx-datepicker-sidebar {
+    text-align: -webkit-right !important;
+  }
+
+  .mx-datepicker-sidebar + .mx-datepicker-content {
+    margin-right: 112px !important;
+    border-right: 1px solid #e8e8e8 !important;
+  }
+
+  .mx-datepicker-sidebar {
+    float: right !important;
+  }
+
+  .mx-datepicker-sidebar + .mx-datepicker-content {
+    margin-right: 100px;
+    border-right: 1px solid #e8e8e8;
+  }
+
+  .mx-datepicker-sidebar + .mx-datepicker-content {
+    margin-left: 0 !important;
+  }
+
+  .mx-input {
+    padding-bottom: 10px;
+    padding-right: 10px;
+  }
+
+  .mx-icon-calendar,
+  .mx-icon-clear {
+    right: unset;
+    left: 8px !important;
+  }
+
+  .mx-calendar {
+    width: 330px;
+  }
+
+  // ========== End Date Picker Style ==========
+}

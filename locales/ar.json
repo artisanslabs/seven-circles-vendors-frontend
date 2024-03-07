@@ -1,0 +1,196 @@
+{
+    "links": {
+        "ads": "الإعلانات",
+        "settings": "الإعدادات",
+        "dashboard": "لوحة المعلومات",
+        "users": "المستخدمون",
+        "admins": "المشرفون",
+        "notifications": "الإشعارات",
+        "cities": "المدن",
+        "products": "المنتجات",
+        "customers": "العملاء",
+        "orders": "الطلبات",
+        "countries": "الدول",
+        "categories": "الأصناف",
+        "units": "الوحدات",
+        "drivers": "السائقين",
+        "vehicles": "المركبات",
+        "cutbacks": "التخفيضات",
+        "suggestions": "الشكاوي والمقترحات"
+    },
+    "btn": {
+        "save": "حفظ",
+        "close": "إغلاق",
+        "cancel": "إلغاء",
+        "delete": "حذف",
+        "search": "ابحث",
+        "yes": "نعم",
+        "no": "لا",
+        "edit": "تعديل",
+        "show": "عرض",
+        "confirm": "تأكيد"
+    },
+    "profile": {
+        "my_account": "حسابي",
+        "logout": "تسجيل الخروج",
+        "address": "العنوان",
+        "mobile": "رقم الجوال",
+        "update": "تعديل بياناتي"
+    },
+    "gender": {
+        "male": "ذكر",
+        "female": "انثى",
+        "gender": "الجنس"
+    },
+    "v": {
+      "field": "الحقل",
+      "required": "مطلوب",
+      "field_required": "هذا الحقل مطلوب",
+      "required_word": "مطلوب",
+      "star": "*",
+      "success": "نجاح",
+      "error": "خطأ",
+      "delete_item": "هل تريد حذف هذا العنصر؟",
+      "delete_items": "هل تريد حذف هذه العناصر؟",
+      "no_data": "لا تُوجد بيانات متوفرة",
+      "page": "صفحة",
+      "of": "من",
+      "from": "من",
+      "to": "إلى",
+      "name": "الاسم",
+      "no_of_rows": "عدد الصفوف بالصفحة",
+      "action": "الإجراء",
+      "login_to_control_panel": "الدخول الى لوحة التحكم",
+      "valid": "غير صحيح",
+      "update": "تحديث",
+      "password_length": "يجب أن يكون طول كلمة المرور على الأقل 6 أحرف ",
+      "not_match": "كلمات المرور غير متطابقة",
+      "text_min_length": "يجب الا يقل عن 3 حروف",
+      "text_max_length": "يجب الا يزيد عن 255 حرف"
+    },
+    "register": {
+        "email": "البريد الإلكتروني",
+        "enter_email": "أدخل البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "enter_password": "أدخل كلمة المرور ",
+        "login": "تسجيل الدخول "
+    },
+    "products": {
+        "name": "المنتج",
+        "create": "إضافة منتج",
+        "update": "تحديث بيانات منتج",
+        "country": "الدولة",
+        "category": "الصنف",
+        "price": "السعر",
+        "qty": "الكمية",
+        "unit": "الوحدة",
+        "production_date": "تاريخ الانتاج",
+        "expiration_date": "تاريخ الانتهاء",
+        "city": "المدينة",
+        "status": "الحالة",
+        "product_details": "تفاصيل المنتج",
+        "main_image": "صورة المنتج الرئيسية",
+        "other_images": "صور إضافية للمنتج",
+        "appear_status": "حالة الظهور",
+        "details": "التفاصيل",
+        "statuses": {
+            "new": "جديد",
+            "approved": "مقبول",
+            "rejected": "مرفوض",
+            "active": "مفعل",
+            "inactive": "غير مفعل",
+            "approve": "قبول",
+            "reject": "رفض",
+            "cancel_rejection": "إلغاء الرفض",
+            "activate": "تفعيل",
+            "deactivate": "إلغاء التفعيل",
+            "appear": "ظاهر",
+            "hidden": "مخفي"
+        }
+    },
+    "cutbacks": {
+        "create": "إضافة تخفيض",
+        "update": "تحديث بيانات تخفيض",
+        "rate_of_reduction": "نسبة التخفيض من 100",
+        "date_of_start": "تاريخ بداية التخفيض",
+        "date_of_end": "تاريخ نهاية التخفيض"
+    },
+    "customers": {
+        "create": "إضافة عميل",
+        "update": "تحديث بيانات عميل",
+        "owner": "المالك",
+        "store": "المحل",
+        "place": "المكان",
+        "landmark": "معلم بارز",
+        "nearest_landmark": "أقرب معلم بارز",
+        "work_type": "نوع العمل",
+        "customer_details": "تفاصيل العميل",
+        "phone_numbers": "ارقام التواصل",
+        "first_phone": "رقم الجوال الأول",
+        "second_phone": "رقم الجوال الثاني",
+        "thired_phone": "رقم الجوال الثالث",
+        "details": "تفاصيل العميل"
+    },
+    "ads": {
+        "create": "إضافة إعلان",
+        "update": "تحديث بيانات إعلان",
+        "start_date": "تاريخ البداية",
+        "end_date": "تاريخ النهاية"
+    },
+    "users": {
+        "create": "إضافة مستخدم",
+        "update": "تحديث بيانات مستخدم",
+        "age": "العمر",
+        "authority": "الصلاحية"
+    },
+    "countries": {
+        "create": "إضافة دولة",
+        "update": "تحديث بيانات دولة"
+    },
+    "cities": {
+        "create": "إضافة مدينة",
+        "update": "تحديث بيانات مدينة"
+    },
+    "categories": {
+        "create": "إضافة صنف",
+        "update": "تحديث بيانات صنف"
+    },
+    "units": {
+        "create": "إضافة وحدة",
+        "update": "تحديث بيانات وحدة"
+    },
+    "drivers": {
+        "create": "إضافة سائق",
+        "update": "تحديث بيانات سائق",
+        "vehicle": "المركبة"
+    },
+    "vehicles": {
+        "create": "إضافة مركبة",
+        "update": "تحديث بيانات مركبة",
+        "vehicle_number": "رقم المركبة"
+    },
+    "settings": {
+        "update": "تحديث بيانات الشركة",
+        "name": "اسم الشركة",
+        "phone": "جوال الشركة",
+        "telphone": "تلفون الشركة",
+        "logo": "شعار الشركة",
+        "website": "الموقع الالكتروني للشركة"
+    },
+    "admins": {
+        "create": "إضافة مشرف",
+        "update": "تحديث بيانات المشرف",
+        "active": "تأكيد إعادة تفعيل المشرف ؟",
+        "active_label": "سوف يتمكن المشرف من استخدام لوحة التحكم بعد إعادة تفعيله",
+        "deactive": "تأكيد إلغاء تفعيل المشرف ؟",
+        "deactive_label": "لن يتمكن المشرف من استخدام لوحة التحكم بعد إلغاء تفعيله",
+        "statuses": {
+            "activate": "مفعل",
+            "deactivate": "غير مفعل"
+        }
+    },
+    "discounts": {
+        "amount": "قيمة",
+        "percentage": "نسبة"
+    }
+}

@@ -1,0 +1,555 @@
+/* ########### Shared Classes ############## */
+
+// ========== Start Date Picker Style ==========
+
+.mx-datepicker-sidebar {
+  text-align: left !important;
+  margin-top: 44px !important;
+  width: 120px !important;
+  padding: 0px !important;
+}
+
+.mx-input {
+  padding-top: 14px !important;
+}
+
+.mx-datepicker-sidebar + .mx-datepicker-content {
+  margin-left: 110px !important;
+}
+
+.mx-btn-text {
+  line-height: 30px !important;
+}
+
+.pagination-row {
+  .v-text-field > .v-input__control > .v-input__slot:before,
+  .v-text-field > .v-input__control > .v-input__slot:after {
+    bottom: 30px !important;
+    left: -6px !important;
+    right: -17px;
+  }
+}
+
+// ========== End Date Picker Style ==========
+
+.inputTitle {
+  font-size: 14px;
+  font-weight: 500;
+}
+.v-btn {
+  text-transform: none !important;
+}
+
+.title-color {
+  color: $main-color !important;
+}
+
+.black-color {
+  color: $second-color !important;
+}
+
+.overleck-red-color {
+  color: $overleck-red-color !important;
+}
+
+.overleck-third-color {
+  color: $overleck-third-color !important;
+}
+
+.red-color {
+  color: $red-color !important;
+  opacity: 1 !important;
+}
+
+.grey-color {
+  color: $grey-color !important;
+}
+
+.blue-color {
+  color: $blue-color !important;
+}
+
+.blueberry-color {
+  color: $blueberry-color !important;
+}
+
+a {
+  text-decoration: none;
+}
+.theme--light.v-application {
+  color: #000 !important;
+}
+
+.fs-13 {
+  font-size: $fs-13 !important;
+}
+
+.fs-14 {
+  font-size: $fs-14 !important;
+}
+
+.fs-20 {
+  font-size: 20px !important;
+}
+
+.medium-font {
+  font-size: $font-size-md !important;
+}
+
+.font-weight-300 {
+  font-weight: 300;
+}
+
+.font-weight-500 {
+  font-weight: 500;
+}
+
+.fw-normal {
+  font-weight: normal;
+}
+
+.large-font {
+  font-size: $font-size-lg !important;
+}
+
+::placeholder {
+  color: #7a8fa6 !important;
+  font-size: 12px !important;
+  transform: translate3d(0, -4px, 0);
+}
+
+.small-font {
+  font-size: $font-size-sm !important;
+}
+
+.font-size-14 {
+  font-size: $font-size-14 !important;
+}
+
+.medium-font {
+  font-size: $font-size-md !important;
+}
+
+.large-font {
+  font-size: $font-size-lg !important;
+}
+
+.blue-background {
+  background: $main-color !important;
+}
+
+.v-messages__message {
+  padding-bottom: 4px !important;
+}
+
+.main-bg-color {
+  background: linear-gradient(to right, #0F6D39, #0F6D39) !important;
+  color: #fff !important;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ########### Global Custom Style for Auth Page Cards ############## */
+
+.auth-card {
+  text-align: center !important;
+  box-shadow: 0 3px 6px 0 #9298a2;
+  border-radius: 20px !important;
+  max-width: 915px !important;
+  div > span {
+    @extend .inputTitle;
+  }
+  .v-text-field input {
+    line-height: 1 !important;
+  }
+  .v-text-field.v-text-field--enclosed .v-text-field__details {
+    margin-bottom: -3px !important;
+    padding-bottom: 3px !important;
+  }
+}
+
+.change-auth-page {
+  @extend .inputTitle;
+  a {
+    color: $main-color;
+  }
+}
+
+.v-btn.login-btn {
+  background-image: linear-gradient(to right, #0F6D39, #0F6D39) !important;
+  color: #ffffff !important;
+  padding: 10px 30px !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  min-width: 70% !important;
+  height: 44px !important;
+  border-radius: 6px;
+  letter-spacing: 0 !important;
+}
+
+.prefix-suffix {
+  .v-text-field__prefix,
+  .v-text-field__suffix {
+    padding-right: 4px !important;
+    font-size: 12px !important;
+    background: #dfe0e3 !important;
+    padding: 4px 12px 5px 12px !important;
+    border-radius: 4px !important;
+    color: $second-color;
+    margin: -5px;
+  }
+}
+
+.v-list-item .v-list-item__title,
+.v-list-item .v-list-item__subtitle {
+  line-height: 1.5rem !important;
+}
+
+/* ########### Global Custom Style for Shared Btns ############## */
+
+.v-application .theme--dark.v-btn.v-btn--disabled.v-btn--has-bg {
+  background-color: #ddd !important;
+  color: #fff !important;
+}
+.add-btn {
+  height: 44px !important;
+  border-radius: 6px !important;
+  background: linear-gradient(to right, #0F6D39, #0F6D39) !important;
+  color: #fff !important;
+  .btn-text {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+}
+.delete-btn {
+  @extend .add-btn;
+  background: $overleck-red-color !important;
+}
+.update-info {
+  .theme--light.v-btn:hover::before, .theme--light.v-btn:focus::before {
+    opacity: 0 !important;
+  }
+}
+
+.v-btn {
+  letter-spacing: 0 !important;
+}
+
+/* modal-btns ( save - cancel) */
+.modal-btns {
+  .v-btn {
+    font-size: 15px !important;
+    border-radius: 5px !important;
+    border: none !important;
+    background-image: linear-gradient(to right, #0F6D39, #0F6D39) !important;
+    color: #fff !important;
+    box-shadow: none !important;
+  }
+  .cancel-btn {
+    border: solid 1px $grey-color !important;
+    background-color: #f7f8fa !important;
+    background-image: none !important;
+    color: $grey-color !important;
+  }
+}
+
+/* ########### Global Custom Style for Table Data ############## */
+
+.v-application .table-style {
+  border: 1px solid #707070 !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  // &.elevation-1 {
+  //   box-shadow: 0 5px 6px 0 rgba(0, 0, 0, 0.16) !important;
+  // }
+  .table__search {
+    max-width: 50% !important;
+    min-width: 150px !important;
+    .v-text-field--outlined > .v-input__control > .v-input__slot fieldset {
+      color: #bbc5d5 !important;
+    }
+    .theme--light.v-icon {
+      color: #bbc5d5 !important;
+    }
+
+    input {
+      padding: 13px 0 7px;
+      // padding: 7px 0 7px;
+    }
+    input::placeholder {
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      color: #bbc5d5 !important;
+    }
+  }
+  .v-input__control {
+    border-radius: 8px !important;
+  }
+  .v-select__slot {
+    .v-label {
+      color: #bbc5d5;
+      font-size: 15px !important;
+    }
+    .v-icon {
+      color: #bbc5d5 !important;
+    }
+  }
+  table {
+    .v-input--selection-controls__input {
+      .v-icon {
+        color: #000 !important;
+      }
+      .v-icon.mdi-checkbox-marked,
+      .v-icon.mdi-minus-box {
+        color: $main-color !important;
+      }
+    }
+    th,
+    td {
+      font-size: 16px !important;
+      font-weight: bold;
+      color: #000 !important;
+      text-align: center !important;
+    }
+    tr > td:not(:last-child) {
+      opacity: 1;
+      font-weight: 300;
+    }
+  }
+}
+.theme--light.v-data-table tbody tr.v-data-table__selected {
+  box-shadow: 0 3px 6px 0 rgb(0 0 0 / 16%) !important;
+  border: solid 1px #0F6D39 !important;
+  background: #fff !important;
+}
+
+/* ########### Global Custom Style Pagination ############## */
+.pagination {
+  .v-pagination__item,
+  .v-pagination__navigation {
+    // min-width: 30px;
+    // height: 30px;
+    border-radius: 50%;
+    font-size: 14px !important;
+    background-color: #fff !important;
+    color: #000 !important;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.25);
+    margin: 0 4px;
+  }
+  .theme--light.v-pagination .v-pagination__item--active {
+    background-color: #0F6D39 !important;
+    color: #fff !important;
+    box-shadow: 0 2px 2px 0 rgba(0, 153, 204, 0.5);
+  }
+  .v-pagination__navigation {
+    i {
+      color: #000000;
+      transition: color 0.4s ease-in-out;
+    }
+
+    &:hover {
+      i {
+        color: $main-color !important;
+      }
+    }
+  }
+}
+
+/* ########### Global Custom Style for Table Data ############## */
+.modal-card {
+  border-radius: 6px !important;
+  box-shadow: 0 3px 6px 0 #9298a2;
+  background-color: #fff;
+  .row > div {
+    padding: 0px 8px !important;
+  }
+  div > span {
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0.73;
+    color: #354052;
+  }
+}
+
+/* ########### Global Custom Style for Actions BTNs ############## */
+.action-btns {
+  .v-btn {
+    height: 44px !important;
+    min-width: 180px !important;
+    border-radius: 10px !important;
+    color: #fff !important;
+    background-color: $main-color !important;
+    box-shadow: none !important;
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    margin-inline-end: 14px;
+    transition: all 0.3s ease-in-out;
+  }
+  .reject {
+    color: $overleck-red-color !important;
+    background-color: #fff !important;
+    border: 1px solid $overleck-red-color !important;
+    &:hover {
+      color: #fff !important;
+      background-color: $overleck-red-color !important;
+    }
+  }
+  .cancel-reject,
+  .cancel {
+    color: $grey-color !important;
+    background-color: #fff !important;
+    border: 1px solid $grey-color !important;
+  }
+  .cancel-reject:hover {
+    color: #fff !important;
+    background-color: $overleck-third-color !important;
+    border: 1px solid $overleck-third-color !important;
+  }
+}
+
+/* ########### Global Custom Style for Navbar ############## */
+.v-list-group {
+  .v-list-group__header {
+    .v-list-item__title,
+    .v-list-item__icon,
+    .theme--light.v-icon {
+      color: #9ca6ba !important;
+    }
+  }
+}
+
+.v-list-item--active {
+  color: #000000;
+  border-inline-end: 8px solid #0099cc;
+  background-color: #ffffff;
+  .v-icon {
+    color: #000000;
+  }
+}
+
+.v-list-group--active {
+  .v-list-group__header {
+    .v-list-item__title,
+    .v-list-item__icon,
+    .theme--light.v-icon {
+      color: #000000 !important;
+    }
+  }
+}
+/* ########### Global Custom Style for Navbar ############## */
+
+.close-dialog-icon {
+  color: #908f8f !important;
+  margin-top: -50px;
+  margin-inline-start: 97%;
+}
+
+.list {
+  table {
+    td {
+      cursor: pointer;
+    }
+  }
+  .show-pages {
+    max-width: 16% !important;
+    margin-top: -15px;
+    padding: 10px;
+    margin-inline-start: 10px;
+  }
+  
+  .show-pages-en {
+    max-width: 18% !important;
+    margin-top: -20px;
+    padding: 10px;
+    margin-inline-end: 0px;
+    margin-left: 8px;
+  }
+  
+  .font-style {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: #666;
+  }
+  
+  @media (max-width: 1264px) {
+    .show-pages {
+      max-width: 20% !important;
+    }
+  
+    .show-pages-en {
+      max-width: 20% !important;
+    }
+  }
+  
+  @media (max-width: 960px) {
+    .show-pages {
+      max-width: 24% !important;
+    }
+  
+    .show-pages-en {
+      max-width: 22% !important;
+    }
+  }
+}
+
+.modal {
+  .v-card {
+    position: relative !important;
+    border: solid 1px #dbdbdc !important;
+    background-color: rgba(255, 255, 255, 0.69) !important;
+    box-shadow: none !important;
+    min-height: 156px !important;
+    border-radius: 20px !important;
+    & > div {
+      padding: 20px;
+    }
+    hr {
+      border: 1px solid #dbdbdc;
+    }
+  }
+  span {
+    font-size: 16px;
+    font-weight: 300;
+  }
+  p {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .span-color {
+    color: #707070;
+  }
+
+  .part {
+    width: 24%;
+  }
+
+  .v-breadcrumbs {
+    color: rgba(101, 101, 101, 0.71) !important;
+  }
+
+  .content-box {
+    width: 45%;
+  }
+
+  .image_video-box {
+    width: 45%;
+  }
+
+  @media (max-width: 1200px) {
+    .v-card {
+      border-radius: 14px;
+      & > div {
+        padding: 10px;
+      }
+    }
+  }
+}
