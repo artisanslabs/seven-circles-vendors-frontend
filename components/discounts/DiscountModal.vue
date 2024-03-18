@@ -20,7 +20,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('products.name') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-combobox
                 v-model="form.product"
@@ -38,7 +38,7 @@
             <v-col cols="6" sm="4">
               <div class="text-start mb-2">
                 <span>نوع الخصم</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-combobox
                 v-model="form.discount_type"
@@ -56,7 +56,7 @@
             <v-col cols="6" sm="4">
               <div class="text-start mb-2">
                 <span>الخصم</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.discount_value"
@@ -74,7 +74,7 @@
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t('cutbacks.date_of_start') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
 
               <v-menu
@@ -107,7 +107,7 @@
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t('cutbacks.date_of_end') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
 
               <v-menu

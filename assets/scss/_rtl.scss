@@ -1,20 +1,20 @@
 @font-face {
-  font-family: 'BeinArabic';
-  src: url('../fonts/beinArBlack.ttf');
+  font-family: 'MadaniArabic';
+  src: url('../fonts/MadaniArabicBold.ttf');
   font-weight: bold;
 }
 @font-face {
-  font-family: 'BeinArabic';
-  src: url('../fonts/beinArNormal.ttf');
+  font-family: 'MadaniArabic';
+  src: url('../fonts/MadaniArabicLight.ttf');
   font-weight: 300;
 }
 @font-face {
-  font-family: 'BeinArabic';
-  src: url('../fonts/beinArNormal.ttf');
+  font-family: 'MadaniArabic';
+  src: url('../fonts/MadaniArabicMedium.ttf');
 }
 .v-application--is-rtl {
   * {
-    font-family: 'BeinArabic';
+    font-family: 'MadaniArabic';
   }
   .notify.unread .unread-circle {
     left: auto !important;
@@ -27,7 +27,7 @@
 }
 
 .arabic-font {
-  font-family: 'BeinArabic' !important;
+  font-family: 'MadaniArabic' !important;
 }
 
 .pagination-row {
@@ -45,7 +45,7 @@
   .mx-datepicker-main {
     button,
     th {
-      font-family: 'BeinArabic' !important;
+      font-family: 'MadaniArabic' !important;
       font-weight: 300;
     }
   }

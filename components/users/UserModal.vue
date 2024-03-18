@@ -20,7 +20,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('v.name') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.full_name"
@@ -36,7 +36,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('register.email') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.email"
@@ -66,7 +66,7 @@
             <v-col v-if="!editCustomer" cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>كلمة المرور</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.password"
@@ -81,7 +81,7 @@
             <v-col v-if="!editCustomer" cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>تأكيد كلمة المرور</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.password_confirmation"
@@ -96,7 +96,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('products.country') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-combobox
                 v-model="form.country"
@@ -115,7 +115,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('products.city') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-combobox
                 v-model="form.city"

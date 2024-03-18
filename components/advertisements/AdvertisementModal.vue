@@ -20,7 +20,7 @@
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t('products.country') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-combobox
                 v-model="form.country"
@@ -39,7 +39,7 @@
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t('products.city') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-combobox
                 v-model="form.city"
@@ -58,7 +58,7 @@
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t('ads.start_date') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
 
               <v-menu
@@ -91,7 +91,7 @@
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t('ads.end_date') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-menu
                 v-model="ends_at"
@@ -124,7 +124,7 @@
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>صورة  الإعلان</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-file-input
                 v-model="form.image"
@@ -139,7 +139,7 @@
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t('products.details') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-textarea
                 v-model="form.description"
