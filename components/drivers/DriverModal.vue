@@ -20,7 +20,7 @@
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t('v.name') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.name"
@@ -36,7 +36,7 @@
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t('drivers.vehicle') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-combobox
                 v-model="form.vehicle"

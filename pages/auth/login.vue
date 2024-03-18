@@ -31,7 +31,7 @@
                 <span class="black-color label">{{
                   $t('register.email')
                 }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.email"
@@ -49,7 +49,7 @@
                 <span class="black-color label">{{
                   $t('register.password')
                 }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.password"
@@ -99,7 +99,7 @@ export default {
     }
   },
   head: {
-    title: 'Login'
+    title: 'تسجيل الدخول'
   },
   methods: {
     async login () {

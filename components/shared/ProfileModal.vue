@@ -20,7 +20,7 @@
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t('v.name') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.full_name"
@@ -34,7 +34,7 @@
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t('register.email') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.email"
@@ -48,7 +48,7 @@
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t('register.password') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.password"

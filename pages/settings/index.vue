@@ -24,7 +24,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('settings.name') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.name"
@@ -40,7 +40,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('settings.phone') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.phone"
@@ -56,7 +56,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('settings.telphone') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.telphone"
@@ -72,7 +72,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('settings.logo') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-file-input
                 placeholder="شعار الشركة"
@@ -85,7 +85,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('settings.website') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.website"

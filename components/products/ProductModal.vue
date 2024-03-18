@@ -20,7 +20,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('v.name') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.name"
@@ -36,7 +36,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('products.country') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-combobox
                 v-model="form.country"
@@ -55,7 +55,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('products.city') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-combobox
                 v-model="form.city"
@@ -74,7 +74,7 @@
             <v-col cols="12" sm="3">
               <div class="text-start mb-2">
                 <span>{{ $t('products.category') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-combobox
                 v-model="form.category"
@@ -92,7 +92,7 @@
             <v-col cols="12" sm="3">
               <div class="text-start mb-2">
                 <span>{{ $t('products.unit') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-combobox
                 v-model="form.product_unit"
@@ -110,7 +110,7 @@
             <v-col cols="6" sm="3">
               <div class="text-start mb-2">
                 <span>{{ $t('products.price') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.retail_price"
@@ -127,7 +127,7 @@
             <v-col cols="6" sm="3">
               <div class="text-start mb-2">
                 <span>الوزن</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.weight"
@@ -145,7 +145,7 @@
             <v-col cols="12" sm="3">
               <div class="text-start mb-2">
                 <span>{{ $t('products.production_date') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
 
               <v-menu
@@ -178,7 +178,7 @@
             <v-col cols="12" sm="3">
               <div class="text-start mb-2">
                 <span>{{ $t('products.expiration_date') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-menu
                 v-model="expiration_date"
@@ -210,7 +210,7 @@
             <v-col cols="3" sm="3">
               <div class="text-start mb-2">
                 <span>{{ $t('products.qty') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.quantity"
@@ -227,7 +227,7 @@
             <v-col cols="9" sm="3">
               <div class="text-start mb-2">
                 <span>العملة</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-combobox
                 v-model="form.currency"
@@ -246,7 +246,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('products.main_image') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-file-input
                 v-model="form.image"
@@ -260,7 +260,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('products.other_images') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-file-input
                 v-model="images"
@@ -275,7 +275,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t('products.appear_status') }}</span>
-                <span class="red-color">{{ $t('v.required') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-radio-group
                 v-model="form.status"
