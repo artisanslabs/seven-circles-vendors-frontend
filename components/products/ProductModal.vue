@@ -12,7 +12,7 @@
       <div>
         <v-form ref="form" lazy-validation>
           <v-row>
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t("v.name") }}</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -29,7 +29,7 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t("products.category") }}</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -48,7 +48,7 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t("products.unit") }}</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -67,7 +67,7 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t("products.price") }}</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -85,7 +85,7 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>سعر التخفيض</span>
               </div>
@@ -100,7 +100,22 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
+              <div class="text-start mb-2">
+                <span>السعر النهائي</span>
+              </div>
+              <v-text-field
+                v-model="form.sale_end"
+                hide-spin-buttons
+                placeholder="أدخل السعر النهائي "
+                type="number"
+                validate-on-blur
+                outlined
+                dense
+              />
+            </v-col>
+
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>الوزن</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -118,7 +133,7 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t("products.production_date") }}</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -152,7 +167,7 @@
               </v-menu>
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t("products.expiration_date") }}</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -185,7 +200,7 @@
               </v-menu>
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t("products.qty") }}</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -203,13 +218,13 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
-                <span>????</span>
+                <span> أعلى كمية </span>
               </div>
               <v-text-field
-                v-model="form.notify_quantity"
-                placeholder="ادخل كمية المنتج"
+                v-model="form.max_items_per_user"
+                placeholder="ادخل أعلى كمية"
                 type="number"
                 hide-spin-buttons
                 validate-on-blur
@@ -218,7 +233,37 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
+              <div class="text-start mb-2">
+                <span>الحد الأقصى للكمية لكل طلب</span>
+              </div>
+              <v-text-field
+                v-model="form.maximum_quantity_per_order"
+                placeholder="ادخل الحد الأقصى للكمية لكل طلب"
+                type="number"
+                hide-spin-buttons
+                validate-on-blur
+                outlined
+                dense
+              />
+            </v-col>
+
+            <v-col cols="12" sm="6">
+              <div class="text-start mb-2">
+                <span>??</span>
+              </div>
+              <v-text-field
+                v-model="form.notify_quantity"
+                placeholder="ادخل أعلى كمية"
+                type="number"
+                hide-spin-buttons
+                validate-on-blur
+                outlined
+                dense
+              />
+            </v-col>
+
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t("products.main_image") }}</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -233,12 +278,12 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>رابط فيديو  للمنتج</span>
               </div>
               <v-text-field
-                v-model="form.video_url"
+                v-model="form.medias"
                 placeholder="أدخل اسم المنتج"
                 type="text"
                 validate-on-blur
@@ -248,7 +293,7 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>ارفاق ملف PDF للمنتج</span>
               </div>
@@ -277,7 +322,7 @@
               />
             </v-col> -->
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t("products.appear_status") }}</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -296,7 +341,7 @@
               </v-radio-group>
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>هل يتطلب شحن؟</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -315,7 +360,7 @@
               </v-radio-group>
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>هل المنتج خاضع للضريبة؟</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -334,25 +379,22 @@
               </v-radio-group>
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>رمز gtin</span>
-                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-text-field
                 v-model="form.gtin"
                 placeholder="ادخل رمز gtin"
                 type="number"
                 hide-spin-buttons
-                :rules="[requiredRules]"
                 validate-on-blur
                 outlined
                 dense
-                required
               />
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>رمز التخزين sku</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -370,7 +412,7 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="6" md="3">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>أقصى كمية</span>
               </div>
@@ -384,6 +426,24 @@
                 dense
                 required
               />
+            </v-col>
+
+            <v-col cols="12">
+              <div class="text-start mb-2">
+                <span>لون المنتج</span>
+              </div>
+              <v-color-picker
+                v-model="form.color"
+                multiple
+                hide-inputs
+                validate-on-blur
+                outlined
+                dense
+                hide-canvas
+                hide-sliders
+                show-swatches
+                style='max-width: 100% !important;'
+              ></v-color-picker>
             </v-col>
 
             <v-col cols="12">
@@ -432,12 +492,6 @@ export default {
         return {};
       },
     },
-    countries: {
-      type: Object,
-      default: () => {
-        return {};
-      },
-    },
     units: {
       type: Object,
       default: () => {
@@ -449,17 +503,11 @@ export default {
       default: () => {
         return {};
       },
-    },
-    currencies: {
-      type: Object,
-      default: () => {
-        return {};
-      },
-    },
+    }
   },
   data() {
     return {
-      images: [],
+      medias: [],
       expiration_date: false,
       production_date: false,
       showModal: false,
@@ -478,10 +526,7 @@ export default {
   computed: {
     pageTitle() {
       return this.title === "add product" ? "إضافة منتج" : "تعديل منتج";
-    },
-    cities() {
-      return this.$store.state.support.cities;
-    },
+    }
   },
   watch: {
     dialogVisible() {
@@ -499,12 +544,11 @@ export default {
       if (this.title !== "add product") {
         this.form = { ...this.product };
         this.form.category = this.product.category;
-        this.form.product_unit = this.product.unit;
+        this.form.unit = this.product.unit;
         this.oldForm = { ...this.product };
         this.oldForm.category = this.product.category;
-        this.oldForm.product_unit = this.product.unit;
       }
-    },
+    }
   },
   methods: {
     async submit() {
@@ -515,18 +559,18 @@ export default {
         for (const key in this.form) {
           if (
             this.form[key] !== this.oldForm[key] &&
-            key !== "product_unit" &&
+            key !== "unit" &&
             key !== "category"
           ) {
             formData.append(key, this.form[key]);
           }
         }
 
-        for (const key in this.images) {
-          formData.append(`media[${key}]`, this.images[key]);
+        for (const key in this.medias) {
+          formData.append(`media[${key}]`, this.medias[key]);
         }
 
-        formData.append("unit_id", this.form.product_unit.id);
+        formData.append("unit_id", this.form.unit.id);
         formData.append("category_id", this.form.category.id);
         formData.append(
           "wholesale_price",
