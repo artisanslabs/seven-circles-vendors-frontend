@@ -242,8 +242,8 @@
                 <span> أعلى كمية </span>
               </div>
               <v-text-field
-                v-model="form.max_items_per_user"
-                placeholder="ادخل أعلى كمية"
+                v-model="form.notify_quantity"
+                placeholder="ادخل كمية المنتج"
                 type="number"
                 hide-spin-buttons
                 validate-on-blur
@@ -252,7 +252,7 @@
               />
             </v-col>
 
-            <!-- <v-col cols="12" sm="6">
+            <v-col cols="12" sm="6" md="3">
               <div class="text-start mb-2">
                 <span>الحد الأقصى للكمية لكل طلب</span>
               </div>
@@ -272,17 +272,16 @@
                 <span>??</span>
               </div>
               <v-text-field
-                v-model="form.notify_quantity"
-                placeholder="ادخل أعلى كمية"
-                type="number"
-                hide-spin-buttons
+                v-model="form.video_url"
+                placeholder="أدخل اسم المنتج"
+                type="text"
                 validate-on-blur
                 outlined
                 dense
               />
             </v-col> -->
 
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="6" md="3">
               <div class="text-start mb-2">
                 <span>{{ $t("products.main_image") }}</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -303,7 +302,7 @@
               </v-card>
             </v-col>
 
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="6" md="3">
               <div class="text-start mb-2">
                 <span>{{ $t("products.appear_status") }}</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -322,7 +321,7 @@
               </v-radio-group>
             </v-col>
 
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="6" md="3">
               <div class="text-start mb-2">
                 <span>هل يتطلب شحن؟</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -341,7 +340,7 @@
               </v-radio-group>
             </v-col>
 
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="6" md="3">
               <div class="text-start mb-2">
                 <span>هل المنتج خاضع للضريبة؟</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -360,7 +359,7 @@
               </v-radio-group>
             </v-col>
 
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="6" md="3">
               <div class="text-start mb-2">
                 <span>رمز gtin</span>
               </div>
@@ -372,12 +371,11 @@
                 validate-on-blur
                 outlined
                 dense
-                min="8"
-                max="14"
+                required
               />
             </v-col>
 
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="6" md="3">
               <div class="text-start mb-2">
                 <span>رمز التخزين sku</span>
               </div>
@@ -394,7 +392,7 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="6" md="3">
               <div class="text-start mb-2">
                 <span>أقصى كمية</span>
               </div>
@@ -489,8 +487,7 @@ export default {
   },
   data() {
     return {
-      imagePreview: null,
-      medias: [],
+      images: [],
       expiration_date: false,
       production_date: false,
       sale_end: false,
@@ -533,13 +530,6 @@ export default {
         this.oldForm.category = this.product.category;
       }
     },
-    'form.image'(newImage) {
-      if (newImage) {
-        this.imagePreview = URL.createObjectURL(newImage);
-      } else {
-        this.imagePreview = null;
-      }
-    }
   },
   methods: {
     async submit() {
@@ -550,34 +540,18 @@ export default {
         for (const key in this.form) {
           if (
             this.form[key] !== this.oldForm[key] &&
-            key !== "unit" &&
-            key !== "category" &&
-            key !== "image" &&
-            key !== "color" &&
-            key !== "sku" &&
-            key !== "gtin"
+            key !== "product_unit" &&
+            key !== "category"
           ) {
             formData.append(key, this.form[key]);
           }
         }
 
-        // Append the media files
-        let mediaIndex = 0;
-        for (const key in this.form) {
-          if (key === "image") {
-            formData.append(`media[${mediaIndex}]`, this.form[key]);
-            mediaIndex++;
-          }
+        for (const key in this.images) {
+          formData.append(`media[${key}]`, this.images[key]);
         }
 
-        // Loop through the medias array and append each value
-        for (const value of Object.values(this.medias)) {
-          formData.append(`media[${mediaIndex}]`, value);
-          mediaIndex++;
-        }
-
-        formData.append("product_unit_id", this.form.unit.id);
-        formData.append("color", this.form.color.hex);
+        formData.append("unit_id", this.form.product_unit.id);
         formData.append("category_id", this.form.category.id);
         formData.append(
           "wholesale_price",
