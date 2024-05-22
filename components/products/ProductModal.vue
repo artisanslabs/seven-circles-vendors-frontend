@@ -102,17 +102,34 @@
 
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
-                <span>السعر النهائي</span>
+                <span>تاريخ انتهى التخفيض</span>
               </div>
-              <v-text-field
-                v-model="form.sale_end"
-                hide-spin-buttons
-                placeholder="أدخل السعر النهائي "
-                type="number"
-                validate-on-blur
-                outlined
-                dense
-              />
+              <v-menu
+                v-model="sale_end"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+              >
+                <template #activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="form.sale_end"
+                    placeholder="أختر تاريخ انتهى التخفيض"
+                    append-icon="mdi-calendar"
+                    readonly
+                    outlined
+                    dense
+                    v-bind="attrs"
+                    v-on="on"
+                  />
+                </template>
+                <v-date-picker
+                  v-model="form.sale_end"
+                  locale="ar"
+                  @input="sale_end = false"
+                />
+              </v-menu>
             </v-col>
 
             <v-col cols="12" sm="6">
@@ -183,6 +200,7 @@
                 <template #activator="{ on, attrs }">
                   <v-text-field
                     v-model="form.expiration_date"
+                    :disabled="!form.production_date"
                     placeholder="أختر تاريخ الانتهاء"
                     append-icon="mdi-calendar"
                     readonly
@@ -195,6 +213,7 @@
                 <v-date-picker
                   v-model="form.expiration_date"
                   locale="ar"
+                  :min="form.production_date"
                   @input="expiration_date = false"
                 />
               </v-menu>
@@ -233,7 +252,7 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="6">
+            <!-- <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>الحد الأقصى للكمية لكل طلب</span>
               </div>
@@ -261,15 +280,15 @@
                 outlined
                 dense
               />
-            </v-col>
+            </v-col> -->
 
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t("products.main_image") }}</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-file-input
-                v-model="form.media"
+                v-model="form.image"
                 placeholder="صور المنتج"
                 :rules="[requiredRules]"
                 outlined
@@ -278,51 +297,13 @@
               />
             </v-col>
 
-            <v-col cols="12" sm="6">
-              <div class="text-start mb-2">
-                <span>رابط فيديو  للمنتج</span>
-              </div>
-              <v-text-field
-                v-model="form.medias"
-                placeholder="أدخل اسم المنتج"
-                type="text"
-                validate-on-blur
-                outlined
-                dense
-                required
-              />
+            <v-col cols="12" sm="2">
+              <v-card>
+                <img :src="imagePreview" alt="Product Image" v-if="imagePreview" height="80" class="grey darken-4" />
+              </v-card>
             </v-col>
 
-            <v-col cols="12" sm="6">
-              <div class="text-start mb-2">
-                <span>ارفاق ملف PDF للمنتج</span>
-              </div>
-              <v-file-input
-                v-model="form.media"
-                placeholder="ارفاق ملف PDF للمنتج"
-                outlined
-                dense
-                append-icon="mdi-file-image"
-              />
-            </v-col>
-
-            <!-- <v-col cols="12" sm="4">
-              <div class="text-start mb-2">
-                <span>{{ $t("products.other_images") }}</span>
-                <span class="red-color">{{ $t("v.star") }}</span>
-              </div>
-              <v-file-input
-                v-model="images"
-                placeholder="صور إضافية للمنتج"
-                :rules="[requiredRules]"
-                multiple
-                outlined
-                dense
-                append-icon="mdi-folder-multiple-image"
-              />
-            </v-col> -->
-
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t("products.appear_status") }}</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -331,17 +312,17 @@
                 <v-radio
                   color="#0f6d39"
                   :label="$t('products.statuses.appear')"
-                  :value="true"
+                  :value="1"
                 />
                 <v-radio
                   color="#0f6d39"
                   :label="$t('products.statuses.hidden')"
-                  :value="false"
+                  :value="0"
                 />
               </v-radio-group>
             </v-col>
 
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>هل يتطلب شحن؟</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -350,17 +331,17 @@
                 <v-radio
                   color="#0f6d39"
                   :label="$t('btn.yes')"
-                  :value="true"
+                  :value="1"
                 />
                 <v-radio
                   color="#0f6d39"
                   :label="$t('btn.no')"
-                  :value="false"
+                  :value="0"
                 />
               </v-radio-group>
             </v-col>
 
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>هل المنتج خاضع للضريبة؟</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -369,17 +350,17 @@
                 <v-radio
                   color="#0f6d39"
                   :label="$t('btn.yes')"
-                  :value="true"
+                  :value="1"
                 />
                 <v-radio
                   color="#0f6d39"
                   :label="$t('btn.no')"
-                  :value="false"
+                  :value="0"
                 />
               </v-radio-group>
             </v-col>
 
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>رمز gtin</span>
               </div>
@@ -391,28 +372,29 @@
                 validate-on-blur
                 outlined
                 dense
+                min="8"
+                max="14"
               />
             </v-col>
 
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>رمز التخزين sku</span>
-                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-text-field
                 v-model="form.sku"
                 placeholder="ادخل رمز التخزين sku"
                 type="number"
                 hide-spin-buttons
-                :rules="[requiredRules]"
                 validate-on-blur
                 outlined
                 dense
-                required
+                min="10"
+                max="20"
               />
             </v-col>
 
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>أقصى كمية</span>
               </div>
@@ -507,9 +489,11 @@ export default {
   },
   data() {
     return {
+      imagePreview: null,
       medias: [],
       expiration_date: false,
       production_date: false,
+      sale_end: false,
       showModal: false,
       passwordStatus: false,
       clickedBtn: "cancel",
@@ -548,6 +532,13 @@ export default {
         this.oldForm = { ...this.product };
         this.oldForm.category = this.product.category;
       }
+    },
+    'form.image'(newImage) {
+      if (newImage) {
+        this.imagePreview = URL.createObjectURL(newImage);
+      } else {
+        this.imagePreview = null;
+      }
     }
   },
   methods: {
@@ -560,17 +551,33 @@ export default {
           if (
             this.form[key] !== this.oldForm[key] &&
             key !== "unit" &&
-            key !== "category"
+            key !== "category" &&
+            key !== "image" &&
+            key !== "color" &&
+            key !== "sku" &&
+            key !== "gtin"
           ) {
             formData.append(key, this.form[key]);
           }
         }
 
-        for (const key in this.medias) {
-          formData.append(`media[${key}]`, this.medias[key]);
+        // Append the media files
+        let mediaIndex = 0;
+        for (const key in this.form) {
+          if (key === "image") {
+            formData.append(`media[${mediaIndex}]`, this.form[key]);
+            mediaIndex++;
+          }
         }
 
-        formData.append("unit_id", this.form.unit.id);
+        // Loop through the medias array and append each value
+        for (const value of Object.values(this.medias)) {
+          formData.append(`media[${mediaIndex}]`, value);
+          mediaIndex++;
+        }
+
+        formData.append("product_unit_id", this.form.unit.id);
+        formData.append("color", this.form.color.hex);
         formData.append("category_id", this.form.category.id);
         formData.append(
           "wholesale_price",
