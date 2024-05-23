@@ -6,7 +6,7 @@
           Seven Circle Admin Plateform
         </h2>
         <h2 v-else>
-          لوحة تحكم باب
+          لوحة تحكم الدوائر السبع
         </h2>
       </v-col>
     </v-row>
