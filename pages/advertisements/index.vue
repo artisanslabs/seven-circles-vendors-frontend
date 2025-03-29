@@ -32,7 +32,7 @@
           hide-default-footer
           @click:row="show"
         >
-          <template #top>
+          <!-- <template #top>
             <div class="d-flex flex-wrap">
               <v-text-field
                 v-model="filters.search_text"
@@ -49,7 +49,7 @@
                 @input="debounceSearch"
               />
             </div>
-          </template>
+          </template> -->
           <template #[`item.actions`]="{ item }">
             <div>
               <v-btn tile icon @click.stop="handleEdit(item)">

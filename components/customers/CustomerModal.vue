@@ -37,13 +37,13 @@
                 v-model="form.email"
                 placeholder="أدخل البريد الإلكتروني"
                 type="text"
-                :rules="[requiredRules, maxLength]"
+                :rules="emailRules"
                 validate-on-blur
                 outlined
                 dense
               />
             </v-col>
-            <v-col cols="12" sm="4">
+            <!-- <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t("gender.gender") }}</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -60,7 +60,7 @@
                   :value="'female'"
                 />
               </v-radio-group>
-            </v-col>
+            </v-col> -->
             <v-col v-if="!editCustomer" cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>كلمة المرور</span>
@@ -108,7 +108,7 @@
                 required
               />
             </v-col>
-            <v-col cols="12" sm="4">
+            <!-- <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t("customers.nearest_landmark") }}</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
@@ -139,7 +139,7 @@
                 dense
                 required
               />
-            </v-col>
+            </v-col> -->
 
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
@@ -177,7 +177,7 @@
                 <span>{{ $t("customers.thired_phone") }}</span>
               </div>
               <v-text-field
-                v-model="form.thired_mobile"
+                v-model="form.third_mobile"
                 placeholder="اكتب الرقم الثالث"
                 type="number"
                 outlined
