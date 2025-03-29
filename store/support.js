@@ -1,19 +1,12 @@
 export const state = () => ({
-  cities: [],
-  countries: [],
   currencies: [],
   products: [],
   vehicles: [],
   categories: [],
-  orders: []
+  orders: [],
+  categoriesList: []
 })
 export const mutations = {
-  CITIES (state, payload) {
-    state.cities = payload
-  },
-  COUNTRIES (state, payload) {
-    state.countries = payload
-  },
   CURRENCIES (state, payload) {
     state.currencies = payload
   },
@@ -26,25 +19,14 @@ export const mutations = {
   CATEGORIES (state, payload) {
     state.categories = payload
   },
+  CATEGORIESLIST (state, payload) {
+    state.categoriesList = payload
+  },
   ORDERS (state, payload) {
     state.orders = payload
   }
 }
 export const actions = {
-  fetchCities ({ commit }, payload) {
-    return this.$axios
-      .$get(`/support/lists/countries/${payload.country_id}/cities`, {}).then((response) => {
-        commit('CITIES', response.data)
-      }).catch((e) => {
-        console.log(e)
-      })
-  },
-  fetchCountries ({ commit }, payload) {
-    return this.$axios
-      .$get(`/support/lists/${payload.type}`, {}).then((response) => {
-        commit('COUNTRIES', response.data)
-      })
-  },
   fetchProducts ({ commit }, payload) {
     return this.$axios
       .$get(`/support/lists/${payload.type}`, {}).then((response) => {
@@ -73,6 +55,22 @@ export const actions = {
     return this.$axios
       .$get(`/support/lists/${payload.type}`, {}).then((response) => {
         commit('CATEGORIES', response.data)
+      })
+  },
+  fetchCategoriesList ({ commit }, payload) {
+    return this.$axios
+      .$get(`/support/lists/categories/${payload.type}`, {}).then((response) => {
+        commit('CATEGORIESLIST', response.data)
+      })
+  },
+  fetchSubCategoriesList ({ commit }, payload) {
+    return this.$axios
+      .$get(`/support/lists/categories`, {
+        params: {
+          parent_id: payload.category_id
+        }
+      }).then((response) => {
+        commit('CATEGORIESLIST', response.data)
       })
   },
   fetchOrders ({ commit }, payload) {

@@ -5,12 +5,7 @@
         <h2 class="text-start fs-20 title-color">
           {{ pageTitle }}
         </h2>
-        <v-btn
-          icon
-          dark
-          class="close-dialog-icon"
-          @click="showModal = false"
-        >
+        <v-btn icon dark class="close-dialog-icon" @click="showModal = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </div>
@@ -19,8 +14,8 @@
           <v-row>
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
-                <span>{{ $t('v.name') }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
+                <span>{{ $t("v.name") }}</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-text-field
                 v-model="form.full_name"
@@ -35,8 +30,8 @@
             </v-col>
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
-                <span>{{ $t('register.email') }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
+                <span>{{ $t("register.email") }}</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-text-field
                 v-model="form.email"
@@ -48,10 +43,28 @@
                 dense
               />
             </v-col>
+            <v-col cols="12" sm="4">
+              <div class="text-start mb-2">
+                <span>{{ $t("gender.gender") }}</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
+              </div>
+              <v-radio-group v-model="form.gender" row class="ms-n4">
+                <v-radio
+                  color="#0f6d39"
+                  :label="$t('gender.male')"
+                  :value="'male'"
+                />
+                <v-radio
+                  color="#0f6d39"
+                  :label="$t('gender.female')"
+                  :value="'female'"
+                />
+              </v-radio-group>
+            </v-col>
             <v-col v-if="!editCustomer" cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>كلمة المرور</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-text-field
                 v-model="form.password"
@@ -66,7 +79,7 @@
             <v-col v-if="!editCustomer" cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>تأكيد كلمة المرور</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-text-field
                 v-model="form.password_confirmation"
@@ -78,48 +91,11 @@
                 dense
               />
             </v-col>
-            <v-col cols="12" sm="4">
-              <div class="text-start mb-2">
-                <span>{{ $t('products.country') }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
-              </div>
-              <v-combobox
-                v-model="form.country"
-                placeholder="اختر الدولة"
-                :items="countries"
-                item-text="name"
-                item-value="id"
-                :rules="[requiredRules]"
-                validate-on-blur
-                outlined
-                dense
-                :clearable="!form.city"
-                @change="fetchCities"
-              />
-            </v-col>
-            <v-col cols="12" sm="4">
-              <div class="text-start mb-2">
-                <span>{{ $t('products.city') }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
-              </div>
-              <v-combobox
-                v-model="form.city"
-                placeholder="اختر المدينة"
-                :items="cities"
-                item-text="name"
-                item-value="id"
-                :rules="[requiredRules]"
-                validate-on-blur
-                outlined
-                dense
-                clearable
-              />
-            </v-col>
 
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
-                <span>{{ $t('customers.store') }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
+                <span>{{ $t("customers.store") }}</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-text-field
                 v-model="form.store_name"
@@ -134,8 +110,8 @@
             </v-col>
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
-                <span>{{ $t('customers.nearest_landmark') }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
+                <span>{{ $t("customers.nearest_landmark") }}</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-text-field
                 v-model="form.nearest_landmark"
@@ -150,8 +126,8 @@
             </v-col>
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
-                <span>{{ $t('customers.work_type') }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
+                <span>{{ $t("customers.work_type") }}</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-text-field
                 v-model="form.work_type"
@@ -167,8 +143,8 @@
 
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
-                <span>{{ $t('customers.first_phone') }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
+                <span>{{ $t("customers.first_phone") }}</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-text-field
                 v-model="form.first_mobile"
@@ -184,7 +160,7 @@
             </v-col>
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
-                <span>{{ $t('customers.second_phone') }}</span>
+                <span>{{ $t("customers.second_phone") }}</span>
               </div>
               <v-text-field
                 v-model="form.second_mobile"
@@ -198,7 +174,7 @@
             </v-col>
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
-                <span>{{ $t('customers.thired_phone') }}</span>
+                <span>{{ $t("customers.thired_phone") }}</span>
               </div>
               <v-text-field
                 v-model="form.thired_mobile"
@@ -244,10 +220,10 @@
 
             <v-col cols="12" class="modal-btns mt-4 mb-6 d-flex justify-end">
               <v-btn :loading="loading" class="py-5 px-10 mx-2" @click="submit">
-                {{ $t('btn.save') }}
+                {{ $t("btn.save") }}
               </v-btn>
               <v-btn class="py-5 px-10 cancel-btn" @click="showModal = false">
-                {{ $t('btn.cancel') }}
+                {{ $t("btn.cancel") }}
               </v-btn>
             </v-col>
           </v-row>
@@ -257,162 +233,165 @@
   </v-dialog>
 </template>
 <script>
-import GlobalServices from '~/services/global.js'
+import GlobalServices from "~/services/global.js";
 export default {
-  name: 'CustomerModal',
+  name: "CustomerModal",
   props: {
     dialogVisible: {
       type: Boolean,
-      default: false
+      default: false,
     },
     title: {
       type: String,
-      default: 'add customer'
+      default: "add customer",
     },
     customer: {
       type: Object,
       default: () => {
-        return {}
-      }
-    }
+        return {};
+      },
+    },
   },
-  data () {
+  data() {
     return {
       selectedImage: null,
       imageUrl: null,
 
       showModal: false,
       passwordStatus: false,
-      clickedBtn: 'cancel',
+      clickedBtn: "cancel",
       loading: false,
       form: {
-        password: '',
-        password_confirmation: ''
+        password: "",
+        password_confirmation: "",
       },
       oldForm: {
-        password: '',
-        password_confirmation: ''
-
+        password: "",
+        password_confirmation: "",
       },
-      requiredRules: v => !!v || this.$t('v.field_required'),
-      minLength: v => (v ? v.length >= 3 || this.$t('v.text_min_length') : ''),
-      maxLength: v => (v ? v.length <= 255 || this.$t('v.text_max_length') : ''),
+      requiredRules: (v) => !!v || this.$t("v.field_required"),
+      minLength: (v) =>
+        v ? v.length >= 3 || this.$t("v.text_min_length") : "",
+      maxLength: (v) =>
+        v ? v.length <= 255 || this.$t("v.text_max_length") : "",
       emailRules: [
-        v => !!v || this.$t('v.field_required'),
-        v =>
+        (v) => !!v || this.$t("v.field_required"),
+        (v) =>
           /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()\\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
             v
-          ) || `${this.$t('register.email')} ${this.$t('v.valid')}`
+          ) || `${this.$t("register.email")} ${this.$t("v.valid")}`,
       ],
       passwordRules: [
-        v => v ? !!v || this.$t('v.field_required') : '',
-        v => v ? v.length >= 6 || this.$t('v.password_length') : ''
+        (v) => (v ? !!v || this.$t("v.field_required") : ""),
+        (v) => (v ? v.length >= 6 || this.$t("v.password_length") : ""),
       ],
       passwordConfirmRules: [
-        v => v ? !!v || this.$t('v.field_required') : '',
-        v => v ? v.length >= 6 || this.$t('v.password_length') : '',
-        v => v ? v === this.form.password || this.$t('v.not_match') : ''
+        (v) => (v ? !!v || this.$t("v.field_required") : ""),
+        (v) => (v ? v.length >= 6 || this.$t("v.password_length") : ""),
+        (v) => (v ? v === this.form.password || this.$t("v.not_match") : ""),
       ],
-      date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-      modal: false
-    }
+      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      modal: false,
+    };
   },
   computed: {
-    pageTitle () {
-      return this.title === 'add customer'
-        ? this.$t('customers.create')
-        : this.$t('customers.update')
+    pageTitle() {
+      return this.title === "add customer"
+        ? this.$t("customers.create")
+        : this.$t("customers.update");
     },
-    cities () {
-      return this.$store.state.support.cities
+    editCustomer() {
+      return this.title !== "add customer";
     },
-    countries () {
-      return this.$store.state.support.countries
-    },
-    editCustomer () {
-      return this.title !== 'add customer'
-    }
   },
   watch: {
-    dialogVisible () {
+    dialogVisible() {
       if (this.dialogVisible === true) {
-        this.showModal = true
+        this.showModal = true;
       }
     },
-    showModal () {
+    showModal() {
       if (this.showModal === false) {
-        this.$emit('closeModal', { value: true, clickedBtn: this.clickedBtn })
-        this.resetForm()
+        this.$emit("closeModal", { value: true, clickedBtn: this.clickedBtn });
+        this.resetForm();
       }
     },
-    customer () {
-      if (this.title !== 'add customer') {
-        this.form = { ...this.customer }
-        this.oldForm = { ...this.customer }
+    customer() {
+      if (this.title !== "add customer") {
+        this.form = { ...this.customer };
+        this.oldForm = { ...this.customer };
       }
-    }
+    },
   },
   methods: {
-    async submit () {
-      const valid = await this.$refs.form.validate()
+    async submit() {
+      const valid = await this.$refs.form.validate();
       if (valid) {
-        this.loading = true
-        const formData = new FormData()
+        this.loading = true;
+        const formData = new FormData();
         for (const key in this.form) {
-          if (this.form[key] !== this.oldForm[key] && key !== 'city' && key !== 'country' && key !== 'password' && key !== 'password_confirmation') {
-            formData.append(key, this.form[key])
+          if (
+            this.form[key] !== this.oldForm[key] &&
+            key !== "password" &&
+            key !== "password_confirmation"
+          ) {
+            formData.append(key, this.form[key]);
           }
         }
-        formData.append('city_id', this.form.city.id)
-        formData.append('country_id', this.form.country.id)
-        if (this.title === 'add customer') {
-          formData.append('password', this.form.password)
-          formData.append('password_confirmation', this.form.password_confirmation)
+
+        // formData.append("longitude", "180");
+        // formData.append("latitude", "70");
+
+        if (this.title === "add customer") {
+          formData.append("password", this.form.password);
+          formData.append(
+            "password_confirmation",
+            this.form.password_confirmation
+          );
         }
-        const payload = { type: 'customers', formData }
-        let action = 'create'
+        const payload = { type: "customers", formData };
+        let action = "create";
         // for Updating customer
-        if (this.title !== 'add customer') {
-          formData.append('_method', 'patch')
-          payload.id = this.customer.id
-          action = 'update'
+        if (this.title !== "add customer") {
+          formData.append("_method", "patch");
+          payload.id = this.customer.id;
+          action = "update";
         }
 
         await GlobalServices[action](this.$axios, payload).then((resData) => {
-          this.setAlertDataGlobal(resData)
+          this.setAlertDataGlobal(resData);
           if (resData.success) {
-            this.clickedBtn = 'save'
-            this.showModal = false
+            this.clickedBtn = "save";
+            this.showModal = false;
           }
-        })
-        this.loading = false
+        });
+        this.loading = false;
       }
     },
-    resetForm () {
-      this.$refs.form.reset()
-      this.form = {}
+    resetForm() {
+      this.$refs.form.reset();
+      this.form = {};
     },
-    fetchCities (country) {
-      this.$store.dispatch('support/fetchCities', { country_id: country ? country.id : '' }).then(() => {})
-    },
-    onFileChange (event) {
+    onFileChange(event) {
       // console.log(event)
       // const file = event.target.files[0]
       if (event) {
-        this.form.avatar = event
-        this.imageUrl = URL.createObjectURL(event)
+        this.form.avatar = event;
+        this.imageUrl = URL.createObjectURL(event);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style lang="scss">
 .theme--light.v-file-input .v-file-input__text--placeholder {
-    color: rgb(132 151 173);
-    font-size: 12px;
+  color: rgb(132 151 173);
+  font-size: 12px;
 }
 
 .v-input--radio-group.v-input--radio-group--row .v-radio {
-    align-items: flex-start;
+  align-items: flex-start;
 }
 </style>

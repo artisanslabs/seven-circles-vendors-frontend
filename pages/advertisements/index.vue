@@ -50,12 +50,6 @@
               />
             </div>
           </template>
-          <template #[`item.country`]="{ item }">
-            <span> {{ item.country.name }} </span>
-          </template>
-          <template #[`item.city`]="{ item }">
-            <span> {{ item.city.name }} </span>
-          </template>
           <template #[`item.actions`]="{ item }">
             <div>
               <v-btn tile icon @click.stop="handleEdit(item)">
@@ -92,7 +86,7 @@
         </v-row>
       </v-col>
     </v-row>
-    <advertisement-modal :dialog-visible="showModal" :title="modalTitle" :countries="countries" :advertisement="modalData" @closeModal="isModalClosed" />
+    <advertisement-modal :dialog-visible="showModal" :title="modalTitle" :advertisement="modalData" @closeModal="isModalClosed" />
   </div>
 </template>
 <script>
@@ -117,16 +111,6 @@ export default {
       },
       headers: [
         {
-          text: 'الدولة',
-          value: 'country',
-          sortable: false
-        },
-        {
-          text: 'المدينة',
-          value: 'city',
-          sortable: false
-        },
-        {
           text: this.$t('ads.start_date'),
           value: 'starts_at',
           sortable: false
@@ -150,9 +134,6 @@ export default {
     await store.dispatch('global/fetchAdvertisementsList', {
       type: 'advertisements'
     })
-    await store.dispatch('support/fetchCountries', {
-      type: 'countries'
-    })
   },
   head: {
     title: 'الإعلانات'
@@ -163,9 +144,6 @@ export default {
     },
     tableData () {
       return [...this.response.advertisements]
-    },
-    countries () {
-      return this.$store.state.support.countries
     }
   },
   watch: {

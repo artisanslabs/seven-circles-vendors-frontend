@@ -12,10 +12,17 @@ module.exports = {
     '@nuxtjs',
     'plugin:nuxt/recommended'
   ],
-  plugins: [
-  ],
+  plugins: [],
   // add your custom rules here
   rules: {
-    'no-console': 'off'
+    'no-console': 'off',
+    "eslint-disable-next-line": "off",
+    // eslint-disable-next-line quote-props
+    "quotes": "off",
+    // eslint-disable-next-line quote-props
+    "semi": "off",
+    "comma-dangle": "off",
+    "arrow-parens": "off",
+    "space-before-function-paren": "off"
   }
 }

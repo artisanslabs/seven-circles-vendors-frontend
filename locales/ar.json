@@ -7,16 +7,19 @@
         "admins": "المشرفون",
         "notifications": "الإشعارات",
         "cities": "المدن",
+        "brands": "الماركات التجارية",
         "products": "المنتجات",
         "customers": "العملاء",
         "orders": "الطلبات",
         "countries": "الدول",
-        "categories": "الأصناف",
+        "categories": "الأصناف الرئيسية",
+        "subCategories": "الأصناف الفرعية",
         "units": "الوحدات",
         "drivers": "السائقين",
         "vehicles": "المركبات",
         "cutbacks": "التخفيضات",
-        "suggestions": "الشكاوي والمقترحات"
+        "suggestions": "الشكاوي والمقترحات",
+        "vendors": "الموردين"
     },
     "btn": {
         "save": "حفظ",
@@ -66,7 +69,12 @@
       "password_length": "يجب أن يكون طول كلمة المرور على الأقل 6 أحرف ",
       "not_match": "كلمات المرور غير متطابقة",
       "text_min_length": "يجب الا يقل عن 3 حروف",
-      "text_max_length": "يجب الا يزيد عن 255 حرف"
+      "text_max_length": "يجب الا يزيد عن 255 حرف",
+      "text_max_1500_length": "يجب الا يزيد عن 1500 حرف",
+      "text_min_10_length": "يجب الا يقل عن 10 حروف",
+      "text_max_20_length": "يجب الا يزيد عن 20 حرف",
+      "text_min_8_length": "يجب الا يقل عن 8 حروف",
+      "text_max_14_length": "يجب الا يزيد عن 14 حرف"
     },
     "register": {
         "email": "البريد الإلكتروني",
@@ -140,6 +148,12 @@
     "users": {
         "create": "إضافة مستخدم",
         "update": "تحديث بيانات مستخدم",
+        "age": "العمر",
+        "authority": "الصلاحية"
+    },
+    "vendors": {
+        "create": "إضافة مورد",
+        "update": "تحديث بيانات مورد",
         "age": "العمر",
         "authority": "الصلاحية"
     },

@@ -8,12 +8,12 @@
         <div class="d-flex justify-space-between">
           <div>
             <h1 class="second-font-color">
-              {{ $t('links.units') }}
+              {{ $t('links.vendors') }}
             </h1>
           </div>
           <v-btn class="add-btn" dark @click="handleCreate">
             <span class="btn-text white--text">
-              {{ $t("units.create") }}
+              إضافة مورد
             </span>
           </v-btn>
         </div>
@@ -86,11 +86,6 @@
                   mdi-pencil
                 </v-icon>
               </v-btn>
-              <!-- <v-btn tile icon @click.stop="openDeleteDialogs(item)">
-                <v-icon class="mt-6" size="20">
-                  mdi-delete
-                </v-icon>
-              </v-btn> -->
             </div>
           </template>
         </v-data-table>
@@ -120,12 +115,7 @@
         </v-row>
       </v-col>
     </v-row>
-    <unit-modal :dialog-visible="showModal" :title="modalTitle" :unit="modalData" @closeModal="isModalClosed" />
-    <delete-alert
-      :alert-visible="openDeleteDialog"
-      :multi="multiItems"
-      @closeDeleteModal="handleDelete"
-    />
+    <vendor-modal :dialog-visible="showModal" :title="modalTitle" :vendor="modalData" @closeModal="isModalClosed" />
     <activate-dialog
       :alert-visible="activateItem"
       :item="item"
@@ -135,21 +125,17 @@
   </div>
 </template>
 <script>
-import UnitModal from '~/components/units/UnitModal.vue'
-import DeleteAlert from '~/components/shared/DeleteAlert.vue'
-import GlobalServices from '~/services/global'
-import ActivateDialog from '~/components/units/ConfirmActivate.vue'
+import VendorModal from '~/components/vendors/VendorModal.vue'
+import ActivateDialog from '~/components/vendors/ConfirmActivate.vue'
 
 export default {
-  name: 'UnitsPage',
-  components: { UnitModal, DeleteAlert, ActivateDialog },
+  name: 'VendorsPage',
+  components: { VendorModal, ActivateDialog },
   data () {
     return {
       perPage: false,
-      multiItems: false,
       item: {},
       activateItem: false,
-      openDeleteDialog: false,
       showModal: false,
       loading: false,
       modalTitle: '',
@@ -159,6 +145,7 @@ export default {
         page: 1,
         orderBy: '',
         sort: 'desc',
+        status: '',
         perPage: 10
       },
       headers: [
@@ -178,30 +165,26 @@ export default {
     }
   },
   async fetch ({ store, params }) {
-    await store.dispatch('global/fetchUnitsList', {
-      type: 'units'
+    await store.dispatch('global/fetchVendorsList', {
+      type: 'vendors'
     })
   },
   head: {
-    title: 'الوحدات'
+    title: 'الموردين'
   },
   computed: {
     response () {
-      return { ...this.$store.state.global.units }
+      return { ...this.$store.state.global.vendors }
     },
     tableData () {
-      // return [...this.response.units]
-
+      // return [...this.response.brands]
       const arr = []
-      if (this.response.units) {
-        this.response.units.forEach((e) => {
+      if (this.response.vendors) {
+        this.response.vendors.forEach((e) => {
           arr.push({ ...e })
         })
       }
       return arr
-    },
-    cities () {
-      return this.$store.state.list
     }
   },
   watch: {
@@ -215,34 +198,12 @@ export default {
   methods: {
     handleCreate () {
       this.showModal = true
-      this.modalTitle = 'add unit'
+      this.modalTitle = 'add vendor'
     },
     handleEdit (item) {
       this.showModal = true
-      this.modalTitle = 'edit unit'
+      this.modalTitle = 'edit vendor'
       this.modalData = { ...item }
-    },
-    async handleDelete (payload) {
-      if (payload.value) {
-        await GlobalServices.delete(this.$axios, { id: this.$route.params.id, item_id: this.deletedItem.id, type: 'units' }).then((resData) => {
-          if (resData.success) {
-            this.fetch()
-          }
-          this.openDeleteDialog = false
-          this.setAlertDataGlobal(resData)
-        })
-      } else {
-        this.openDeleteDialog = false
-      }
-    },
-    openDeleteDialogs (item = -1) {
-      this.multiItems = true
-      if (item !== -1) {
-        this.multiItems = false
-        this.deletedItem = item
-        this.selectedItems = []
-      }
-      this.openDeleteDialog = true
     },
     isModalClosed (payload) {
       if (payload.clickedBtn === 'save') {
@@ -257,7 +218,7 @@ export default {
       this.filters.page = this.perPage
         ? (this.filters.page = 1)
         : this.filters.page
-      this.$store.dispatch('global/fetchUnitsList', { type: 'units', ...this.filters }).then(() => {
+      this.$store.dispatch('global/fetchVendorsList', { type: 'vendors', ...this.filters }).then(() => {
         this.loading = false
         this.perPage = false
       })

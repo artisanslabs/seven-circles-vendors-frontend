@@ -1,14 +1,14 @@
-import en from '../locales/en'
-import ar from '../locales/ar'
+// import en from '../locales/en'
+import ar from "../locales/ar";
 
 export const I18N = {
-  locales: ['ar', 'en'],
-  defaultLocale: 'ar',
+  // locales: ['ar', 'en'],
+  locales: ["ar"],
+  defaultLocale: "ar",
   vueI18n: {
-    fallbackLocale: 'ar',
+    fallbackLocale: "ar",
     messages: {
       ar,
-      en
-    }
-  }
-}
+    },
+  },
+};

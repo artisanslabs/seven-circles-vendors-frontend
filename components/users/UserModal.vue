@@ -95,43 +95,6 @@
             </v-col>
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
-                <span>{{ $t('products.country') }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
-              </div>
-              <v-combobox
-                v-model="form.country"
-                placeholder="اختر الدولة"
-                :items="countries"
-                item-text="name"
-                item-value="id"
-                :rules="[requiredRules]"
-                validate-on-blur
-                outlined
-                dense
-                :clearable="!form.city"
-                @change="fetchCities"
-              />
-            </v-col>
-            <v-col cols="12" sm="4">
-              <div class="text-start mb-2">
-                <span>{{ $t('products.city') }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
-              </div>
-              <v-combobox
-                v-model="form.city"
-                placeholder="اختر المدينة"
-                :items="cities"
-                item-text="name"
-                item-value="id"
-                :rules="[requiredRules]"
-                validate-on-blur
-                outlined
-                dense
-                clearable
-              />
-            </v-col>
-            <v-col cols="12" sm="4">
-              <div class="text-start mb-2">
                 <span>الصورة</span>
               </div>
               <v-file-input
@@ -192,12 +155,6 @@ export default {
       default: 'add user'
     },
     user: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    },
-    countries: {
       type: Object,
       default: () => {
         return {}
@@ -272,12 +229,10 @@ export default {
         this.loading = true
         const formData = new FormData()
         for (const key in this.form) {
-          if (this.form[key] !== this.oldForm[key] && key !== 'city' && key !== 'country') {
+          if (this.form[key] !== this.oldForm[key]) {
             formData.append(key, this.form[key])
           }
         }
-        formData.append('city_id', this.form.city.id)
-        formData.append('country_id', this.form.country.id)
 
         if (this.title === 'add user') {
           formData.append('password', this.form.password)
@@ -302,9 +257,6 @@ export default {
         })
         this.loading = false
       }
-    },
-    fetchCities (country) {
-      this.$store.dispatch('support/fetchCities', { country_id: country ? country.id : '' }).then(() => {})
     },
     resetForm () {
       this.$refs.form.reset()

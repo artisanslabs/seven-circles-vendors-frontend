@@ -104,7 +104,7 @@
                     {{ $t('products.main_image') }} :
                   </p>
                   <!-- <p class="span-color"> -->
-                  <img :src="productDetails.image[0].image" alt="logo">
+                  <!-- <img :src="productDetails.image[0].image" alt="logo"> -->
                   <!-- </p> -->
                 </div>
                 <div class="d-flex" style="width: 49%">

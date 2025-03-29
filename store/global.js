@@ -1,9 +1,8 @@
 export const state = () => ({
   list: [],
   customers: [],
-  countries: [],
-  cities: [],
   categories: [],
+  subcategories: [],
   units: [],
   products: [],
   advertisements: [],
@@ -11,65 +10,68 @@ export const state = () => ({
   drivers: [],
   orders: [],
   users: [],
-  vehicles: [],
+  markets: [],
   suggestions: [],
+  vendors: [],
+  brands: [],
   details: {},
-  login: {}
-})
+  login: {},
+});
 export const mutations = {
-  LIST (state, payload) {
-    state.list = payload
+  LIST(state, payload) {
+    state.list = payload;
   },
-  CUSTOMERS (state, payload) {
-    state.customers = payload
+  CUSTOMERS(state, payload) {
+    state.customers = payload;
   },
-  COUNTRIES (state, payload) {
-    state.countries = payload
+  CATEGORIES(state, payload) {
+    state.categories = payload;
   },
-  CITIES (state, payload) {
-    state.cities = payload
+  SUBCATEGORIES(state, payload) {
+    state.subcategories = payload;
   },
-  CATEGORIES (state, payload) {
-    state.categories = payload
+  UNITS(state, payload) {
+    state.units = payload;
   },
-  UNITS (state, payload) {
-    state.units = payload
+  PRODUCTS(state, payload) {
+    state.products = payload;
   },
-  PRODUCTS (state, payload) {
-    state.products = payload
+  ADVERTISEMENTS(state, payload) {
+    state.advertisements = payload;
   },
-  ADVERTISEMENTS (state, payload) {
-    state.advertisements = payload
+  DISCOUNTS(state, payload) {
+    state.discounts = payload;
   },
-  DISCOUNTS (state, payload) {
-    state.discounts = payload
+  DRIVERS(state, payload) {
+    state.drivers = payload;
   },
-  DRIVERS (state, payload) {
-    state.drivers = payload
+  ORDERS(state, payload) {
+    state.orders = payload;
   },
-  ORDERS (state, payload) {
-    state.orders = payload
+  USERS(state, payload) {
+    state.users = payload;
   },
-  USERS (state, payload) {
-    state.users = payload
+  MARKETS(state, payload) {
+    state.markets = payload;
   },
-  VEHICLES (state, payload) {
-    state.vehicles = payload
+  SUGGESTIONS(state, payload) {
+    state.suggestions = payload;
   },
-  SUGGESTIONS (state, payload) {
-    state.suggestions = payload
+  VENDORS(state, payload) {
+    state.vendors = payload;
   },
-  DETAILS (state, payload) {
-    state.details = payload
+  BRANDS(state, payload) {
+    state.brands = payload;
   },
-  LOGIN (state, payload) {
-    state.login = payload
-  }
-}
+  DETAILS(state, payload) {
+    state.details = payload;
+  },
+  LOGIN(state, payload) {
+    state.login = payload;
+  },
+};
 export const actions = {
-  fetchList ({
-    commit
-  }, payload) {
+  fetchList({ commit }, payload) {
     return this.$axios
       .$get(`/dashboard/${payload.type}`, {
         params: {
@@ -78,34 +80,15 @@ export const actions = {
           orderBy: payload.orderBy,
           sort: payload.sort,
           perPage: payload.perPage,
-          per_page: payload.perPage
-        }
-      }).then((response) => {
-        commit('LIST', response.data)
-      }).catch((e) => {})
+          per_page: payload.perPage,
+        },
+      })
+      .then((response) => {
+        commit("LIST", response.data);
+      })
+      .catch((e) => {});
   },
-  fetchCustomersList ({
-    commit
-  }, payload) {
-    return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
-        params: {
-          search_text: payload.search_text,
-          page: payload.page,
-          orderBy: payload.orderBy,
-          sort: payload.sort,
-          city_id: payload.city_id,
-          country_id: payload.country_id,
-          perPage: payload.perPage,
-          per_page: payload.perPage
-        }
-      }).then((response) => {
-        commit('CUSTOMERS', response.data)
-      }).catch((e) => {})
-  },
-  fetchCountriesList ({
-    commit
-  }, payload) {
+  fetchCustomersList({ commit }, payload) {
     return this.$axios
       .$get(`/dashboard/${payload.type}`, {
         params: {
@@ -114,15 +97,49 @@ export const actions = {
           orderBy: payload.orderBy,
           sort: payload.sort,
           perPage: payload.perPage,
-          per_page: payload.perPage
-        }
-      }).then((response) => {
-        commit('COUNTRIES', response.data)
-      }).catch((e) => {})
+          per_page: payload.perPage,
+        },
+      })
+      .then((response) => {
+        commit("CUSTOMERS", response.data);
+      })
+      .catch((e) => {});
   },
-  fetchCitiesList ({
-    commit
-  }, payload) {
+  fetchCategoriesList({ commit }, payload) {
+    return this.$axios
+      .$get(`/dashboard/categories/${payload.type}`, {
+        params: {
+          search_text: payload.search_text,
+          page: payload.page,
+          orderBy: payload.orderBy,
+          sort: payload.sort,
+          perPage: payload.perPage,
+          per_page: payload.perPage,
+        },
+      })
+      .then((response) => {
+        commit("CATEGORIES", response.data);
+      })
+      .catch((e) => {});
+  },
+  fetchSubcategoriesList({ commit }, payload) {
+    return this.$axios
+      .$get(`/dashboard/categories/${payload.type}`, {
+        params: {
+          search_text: payload.search_text,
+          page: payload.page,
+          orderBy: payload.orderBy,
+          sort: payload.sort,
+          perPage: payload.perPage,
+          per_page: payload.perPage,
+        },
+      })
+      .then((response) => {
+        commit("SUBCATEGORIES", response.data);
+      })
+      .catch((e) => {});
+  },
+  fetchUnitsList({ commit }, payload) {
     return this.$axios
       .$get(`/dashboard/${payload.type}`, {
         params: {
@@ -131,49 +148,15 @@ export const actions = {
           orderBy: payload.orderBy,
           sort: payload.sort,
           perPage: payload.perPage,
-          per_page: payload.perPage
-        }
-      }).then((response) => {
-        commit('CITIES', response.data)
-      }).catch((e) => {})
+          per_page: payload.perPage,
+        },
+      })
+      .then((response) => {
+        commit("UNITS", response.data);
+      })
+      .catch((e) => {});
   },
-  fetchCategoriesList ({
-    commit
-  }, payload) {
-    return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
-        params: {
-          search_text: payload.search_text,
-          page: payload.page,
-          orderBy: payload.orderBy,
-          sort: payload.sort,
-          perPage: payload.perPage,
-          per_page: payload.perPage
-        }
-      }).then((response) => {
-        commit('CATEGORIES', response.data)
-      }).catch((e) => {})
-  },
-  fetchUnitsList ({
-    commit
-  }, payload) {
-    return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
-        params: {
-          search_text: payload.search_text,
-          page: payload.page,
-          orderBy: payload.orderBy,
-          sort: payload.sort,
-          perPage: payload.perPage,
-          per_page: payload.perPage
-        }
-      }).then((response) => {
-        commit('UNITS', response.data)
-      }).catch((e) => {})
-  },
-  fetchProductsList ({
-    commit
-  }, payload) {
+  fetchProductsList({ commit }, payload) {
     return this.$axios
       .$get(`/dashboard/${payload.type}`, {
         params: {
@@ -184,15 +167,15 @@ export const actions = {
           perPage: payload.perPage,
           per_page: payload.perPage,
           unit_id: payload.unit_id,
-          category_id: payload.category_id
-        }
-      }).then((response) => {
-        commit('PRODUCTS', response.data)
-      }).catch((e) => {})
+          category_id: payload.category_id,
+        },
+      })
+      .then((response) => {
+        commit("PRODUCTS", response.data);
+      })
+      .catch((e) => {});
   },
-  fetchAdvertisementsList ({
-    commit
-  }, payload) {
+  fetchAdvertisementsList({ commit }, payload) {
     return this.$axios
       .$get(`/dashboard/${payload.type}`, {
         params: {
@@ -201,15 +184,15 @@ export const actions = {
           orderBy: payload.orderBy,
           sort: payload.sort,
           perPage: payload.perPage,
-          per_page: payload.perPage
-        }
-      }).then((response) => {
-        commit('ADVERTISEMENTS', response.data)
-      }).catch((e) => {})
+          per_page: payload.perPage,
+        },
+      })
+      .then((response) => {
+        commit("ADVERTISEMENTS", response.data);
+      })
+      .catch((e) => {});
   },
-  fetchDiscountsList ({
-    commit
-  }, payload) {
+  fetchDiscountsList({ commit }, payload) {
     return this.$axios
       .$get(`/dashboard/${payload.type_value}`, {
         params: {
@@ -220,15 +203,15 @@ export const actions = {
           perPage: payload.perPage,
           per_page: payload.perPage,
           product_id: payload.product_id,
-          type: payload.type
-        }
-      }).then((response) => {
-        commit('DISCOUNTS', response.data)
-      }).catch((e) => {})
+          type: payload.type,
+        },
+      })
+      .then((response) => {
+        commit("DISCOUNTS", response.data);
+      })
+      .catch((e) => {});
   },
-  fetchDriversList ({
-    commit
-  }, payload) {
+  fetchDriversList({ commit }, payload) {
     return this.$axios
       .$get(`/dashboard/${payload.type}`, {
         params: {
@@ -237,15 +220,15 @@ export const actions = {
           orderBy: payload.orderBy,
           sort: payload.sort,
           perPage: payload.perPage,
-          per_page: payload.perPage
-        }
-      }).then((response) => {
-        commit('DRIVERS', response.data)
-      }).catch((e) => {})
+          per_page: payload.perPage,
+        },
+      })
+      .then((response) => {
+        commit("DRIVERS", response.data);
+      })
+      .catch((e) => {});
   },
-  fetchOrdersList ({
-    commit
-  }, payload) {
+  fetchOrdersList({ commit }, payload) {
     return this.$axios
       .$get(`/dashboard/${payload.type}`, {
         params: {
@@ -254,15 +237,15 @@ export const actions = {
           orderBy: payload.orderBy,
           sort: payload.sort,
           perPage: payload.perPage,
-          per_page: payload.perPage
-        }
-      }).then((response) => {
-        commit('ORDERS', response.data)
-      }).catch((e) => {})
+          per_page: payload.perPage,
+        },
+      })
+      .then((response) => {
+        commit("ORDERS", response.data);
+      })
+      .catch((e) => {});
   },
-  fetchUsersList ({
-    commit
-  }, payload) {
+  fetchUsersList({ commit }, payload) {
     return this.$axios
       .$get(`/dashboard/${payload.type}`, {
         params: {
@@ -273,15 +256,15 @@ export const actions = {
           city_id: payload.city_id,
           country_id: payload.country_id,
           perPage: payload.perPage,
-          per_page: payload.perPage
-        }
-      }).then((response) => {
-        commit('USERS', response.data)
-      }).catch((e) => {})
+          per_page: payload.perPage,
+        },
+      })
+      .then((response) => {
+        commit("USERS", response.data);
+      })
+      .catch((e) => {});
   },
-  fetchVehiclesList ({
-    commit
-  }, payload) {
+  fetchMarketsList({ commit }, payload) {
     return this.$axios
       .$get(`/dashboard/${payload.type}`, {
         params: {
@@ -290,15 +273,15 @@ export const actions = {
           orderBy: payload.orderBy,
           sort: payload.sort,
           perPage: payload.perPage,
-          per_page: payload.perPage
-        }
-      }).then((response) => {
-        commit('VEHICLES', response.data)
-      }).catch((e) => {})
+          per_page: payload.perPage,
+        },
+      })
+      .then((response) => {
+        commit("MARKETS", response.data);
+      })
+      .catch((e) => {});
   },
-  fetchSuggestionsList ({
-    commit
-  }, payload) {
+  fetchSuggestionsList({ commit }, payload) {
     return this.$axios
       .$get(`/dashboard/${payload.type}`, {
         params: {
@@ -307,26 +290,62 @@ export const actions = {
           orderBy: payload.orderBy,
           sort: payload.sort,
           perPage: payload.perPage,
-          per_page: payload.perPage
-        }
-      }).then((response) => {
-        commit('SUGGESTIONS', response.data)
-      }).catch((e) => {})
+          per_page: payload.perPage,
+        },
+      })
+      .then((response) => {
+        commit("SUGGESTIONS", response.data);
+      })
+      .catch((e) => {});
   },
-  showDetails ({
-    commit
-  }, payload) {
+  fetchVendorsList({ commit }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type}/${payload.id}`).then((response) => {
-        commit('DETAILS', response.data)
-      }).catch((e) => {})
+      .$get(`/dashboard/${payload.type}`, {
+        params: {
+          search_text: payload.search_text,
+          page: payload.page,
+          orderBy: payload.orderBy,
+          sort: payload.sort,
+          perPage: payload.perPage,
+          per_page: payload.perPage,
+        },
+      })
+      .then((response) => {
+        commit("VENDORS", response.data);
+      })
+      .catch((e) => {});
   },
-  login ({
-    commit
-  }, payload) {
+  fetchBrandsList({ commit }, payload) {
     return this.$axios
-      .$post('/dashboard/accounts/login', payload.formData).then((response) => {
-        commit('LOGIN', response.data)
-      }).catch((e) => {})
-  }
-}
+      .$get(`/dashboard/${payload.type}`, {
+        params: {
+          search_text: payload.search_text,
+          page: payload.page,
+          orderBy: payload.orderBy,
+          sort: payload.sort,
+          perPage: payload.perPage,
+          per_page: payload.perPage,
+        },
+      })
+      .then((response) => {
+        commit("BRANDS", response.data);
+      })
+      .catch((e) => {});
+  },
+  showDetails({ commit }, payload) {
+    return this.$axios
+      .$get(`/dashboard/${payload.type}/${payload.id}`)
+      .then((response) => {
+        commit("DETAILS", response.data);
+      })
+      .catch((e) => {});
+  },
+  login({ commit }, payload) {
+    return this.$axios
+      .$post("/dashboard/accounts/login", payload.formData)
+      .then((response) => {
+        commit("LOGIN", response.data);
+      })
+      .catch((e) => {});
+  },
+};
