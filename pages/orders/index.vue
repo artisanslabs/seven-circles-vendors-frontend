@@ -53,7 +53,7 @@
           <template #[`item.product`]="{ item }">
             <span> {{ item.product }} </span>
           </template>
-          <template #[`item.actions`]="{ item }">
+          <!-- <template #[`item.actions`]="{ item }">
             <div class="d-flex justify-center">
               <v-switch
                 v-model="item.status"
@@ -67,7 +67,7 @@
                 </v-icon>
               </v-btn>
             </div>
-          </template>
+          </template> -->
         </v-data-table>
         <v-row>
           <v-col cols="6" class="d-flex justify-end">

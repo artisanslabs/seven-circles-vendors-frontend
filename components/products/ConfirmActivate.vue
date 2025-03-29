@@ -7,7 +7,7 @@
       persistent
     >
       <v-card class="pa-5 activation-alert">
-        <div v-if="item.status" class="text-center pt-6 mb-6">
+        <div v-if="!item.is_published" class="text-center pt-6 mb-6">
           <p class="mb-n4">تأكيد إعادة تفعيل المنتج ؟</p>
           <br />
           <!-- <small class="note">
@@ -24,7 +24,7 @@
         <v-card-actions class="action-btns">
           <v-spacer />
           <v-btn
-            :class="item.status ? 'active' : 'deactive'"
+            :class="item.is_published ? 'deactive' : 'active'"
             class="add-btn"
             :loading="loading"
             @click="confirm"
@@ -81,7 +81,7 @@ export default {
       formData.append("_method", "patch");
       const payload = {
         id: this.item.id,
-        statusType: this.item.status ? "publish" : "un-publish",
+        statusType: this.item.is_published ? "un-publish" : "publish",
         formData,
         type: "products",
       };
@@ -137,7 +137,7 @@ export default {
 }
 
 .active {
-  background: #7fb712 !important;
+  background: #0f6d39 !important;
 }
 
 .deactive {

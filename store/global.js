@@ -162,11 +162,12 @@ export const actions = {
         params: {
           search_text: payload.search_text,
           page: payload.page,
-          orderBy: payload.orderBy,
+          order_by: payload.order_by,
           sort: payload.sort,
           perPage: payload.perPage,
-          per_page: payload.perPage,
+          per_page: payload.per_page,
           unit_id: payload.unit_id,
+          is_published: payload.status,
           category_id: payload.category_id,
         },
       })
