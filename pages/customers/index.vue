@@ -48,39 +48,6 @@
                 clearable
                 @input="debounceSearch"
               />
-              <v-combobox
-                v-model="filters.country"
-                :items="countries"
-                item-text="name"
-                item-value="id"
-                :label="$t('products.country')"
-                style="max-width: 200px"
-                class="me-3 mb-3"
-                outlined
-                height="44px"
-                background-color="#fff"
-                dense
-                hide-details
-                clearable
-                @change="fetchCities"
-              />
-              <v-combobox
-                v-model="filters.city"
-                :items="cities"
-                item-text="name"
-                item-value="id"
-                :label="$t('products.city')"
-                style="max-width: 200px"
-                class="me-3 mb-3"
-                outlined
-                height="44px"
-                background-color="#fff"
-                dense
-                hide-details
-                clearable
-                :disabled="!filters.country"
-                @change="fetch(1)"
-              />
             </div>
           </template>
           <template #[`item.status`]="{ item }">
@@ -106,12 +73,6 @@
               </v-icon>
               غير مفعل
             </v-chip>
-          </template>
-          <template #[`item.country`]="{ item }">
-            <span> {{ item.country.name }} </span>
-          </template>
-          <template #[`item.city`]="{ item }">
-            <span> {{ item.city.name }} </span>
           </template>
           <template #[`item.actions`]="{ item }">
             <div class="d-flex justify-center">
@@ -190,10 +151,6 @@ export default {
         page: 1,
         orderBy: '',
         sort: 'desc',
-        city: '',
-        city_id: '',
-        country: '',
-        country_id: '',
         status: '',
         perPage: 10
       },
@@ -209,16 +166,6 @@ export default {
           value: 'full_name'
         },
         {
-          text: 'الدولة',
-          value: 'country',
-          sortable: false
-        },
-        {
-          text: 'المدينة',
-          value: 'city',
-          sortable: false
-        },
-        {
           text: 'الحالة',
           value: 'status',
           sortable: false
@@ -231,9 +178,6 @@ export default {
   async fetch ({ store, params }) {
     await store.dispatch('global/fetchCustomersList', {
       type: 'customers'
-    })
-    await store.dispatch('support/fetchCountries', {
-      type: 'countries'
     })
   },
   head: {
@@ -252,12 +196,6 @@ export default {
         })
       }
       return arr
-    },
-    countries () {
-      return this.$store.state.support.countries
-    },
-    cities () {
-      return this.$store.state.support.cities
     }
   },
   watch: {
@@ -296,8 +234,6 @@ export default {
       this.loading = true
       this.filters.page = pageNum || this.response.current_page
       this.filters.search_text = this.filters.search_text || ''
-      this.filters.city_id = this.filters.city ? this.filters.city.id : ''
-      this.filters.country_id = this.filters.country ? this.filters.country.id : ''
       this.filters.page = this.perPage
         ? (this.filters.page = 1)
         : this.filters.page
@@ -317,10 +253,6 @@ export default {
     changePerPage (val) {
       this.perPage = true
       this.fetch(val)
-    },
-    fetchCities (country) {
-      this.fetch()
-      this.$store.dispatch('support/fetchCities', { country_id: country ? country.id : '' }).then(() => {})
     },
     openActivateDialogs (item) {
       this.item = item

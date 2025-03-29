@@ -8,18 +8,18 @@
     >
       <v-card class="pa-5 activation-alert">
         <div v-if="item.status" class="text-center pt-6 mb-6">
-          <p class="mb-n4">تأكيد إعادة تفعيل المنتج ؟</p>
+          <p class="mb-n4">تأكيد إعادة تفعيل العلامة التجارية ؟</p>
           <br />
           <!-- <small class="note">
-            {{ $t('admins.active_label') }}
-          </small> -->
+              {{ $t('admins.active_label') }}
+            </small> -->
         </div>
         <div v-else class="text-center pt-6 mb-6">
-          <p class="mb-n4">تأكيد إلغاء تفعيل المنتج ؟</p>
+          <p class="mb-n4">تأكيد إلغاء تفعيل العلامة التجارية ؟</p>
           <br />
           <!-- <small class="note">
-            {{ $t('admins.deactive_label') }}
-          </small> -->
+              {{ $t('admins.deactive_label') }}
+            </small> -->
         </div>
         <v-card-actions class="action-btns">
           <v-spacer />
@@ -81,9 +81,9 @@ export default {
       formData.append("_method", "patch");
       const payload = {
         id: this.item.id,
-        statusType: this.item.status ? "publish" : "un-publish",
+        statusType: this.item.status ? "activate" : "deactivate",
         formData,
-        type: "products",
+        type: "brands",
       };
       await GlobalServices.updateStatus(this.$axios, payload).then(
         (resData) => {

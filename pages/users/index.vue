@@ -47,45 +47,7 @@
                 clearable
                 @input="debounceSearch"
               />
-              <v-combobox
-                v-model="filters.country"
-                :items="countries"
-                item-text="name"
-                item-value="id"
-                :label="$t('products.country')"
-                style="max-width: 200px"
-                class="me-3 mb-3"
-                outlined
-                height="44px"
-                background-color="#fff"
-                dense
-                hide-details
-                @change="fetchCities"
-              />
-              <v-combobox
-                v-model="filters.city"
-                :items="cities"
-                item-text="name"
-                item-value="id"
-                :label="$t('products.city')"
-                style="max-width: 200px"
-                class="me-3 mb-3"
-                outlined
-                height="44px"
-                background-color="#fff"
-                dense
-                hide-details
-                clearable
-                :disabled="!filters.country"
-                @change="fetch(1)"
-              />
             </div>
-          </template>
-          <template #[`item.country`]="{ item }">
-            <span> {{ item.country.name }} </span>
-          </template>
-          <template #[`item.city`]="{ item }">
-            <span> {{ item.city.name }} </span>
           </template>
           <template #[`item.status`]="{ item }">
             <v-chip
@@ -153,7 +115,7 @@
         </v-row>
       </v-col>
     </v-row>
-    <user-modal :dialog-visible="showModal" :title="modalTitle" :user="modalData" :countries="countries" @closeModal="isModalClosed" />
+    <user-modal :dialog-visible="showModal" :title="modalTitle" :user="modalData" @closeModal="isModalClosed" />
     <activate-dialog
       :alert-visible="activateItem"
       :item="item"
@@ -192,16 +154,6 @@ export default {
           value: 'full_name'
         },
         {
-          text: 'الدولة',
-          value: 'country',
-          sortable: false
-        },
-        {
-          text: 'المدينة',
-          value: 'city',
-          sortable: false
-        },
-        {
           text: this.$t('register.email'),
           value: 'email',
           sortable: false
@@ -225,9 +177,6 @@ export default {
     await store.dispatch('global/fetchUsersList', {
       type: 'users'
     })
-    await store.dispatch('support/fetchCountries', {
-      type: 'countries'
-    })
   },
   head: {
     title: 'المستخدمون'
@@ -245,12 +194,6 @@ export default {
         })
       }
       return arr
-    },
-    countries () {
-      return this.$store.state.support.countries
-    },
-    cities () {
-      return this.$store.state.support.cities
     }
   },
   watch: {
@@ -281,8 +224,6 @@ export default {
       this.loading = true
       this.filters.page = pageNum || this.response.current_page
       this.filters.search_text = this.filters.search_text || ''
-      this.filters.city_id = this.filters.city ? this.filters.city.id : ''
-      this.filters.country_id = this.filters.country ? this.filters.country.id : ''
       this.filters.page = this.perPage
         ? (this.filters.page = 1)
         : this.filters.page
@@ -310,10 +251,6 @@ export default {
     openActivateDialogs (item) {
       this.item = item
       this.activateItem = true
-    },
-    fetchCities (country) {
-      this.fetch()
-      this.$store.dispatch('support/fetchCities', { country_id: country ? country.id : '' }).then(() => {})
     }
   }
 }

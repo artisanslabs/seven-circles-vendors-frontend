@@ -51,7 +51,7 @@
             </div>
           </template>
           <template #[`item.product`]="{ item }">
-            <span> {{ item.product.name }} </span>
+            <span> {{ item.product }} </span>
           </template>
           <template #[`item.actions`]="{ item }">
             <div class="d-flex justify-center">

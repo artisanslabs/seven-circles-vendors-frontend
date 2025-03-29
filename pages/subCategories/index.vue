@@ -8,14 +8,14 @@
         <div class="d-flex justify-space-between">
           <div>
             <h1 class="second-font-color">
-              {{ $t('links.countries') }}
+              {{ $t('links.subCategories') }}
             </h1>
           </div>
-          <!-- <v-btn class="add-btn" dark @click="handleCreate">
+          <v-btn class="add-btn" dark @click="handleCreate">
             <span class="btn-text white--text">
-              {{ $t("countries.create") }}
+              {{ $t("categories.create") }}
             </span>
-          </v-btn> -->
+          </v-btn>
         </div>
       </v-col>
       <v-col cols="12">
@@ -36,9 +36,9 @@
               <v-text-field
                 v-model="filters.search_text"
                 :placeholder="$t('btn.search')"
-                class="table__search me-3 mb-3"
                 dense
                 type="text"
+                class="table__search me-3 mb-3"
                 outlined
                 append-icon="mdi-magnify"
                 background-color="#fff"
@@ -49,20 +49,50 @@
               />
             </div>
           </template>
-          <!-- <template #[`item.actions`]="{ item }">
-            <div>
+          <template #[`item.status`]="{ item }">
+            <v-chip
+              v-if="item.status"
+              class="ma-2"
+              color="success"
+              outlined
+            >
+              <v-icon left>
+                mdi-checkbox-marked-circle-outline
+              </v-icon>
+              مفعل
+            </v-chip>
+            <v-chip
+              v-else
+              class="ma-2"
+              color="error"
+              outlined
+            >
+              <v-icon left>
+                mdi-alert-circle-outline
+              </v-icon>
+              غير مفعل
+            </v-chip>
+          </template>
+          <template #[`item.actions`]="{ item }">
+            <div class="d-flex justify-center">
+              <v-switch
+                v-model="item.status"
+                color="#0f6d39"
+                inset
+                @click.stop="openActivateDialogs(item)"
+              />
               <v-btn tile icon @click.stop="handleEdit(item)">
-                <v-icon class="mt-2" size="20">
+                <v-icon class="mt-6" size="20">
                   mdi-pencil
                 </v-icon>
               </v-btn>
-              <v-btn tile icon @click.stop="openDeleteDialogs(item)">
-                <v-icon size="20">
+              <!-- <v-btn tile icon @click.stop="openDeleteDialogs(item)">
+                <v-icon class="mt-6" size="20">
                   mdi-delete
                 </v-icon>
-              </v-btn>
+              </v-btn> -->
             </div>
-          </template> -->
+          </template>
         </v-data-table>
         <v-row>
           <v-col cols="6" class="d-flex justify-end">
@@ -90,26 +120,36 @@
         </v-row>
       </v-col>
     </v-row>
-    <country-modal :dialog-visible="showModal" :title="modalTitle" :country="modalData" @closeModal="isModalClosed" />
+    <sub-category-modal :dialog-visible="showModal" :title="modalTitle" :category="modalData" :categories="categories" @closeModal="isModalClosed" />
     <delete-alert
       :alert-visible="openDeleteDialog"
       :multi="multiItems"
       @closeDeleteModal="handleDelete"
     />
+    <activate-dialog
+      :alert-visible="activateItem"
+      :item="item"
+      @fecthData="fetch()"
+      @closeModal="activateItem = false"
+    />
   </div>
 </template>
 <script>
-import CountryModal from '~/components/countries/CountryModal.vue'
+import SubCategoryModal from '~/components/subCategories/SubCategoryModal.vue'
 import DeleteAlert from '~/components/shared/DeleteAlert.vue'
 import GlobalServices from '~/services/global'
+import ActivateDialog from '~/components/subCategories/ConfirmActivate.vue'
+
 export default {
-  name: 'CountriesPage',
-  components: { CountryModal, DeleteAlert },
+  name: 'SubcategoriesPage',
+  components: { SubCategoryModal, DeleteAlert, ActivateDialog },
   data () {
     return {
       perPage: false,
       multiItems: false,
       openDeleteDialog: false,
+      item: {},
+      activateItem: false,
       showModal: false,
       loading: false,
       modalTitle: '',
@@ -122,15 +162,16 @@ export default {
         status: '',
         perPage: 10
       },
-      response2: {
-        current_page: 1,
-        last_page: 12
-      },
       headers: [
         {
           text: this.$t('v.name'),
           sortable: true,
           value: 'name'
+        },
+        {
+          text: 'الصنف الرئيسي',
+          sortable: false,
+          value: 'parent'
         },
         { text: '', value: 'actions', sortable: false }
       ],
@@ -138,22 +179,33 @@ export default {
     }
   },
   async fetch ({ store, params }) {
-    await store.dispatch('global/fetchCountriesList', {
-      type: 'countries'
+    await store.dispatch('global/fetchSubcategoriesList', {
+      type: 'sub'
+    })
+
+    await store.dispatch('support/fetchCategories', {
+      type: 'categories'
     })
   },
   head: {
-    title: 'الدول'
+    title: 'الأصناف الفرعية'
   },
   computed: {
     response () {
-      return { ...this.$store.state.global.countries }
+      return { ...this.$store.state.global.subcategories }
     },
     tableData () {
-      return [...this.response.countries]
+      // return [...this.response.subcategories]
+      const arr = []
+      if (this.response.categories) {
+        this.response.categories.forEach((e) => {
+          arr.push({ ...e })
+        })
+      }
+      return arr
     },
-    cities () {
-      return this.$store.state.list
+    categories () {
+      return this.$store.state.support.categories
     }
   },
   watch: {
@@ -167,16 +219,16 @@ export default {
   methods: {
     handleCreate () {
       this.showModal = true
-      this.modalTitle = 'add country'
+      this.modalTitle = 'add subCategory'
     },
     handleEdit (item) {
       this.showModal = true
-      this.modalTitle = 'edit country'
+      this.modalTitle = 'edit subCategory'
       this.modalData = { ...item }
     },
     async handleDelete (payload) {
       if (payload.value) {
-        await GlobalServices.delete(this.$axios, { id: this.$route.params.id, item_id: this.deletedItem.id, type: 'countries' }).then((resData) => {
+        await GlobalServices.delete(this.$axios, { id: this.$route.params.id, item_id: this.deletedItem.id, type: 'subcategories' }).then((resData) => {
           if (resData.success) {
             this.fetch()
           }
@@ -209,7 +261,7 @@ export default {
       this.filters.page = this.perPage
         ? (this.filters.page = 1)
         : this.filters.page
-      this.$store.dispatch('global/fetchCountriesList', { type: 'countries', ...this.filters }).then(() => {
+      this.$store.dispatch('global/fetchSubcategoriesList', { type: 'sub', ...this.filters }).then(() => {
         this.loading = false
         this.perPage = false
       })
@@ -225,6 +277,10 @@ export default {
     changePerPage (val) {
       this.perPage = true
       this.fetch(val)
+    },
+    openActivateDialogs (item) {
+      this.item = item
+      this.activateItem = true
     }
   }
 }

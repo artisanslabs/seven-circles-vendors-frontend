@@ -17,14 +17,14 @@
       <div>
         <v-form ref="form" lazy-validation>
           <v-row>
-            <v-col cols="12" sm="12">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
-                <span>{{ $t('v.name') }}</span>
+                <span>اسم الماركة</span>
                 <span class="red-color">{{ $t('v.star') }}</span>
               </div>
               <v-text-field
                 v-model="form.name"
-                placeholder="اكتب اسم الدولة"
+                placeholder="اكتب اسم الماركة"
                 type="text"
                 :rules="[requiredRules]"
                 validate-on-blur
@@ -32,6 +32,28 @@
                 dense
                 required
               />
+            </v-col>
+            <v-col cols="12" sm="6">
+              <div class="text-start mb-2">
+                <span>{{ $t('products.appear_status') }}</span>
+                <span class="red-color">{{ $t('v.star') }}</span>
+              </div>
+              <v-radio-group
+                v-model="form.status"
+                row
+                class="ms-n4"
+              >
+                <v-radio
+                  color="#0f6d39"
+                  :label="$t('products.statuses.appear')"
+                  :value="true"
+                />
+                <v-radio
+                  color="#0f6d39"
+                  :label="$t('products.statuses.hidden')"
+                  :value="false"
+                />
+              </v-radio-group>
             </v-col>
 
             <v-col cols="12" class="modal-btns mt-4 mb-6 d-flex justify-end">
@@ -51,7 +73,7 @@
 <script>
 import GlobalServices from '~/services/global.js'
 export default {
-  name: 'CountryModal',
+  name: 'BrandModal',
   props: {
     dialogVisible: {
       type: Boolean,
@@ -59,9 +81,9 @@ export default {
     },
     title: {
       type: String,
-      default: 'add country'
+      default: 'add brand'
     },
-    country: {
+    brand: {
       type: Object,
       default: () => {
         return {}
@@ -71,24 +93,21 @@ export default {
   data () {
     return {
       showModal: false,
-      passwordStatus: false,
       clickedBtn: 'cancel',
       loading: false,
-      form: {},
+      form: {
+        status: true
+      },
       oldForm: {},
       requiredRules: v => !!v || this.$t('v.field_required'),
-      date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       modal: false
     }
   },
   computed: {
     pageTitle () {
-      return this.title === 'add country'
-        ? this.$t('countries.create')
-        : this.$t('countries.update')
-    },
-    cities () {
-      return this.$store.state.list.cities
+      return this.title === 'add brand'
+        ? this.$t('categories.create')
+        : this.$t('categories.update')
     }
   },
   watch: {
@@ -103,10 +122,10 @@ export default {
         this.resetForm()
       }
     },
-    country () {
-      if (this.title !== 'add country') {
-        this.form = { ...this.country }
-        this.oldForm = { ...this.country }
+    brand () {
+      if (this.title !== 'add brand') {
+        this.form = { ...this.brand }
+        this.oldForm = { ...this.brand }
       }
     }
   },
@@ -121,12 +140,12 @@ export default {
             formData.append(key, this.form[key])
           }
         }
-        const payload = { formData, type: 'countries' }
+        const payload = { type: 'brands', formData }
         let action = 'create'
-        // for Updating country
-        if (this.title !== 'add country') {
+        // for Updating category
+        if (this.title !== 'add brand') {
           formData.append('_method', 'patch')
-          payload.id = this.country.id
+          payload.id = this.brand.id
           action = 'update'
         }
 
@@ -142,11 +161,7 @@ export default {
     },
     resetForm () {
       this.$refs.form.reset()
-      this.form = {
-        name: '',
-        email: '',
-        password: ''
-      }
+      this.form = {}
     }
   }
 }

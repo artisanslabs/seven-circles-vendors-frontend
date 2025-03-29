@@ -15,7 +15,7 @@
           class="me-n1"
           v-on="on"
         >
-          {{ user.full_name }}
+          <!-- {{ user.full_name }} -->
           <v-icon>
             mdi-chevron-down
           </v-icon>

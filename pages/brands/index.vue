@@ -8,12 +8,12 @@
         <div class="d-flex justify-space-between">
           <div>
             <h1 class="second-font-color">
-              {{ $t('links.cities') }}
+              {{ $t('links.brands') }}
             </h1>
           </div>
           <v-btn class="add-btn" dark @click="handleCreate">
             <span class="btn-text white--text">
-              {{ $t("cities.create") }}
+              إضافة ماركة
             </span>
           </v-btn>
         </div>
@@ -49,18 +49,45 @@
               />
             </div>
           </template>
-          <template #[`item.country`]="{ item }">
-            <span> {{ item.country.name }} </span>
+          <template #[`item.status`]="{ item }">
+            <v-chip
+              v-if="item.status"
+              class="ma-2"
+              color="success"
+              outlined
+            >
+              <v-icon left>
+                mdi-checkbox-marked-circle-outline
+              </v-icon>
+              مفعل
+            </v-chip>
+            <v-chip
+              v-else
+              class="ma-2"
+              color="error"
+              outlined
+            >
+              <v-icon left>
+                mdi-alert-circle-outline
+              </v-icon>
+              غير مفعل
+            </v-chip>
           </template>
           <template #[`item.actions`]="{ item }">
-            <div>
+            <div class="d-flex justify-center">
+              <v-switch
+                v-model="item.status"
+                color="#0f6d39"
+                inset
+                @click.stop="openActivateDialogs(item)"
+              />
               <v-btn tile icon @click.stop="handleEdit(item)">
-                <v-icon class="mt-2" size="20">
+                <v-icon class="mt-6" size="20">
                   mdi-pencil
                 </v-icon>
               </v-btn>
               <!-- <v-btn tile icon @click.stop="openDeleteDialogs(item)">
-                <v-icon size="20">
+                <v-icon class="mt-6" size="20">
                   mdi-delete
                 </v-icon>
               </v-btn> -->
@@ -93,26 +120,36 @@
         </v-row>
       </v-col>
     </v-row>
-    <city-modal :dialog-visible="showModal" :title="modalTitle" :city="modalData" :countries="countries" @closeModal="isModalClosed" />
+    <brand-modal :dialog-visible="showModal" :title="modalTitle" :brand="modalData" @closeModal="isModalClosed" />
     <delete-alert
       :alert-visible="openDeleteDialog"
       :multi="multiItems"
       @closeDeleteModal="handleDelete"
     />
+    <activate-dialog
+      :alert-visible="activateItem"
+      :item="item"
+      @fecthData="fetch()"
+      @closeModal="activateItem = false"
+    />
   </div>
 </template>
 <script>
-import CityModal from '~/components/cities/CityModal.vue'
+import BrandModal from '~/components/brands/BrandModal.vue'
 import DeleteAlert from '~/components/shared/DeleteAlert.vue'
 import GlobalServices from '~/services/global'
+import ActivateDialog from '~/components/brands/ConfirmActivate.vue'
+
 export default {
-  name: 'CitiesPage',
-  components: { CityModal, DeleteAlert },
+  name: 'BrandsPage',
+  components: { BrandModal, DeleteAlert, ActivateDialog },
   data () {
     return {
       perPage: false,
       multiItems: false,
       openDeleteDialog: false,
+      item: {},
+      activateItem: false,
       showModal: false,
       loading: false,
       modalTitle: '',
@@ -122,11 +159,8 @@ export default {
         page: 1,
         orderBy: '',
         sort: 'desc',
-        city: '',
-        city_id: '',
         status: '',
-        perPage: 10,
-        type: 'cities'
+        perPage: 10
       },
       headers: [
         {
@@ -135,9 +169,9 @@ export default {
           value: 'name'
         },
         {
-          text: this.$t('products.country'),
+          text: this.$t('products.appear_status'),
           sortable: false,
-          value: 'country'
+          value: 'status'
         },
         { text: '', value: 'actions', sortable: false }
       ],
@@ -145,25 +179,26 @@ export default {
     }
   },
   async fetch ({ store, params }) {
-    await store.dispatch('global/fetchCitiesList', {
-      type: 'cities'
-    })
-    await store.dispatch('support/fetchCountries', {
-      type: 'countries'
+    await store.dispatch('global/fetchBrandsList', {
+      type: 'brands'
     })
   },
   head: {
-    title: 'المدن'
+    title: 'الماركات التجارية'
   },
   computed: {
     response () {
-      return { ...this.$store.state.global.cities }
+      return { ...this.$store.state.global.brands }
     },
     tableData () {
-      return [...this.response.cities]
-    },
-    countries () {
-      return this.$store.state.support.countries
+      // return [...this.response.brands]
+      const arr = []
+      if (this.response.brands) {
+        this.response.brands.forEach((e) => {
+          arr.push({ ...e })
+        })
+      }
+      return arr
     }
   },
   watch: {
@@ -177,17 +212,16 @@ export default {
   methods: {
     handleCreate () {
       this.showModal = true
-      this.modalTitle = 'add city'
+      this.modalTitle = 'add brand'
     },
     handleEdit (item) {
       this.showModal = true
-      this.modalTitle = 'edit city'
+      this.modalTitle = 'edit brand'
       this.modalData = { ...item }
     },
     async handleDelete (payload) {
       if (payload.value) {
-        // await GlobalServices.delete(this.$axios, { id: this.$route.params.id, item_id: this.deletedItem.id, type: 'cities' }).then((resData) => {
-        await GlobalServices.delete(this.$axios, { item_id: this.deletedItem.id, type: 'cities' }).then((resData) => {
+        await GlobalServices.delete(this.$axios, { id: this.$route.params.id, item_id: this.deletedItem.id, type: 'brands' }).then((resData) => {
           if (resData.success) {
             this.fetch()
           }
@@ -217,11 +251,10 @@ export default {
       this.loading = true
       this.filters.page = pageNum || this.response.current_page
       this.filters.search_text = this.filters.search_text || ''
-      this.filters.city_id = this.filters.city ? this.filters.city.id : ''
       this.filters.page = this.perPage
         ? (this.filters.page = 1)
         : this.filters.page
-      this.$store.dispatch('global/fetchCitiesList', this.filters).then(() => {
+      this.$store.dispatch('global/fetchBrandsList', { type: 'brands', ...this.filters }).then(() => {
         this.loading = false
         this.perPage = false
       })
@@ -237,6 +270,10 @@ export default {
     changePerPage (val) {
       this.perPage = true
       this.fetch(val)
+    },
+    openActivateDialogs (item) {
+      this.item = item
+      this.activateItem = true
     }
   }
 }

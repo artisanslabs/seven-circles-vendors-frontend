@@ -47,7 +47,7 @@
           </v-list-item-title>
         </v-list-item>
 
-        <v-list-item nuxt :to="localePath({ name: 'discounts' })">
+        <!-- <v-list-item nuxt :to="localePath({ name: 'discounts' })">
           <v-list-item-icon>
             <v-icon class="mr-1 mt-n4" size="20">
               mdi-arrow-bottom-right mdi-account-multiple
@@ -56,7 +56,7 @@
           <v-list-item-title>
             {{ $t("links.cutbacks") }}
           </v-list-item-title>
-        </v-list-item>
+        </v-list-item> -->
 
         <v-list-item nuxt :to="localePath({ name: 'customers' })">
           <v-list-item-icon>
@@ -102,28 +102,6 @@
           </v-list-item-title>
         </v-list-item>
 
-        <v-list-item nuxt :to="localePath({ name: 'countries' })">
-          <v-list-item-icon>
-            <v-icon class="mt-n4" size="20">
-              mdi-web
-            </v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>
-            {{ $t("links.countries") }}
-          </v-list-item-title>
-        </v-list-item>
-
-        <v-list-item nuxt :to="localePath({ name: 'cities' })">
-          <v-list-item-icon>
-            <v-icon class="mt-n4" size="20">
-              mdi-city
-            </v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>
-            {{ $t("links.cities") }}
-          </v-list-item-title>
-        </v-list-item>
-
         <v-list-item nuxt :to="localePath({ name: 'categories' })">
           <v-list-item-icon>
             <v-icon class="mt-n4" size="20">
@@ -132,6 +110,39 @@
           </v-list-item-icon>
           <v-list-item-title>
             {{ $t("links.categories") }}
+          </v-list-item-title>
+        </v-list-item>
+
+        <v-list-item nuxt :to="localePath({ name: 'subCategories' })">
+          <v-list-item-icon>
+            <v-icon class="mt-n4" size="20">
+              mdi-view-grid-compact
+            </v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>
+            {{ $t("links.subCategories") }}
+          </v-list-item-title>
+        </v-list-item>
+
+        <v-list-item nuxt :to="localePath({ name: 'vendors' })">
+          <v-list-item-icon>
+            <v-icon class="mt-n4" size="20">
+              mdi-account-tie
+            </v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>
+            {{ $t("links.vendors") }}
+          </v-list-item-title>
+        </v-list-item>
+
+        <v-list-item nuxt :to="localePath({ name: 'brands' })">
+          <v-list-item-icon>
+            <v-icon class="mt-n4" size="20">
+              mdi-star-check
+            </v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>
+            {{ $t("links.brands") }}
           </v-list-item-title>
         </v-list-item>
 
@@ -146,7 +157,7 @@
           </v-list-item-title>
         </v-list-item>
 
-        <v-list-item nuxt :to="localePath({ name: 'drivers' })">
+        <!-- <v-list-item nuxt :to="localePath({ name: 'drivers' })">
           <v-list-item-icon>
             <v-icon class="mt-n4" size="20">
               mdi-steering
@@ -166,7 +177,7 @@
           <v-list-item-title>
             {{ $t("links.vehicles") }}
           </v-list-item-title>
-        </v-list-item>
+        </v-list-item> -->
 
         <v-list-item nuxt :to="localePath({ name: 'suggestions' })">
           <v-list-item-icon>

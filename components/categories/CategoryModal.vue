@@ -95,7 +95,9 @@ export default {
       showModal: false,
       clickedBtn: 'cancel',
       loading: false,
-      form: {},
+      form: {
+        status: true
+      },
       oldForm: {},
       requiredRules: v => !!v || this.$t('v.field_required'),
       modal: false

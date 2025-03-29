@@ -5,12 +5,7 @@
         <h2 class="text-start fs-20 title-color">
           {{ pageTitle }}
         </h2>
-        <v-btn
-          icon
-          dark
-          class="close-dialog-icon"
-          @click="showModal = false"
-        >
+        <v-btn icon dark class="close-dialog-icon" @click="showModal = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </div>
@@ -19,46 +14,8 @@
           <v-row>
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
-                <span>{{ $t('products.country') }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
-              </div>
-              <v-combobox
-                v-model="form.country"
-                placeholder="اختر الدولة"
-                :items="countries"
-                item-text="name"
-                item-value="id"
-                :rules="[requiredRules]"
-                validate-on-blur
-                outlined
-                dense
-                clearable
-                @change="fetchCities"
-              />
-            </v-col>
-            <v-col cols="12" sm="6">
-              <div class="text-start mb-2">
-                <span>{{ $t('products.city') }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
-              </div>
-              <v-combobox
-                v-model="form.city"
-                placeholder="اختر المدينة"
-                :items="cities"
-                item-text="name"
-                item-value="id"
-                :rules="[requiredRules]"
-                validate-on-blur
-                outlined
-                dense
-                clearable
-              />
-            </v-col>
-
-            <v-col cols="12" sm="6">
-              <div class="text-start mb-2">
-                <span>{{ $t('ads.start_date') }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
+                <span>{{ $t("ads.start_date") }}</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
 
               <v-menu
@@ -84,18 +41,20 @@
                 <v-date-picker
                   v-model="form.starts_at"
                   locale="ar"
+                  :min="today"
                   @input="starts_at = false"
                 />
               </v-menu>
             </v-col>
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
-                <span>{{ $t('ads.end_date') }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
+                <span>{{ $t("ads.end_date") }}</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-menu
                 v-model="ends_at"
                 :close-on-content-click="false"
+                :disabled="!form.starts_at"
                 :nudge-right="40"
                 transition="scale-transition"
                 offset-y
@@ -116,6 +75,7 @@
                 <v-date-picker
                   v-model="form.ends_at"
                   locale="ar"
+                  :min="form.starts_at"
                   @input="ends_at = false"
                 />
               </v-menu>
@@ -123,8 +83,8 @@
 
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
-                <span>صورة  الإعلان</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
+                <span>صورة الإعلان</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-file-input
                 v-model="form.image"
@@ -138,8 +98,8 @@
 
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
-                <span>{{ $t('products.details') }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
+                <span>{{ $t("products.details") }}</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-textarea
                 v-model="form.description"
@@ -153,10 +113,10 @@
 
             <v-col cols="12" class="modal-btns mt-4 mb-6 d-flex justify-end">
               <v-btn :loading="loading" class="py-6 px-10 mx-2" @click="submit">
-                {{ $t('btn.save') }}
+                {{ $t("btn.save") }}
               </v-btn>
               <v-btn class="py-6 px-10 cancel-btn" @click="showModal = false">
-                {{ $t('btn.cancel') }}
+                {{ $t("btn.cancel") }}
               </v-btn>
             </v-col>
           </v-row>
@@ -166,130 +126,122 @@
   </v-dialog>
 </template>
 <script>
-import GlobalServices from '~/services/global.js'
+import GlobalServices from "~/services/global.js";
 export default {
-  name: 'AdvertisementModal',
+  name: "AdvertisementModal",
   props: {
     dialogVisible: {
       type: Boolean,
-      default: false
+      default: false,
     },
     title: {
       type: String,
-      default: 'add advertisement'
+      default: "add advertisement",
     },
     advertisement: {
       type: Object,
       default: () => {
-        return {}
-      }
+        return {};
+      },
     },
-    countries: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
   },
-  data () {
+  data() {
     return {
       starts_at: false,
       ends_at: false,
       showModal: false,
       passwordStatus: false,
-      clickedBtn: 'cancel',
+      clickedBtn: "cancel",
+      // Get today's date in the correct format
+      today: new Date().toISOString().split("T")[0], // Format: YYYY-MM-DD
       loading: false,
       form: {},
       oldForm: {},
-      requiredRules: v => !!v || this.$t('v.field_required'),
-      date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-      modal: false
-    }
+      requiredRules: (v) => !!v || this.$t("v.field_required"),
+      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      modal: false,
+    };
   },
   computed: {
-    pageTitle () {
-      return this.title === 'add advertisement'
-        ? this.$t('ads.create')
-        : this.$t('ads.update')
+    pageTitle() {
+      return this.title === "add advertisement"
+        ? this.$t("ads.create")
+        : this.$t("ads.update");
     },
-    cities () {
-      return this.$store.state.support.cities
-    }
+    cities() {
+      return this.$store.state.support.cities;
+    },
   },
   watch: {
-    dialogVisible () {
+    dialogVisible() {
       if (this.dialogVisible === true) {
-        this.showModal = true
+        this.showModal = true;
       }
     },
-    showModal () {
+    showModal() {
       if (this.showModal === false) {
-        this.$emit('closeModal', { value: true, clickedBtn: this.clickedBtn })
-        this.resetForm()
+        this.$emit("closeModal", { value: true, clickedBtn: this.clickedBtn });
+        this.resetForm();
       }
     },
-    advertisement () {
-      if (this.title !== 'add advertisement') {
-        this.form = { ...this.advertisement }
-        this.oldForm = { ...this.advertisement }
+    advertisement() {
+      if (this.title !== "add advertisement") {
+        this.form = { ...this.advertisement };
+        this.oldForm = { ...this.advertisement };
       }
-    }
+    },
   },
   methods: {
-    async submit () {
-      const valid = await this.$refs.form.validate()
+    async submit() {
+      const valid = await this.$refs.form.validate();
       if (valid) {
-        this.loading = true
-        const formData = new FormData()
+        this.loading = true;
+        const formData = new FormData();
         for (const key in this.form) {
-          if (this.form[key] !== this.oldForm[key] && key !== 'country' && key !== 'city') {
-            formData.append(key, this.form[key])
+          if (this.form[key] !== this.oldForm[key]) {
+            formData.append(key, this.form[key]);
           }
         }
 
-        formData.append('country_id', this.form.country.id)
-        formData.append('city_id', this.form.city.id)
-
-        const payload = { type: 'advertisements', formData }
-        let action = 'create'
+        const payload = { type: "advertisements", formData };
+        let action = "create";
         // for Updating product
-        if (this.title !== 'add advertisement') {
-          formData.append('_method', 'patch')
-          payload.id = this.product.id
-          action = 'update'
+        if (this.title !== "add advertisement") {
+          formData.append("_method", "patch");
+          payload.id = this.advertisement.id;
+          action = "update";
         }
 
         await GlobalServices[action](this.$axios, payload).then((resData) => {
-          this.setAlertDataGlobal(resData)
+          this.setAlertDataGlobal(resData);
           if (resData.success) {
-            this.clickedBtn = 'save'
-            this.showModal = false
+            this.clickedBtn = "save";
+            this.showModal = false;
           }
-        })
-        this.loading = false
+        });
+        this.loading = false;
       }
     },
-    resetForm () {
-      this.$refs.form.reset()
+    resetForm() {
+      this.$refs.form.reset();
       this.form = {
-        name: '',
-        email: '',
-        password: ''
-      }
+        name: "",
+        email: "",
+        password: "",
+      };
     },
-    fetchCities (country) {
-      this.$store.dispatch('support/fetchCities', { country_id: country ? country.id : '' }).then(() => {})
-    }
-  }
-}
+  },
+};
 </script>
 <style lang="scss">
 .theme--light.v-file-input .v-file-input__text--placeholder {
-    color: rgb(132 151 173);
-    font-size: 12px;
+  color: rgb(132 151 173);
+  font-size: 12px;
 }
 
 .v-input--radio-group.v-input--radio-group--row .v-radio {
-    align-items: flex-start;
+  align-items: flex-start;
 }
 </style>

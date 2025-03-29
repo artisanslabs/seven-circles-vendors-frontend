@@ -19,7 +19,7 @@
               </div>
               <v-text-field
                 v-model="form.name"
-                placeholder="اكتب اسم الوحدة"
+                placeholder="اكتب اسم الصنف"
                 type="text"
                 :rules="[requiredRules]"
                 validate-on-blur
@@ -30,20 +30,19 @@
             </v-col>
             <v-col cols="12" sm="6">
               <div class="text-start mb-2">
-                <span>{{ $t("products.appear_status") }}</span>
+                <span>الصنف الرئيسي</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
-              <v-radio-group v-model="form.status" row class="ms-n4">
-                <v-radio
-                  color="#0f6d39"
-                  :label="$t('products.statuses.appear')"
-                  :value="true"
-                />
-                <v-radio
-                  color="#0f6d39"
-                  :label="$t('products.statuses.hidden')"
-                  :value="false"
-                />
-              </v-radio-group>
+              <v-combobox
+                v-model="form.parent_id"
+                placeholder="اختر الصنف الرئيسي"
+                :items="categories"
+                item-text="name"
+                item-value="id"
+                outlined
+                dense
+                clearable
+              />
             </v-col>
 
             <v-col cols="12" class="modal-btns mt-4 mb-6 d-flex justify-end">
@@ -63,7 +62,7 @@
 <script>
 import GlobalServices from "~/services/global.js";
 export default {
-  name: "UnitModal",
+  name: "CategoryModal",
   props: {
     dialogVisible: {
       type: Boolean,
@@ -71,12 +70,18 @@ export default {
     },
     title: {
       type: String,
-      default: "add unit",
+      default: "add category",
     },
-    unit: {
+    category: {
       type: Object,
       default: () => {
         return {};
+      },
+    },
+    categories: {
+      type: Array,
+      default: () => {
+        return [];
       },
     },
   },
@@ -88,20 +93,14 @@ export default {
       form: {},
       oldForm: {},
       requiredRules: (v) => !!v || this.$t("v.field_required"),
-      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10),
       modal: false,
     };
   },
   computed: {
     pageTitle() {
-      return this.title === "add unit"
-        ? this.$t("units.create")
-        : this.$t("units.update");
-    },
-    cities() {
-      return this.$store.state.list.cities;
+      return this.title === "add subCategory"
+        ? this.$t("categories.create")
+        : this.$t("categories.update");
     },
   },
   watch: {
@@ -116,10 +115,12 @@ export default {
         this.resetForm();
       }
     },
-    unit() {
-      if (this.title !== "add unit") {
-        this.form = { ...this.unit };
-        this.oldForm = { ...this.unit };
+    category() {
+      if (this.title !== "add subCategory") {
+        this.form = { ...this.category };
+        this.form.parent_id = this.category.parent;
+        this.oldForm = { ...this.category };
+        this.oldForm.parent_id = this.category.parent;
       }
     },
   },
@@ -130,16 +131,19 @@ export default {
         this.loading = true;
         const formData = new FormData();
         for (const key in this.form) {
-          if (this.form[key] !== this.oldForm[key]) {
+          if (this.form[key] !== this.oldForm[key] && key !== "parent_id") {
             formData.append(key, this.form[key]);
           }
         }
-        const payload = { formData, type: "units" };
+        if (this.form.parent_id.id !== this.oldForm.parent_id.id) {
+          formData.append("parent_id", this.form.parent_id.id);
+        }
+        const payload = { type: "categories", formData };
         let action = "create";
-        // for Updating unit
-        if (this.title !== "add unit") {
+        // for Updating category
+        if (this.title !== "add subCategory") {
           formData.append("_method", "patch");
-          payload.id = this.unit.id;
+          payload.id = this.category.id;
           action = "update";
         }
 
@@ -155,22 +159,9 @@ export default {
     },
     resetForm() {
       this.$refs.form.reset();
-      this.form = {
-        name: "",
-        email: "",
-        password: "",
-      };
+      this.form = {};
     },
   },
 };
 </script>
-<style lang="scss">
-.theme--light.v-file-input .v-file-input__text--placeholder {
-  color: rgb(132 151 173);
-  font-size: 12px;
-}
-
-.v-input--radio-group.v-input--radio-group--row .v-radio {
-  align-items: flex-start;
-}
-</style>
+<style lang="scss"></style>
