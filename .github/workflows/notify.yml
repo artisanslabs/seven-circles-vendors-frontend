@@ -10,7 +10,7 @@ on:
       - main
 jobs:https://github.com/Baab-platform/baab-admin-frontend/tree/testing
   Notify:
-    name: Baab Dashboard Notification
+    name: Vendors Dashboard Notification
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

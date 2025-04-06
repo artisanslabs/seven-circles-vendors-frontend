@@ -4,6 +4,7 @@ export const state = () => ({
   categories: [],
   subcategories: [],
   units: [],
+  brands: [],
   products: [],
   advertisements: [],
   discounts: [],
@@ -16,28 +17,29 @@ export const state = () => ({
   brands: [],
   details: {},
   login: {},
+  profile: {},
 });
 export const mutations = {
   LIST(state, payload) {
-    state.list = payload;
+    state.list = payload
   },
   CUSTOMERS(state, payload) {
     state.customers = payload;
   },
-  CATEGORIES(state, payload) {
-    state.categories = payload;
+  CATEGORIES (state, payload) {
+    state.categories = payload
   },
-  SUBCATEGORIES(state, payload) {
-    state.subcategories = payload;
+  SUBCATEGORIES (state, payload) {
+    state.subcategories = payload
   },
-  UNITS(state, payload) {
-    state.units = payload;
+  UNITS (state, payload) {
+    state.units = payload
   },
-  PRODUCTS(state, payload) {
-    state.products = payload;
+  BRANDS (state, payload) {
+    state.brands = payload
   },
-  ADVERTISEMENTS(state, payload) {
-    state.advertisements = payload;
+  PRODUCTS (state, payload) {
+    state.products = payload
   },
   DISCOUNTS(state, payload) {
     state.discounts = payload;
@@ -54,8 +56,8 @@ export const mutations = {
   MARKETS(state, payload) {
     state.markets = payload;
   },
-  SUGGESTIONS(state, payload) {
-    state.suggestions = payload;
+  MARKETS (state, payload) {
+    state.markets = payload
   },
   VENDORS(state, payload) {
     state.vendors = payload;
@@ -63,17 +65,17 @@ export const mutations = {
   BRANDS(state, payload) {
     state.brands = payload;
   },
-  DETAILS(state, payload) {
-    state.details = payload;
+  LOGIN (state, payload) {
+    state.login = payload
   },
-  LOGIN(state, payload) {
-    state.login = payload;
-  },
-};
+  PROFILE (state, payload) {
+    state.profile = payload
+  }
+}
 export const actions = {
   fetchList({ commit }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
+      .$get(`/vendors/${payload.type}`, {
         params: {
           search_text: payload.search_text,
           page: payload.page,
@@ -90,7 +92,7 @@ export const actions = {
   },
   fetchCustomersList({ commit }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
+      .$get(`/vendors/${payload.type}`, {
         params: {
           search_text: payload.search_text,
           page: payload.page,
@@ -105,80 +107,77 @@ export const actions = {
       })
       .catch((e) => {});
   },
-  fetchCategoriesList({ commit }, payload) {
+  fetchCategoriesList ({
+    commit
+  }, payload) {
     return this.$axios
-      .$get(`/dashboard/categories/${payload.type}`, {
+      .$get(`/vendors/categories/${payload.type}`, {
         params: {
           search_text: payload.search_text,
           page: payload.page,
           orderBy: payload.orderBy,
           sort: payload.sort,
           perPage: payload.perPage,
-          per_page: payload.perPage,
-        },
-      })
-      .then((response) => {
-        commit("CATEGORIES", response.data);
-      })
-      .catch((e) => {});
+          per_page: payload.perPage
+        }
+      }).then((response) => {
+        commit('CATEGORIES', response.data)
+      }).catch((e) => {})
   },
-  fetchSubcategoriesList({ commit }, payload) {
+  fetchSubcategoriesList ({
+    commit
+  }, payload) {
     return this.$axios
-      .$get(`/dashboard/categories/${payload.type}`, {
+      .$get(`/vendors/categories/${payload.type}`, {
         params: {
           search_text: payload.search_text,
           page: payload.page,
           orderBy: payload.orderBy,
           sort: payload.sort,
           perPage: payload.perPage,
-          per_page: payload.perPage,
-        },
-      })
-      .then((response) => {
-        commit("SUBCATEGORIES", response.data);
-      })
-      .catch((e) => {});
+          per_page: payload.perPage
+        }
+      }).then((response) => {
+        commit('SUBCATEGORIES', response.data)
+      }).catch((e) => {})
   },
-  fetchUnitsList({ commit }, payload) {
+  fetchUnitsList ({
+    commit
+  }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
+      .$get(`/vendors/${payload.type}`, {
         params: {
           search_text: payload.search_text,
           page: payload.page,
           orderBy: payload.orderBy,
           sort: payload.sort,
           perPage: payload.perPage,
-          per_page: payload.perPage,
-        },
-      })
-      .then((response) => {
-        commit("UNITS", response.data);
-      })
-      .catch((e) => {});
+          per_page: payload.perPage
+        }
+      }).then((response) => {
+        commit('UNITS', response.data)
+      }).catch((e) => {})
   },
-  fetchProductsList({ commit }, payload) {
+  fetchBrandsList ({
+    commit
+  }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
+      .$get(`/vendors/${payload.type}`, {
         params: {
           search_text: payload.search_text,
           page: payload.page,
           order_by: payload.order_by,
           sort: payload.sort,
           perPage: payload.perPage,
-          per_page: payload.per_page,
-          unit_id: payload.unit_id,
-          is_published: payload.status,
-          category_id: payload.category_id,
-        },
-      })
-      .then((response) => {
-        commit("PRODUCTS", response.data);
-      })
-      .catch((e) => {});
+          per_page: payload.perPage
+        }
+      }).then((response) => {
+        commit('BRANDS', response.data)
+      }).catch((e) => {})
   },
   fetchAdvertisementsList({ commit }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
+      .$get(`/vendors/${payload.type}`, {
         params: {
           search_text: payload.search_text,
           page: payload.page,
@@ -195,26 +194,7 @@ export const actions = {
   },
   fetchDiscountsList({ commit }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type_value}`, {
-        params: {
-          search_text: payload.search_text,
-          page: payload.page,
-          orderBy: payload.orderBy,
-          sort: payload.sort,
-          perPage: payload.perPage,
-          per_page: payload.perPage,
-          product_id: payload.product_id,
-          type: payload.type,
-        },
-      })
-      .then((response) => {
-        commit("DISCOUNTS", response.data);
-      })
-      .catch((e) => {});
-  },
-  fetchDriversList({ commit }, payload) {
-    return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
+      .$get(`/vendors/${payload.type}`, {
         params: {
           search_text: payload.search_text,
           page: payload.page,
@@ -231,7 +211,7 @@ export const actions = {
   },
   fetchOrdersList({ commit }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
+      .$get(`/vendors/${payload.type_value}`, {
         params: {
           search_text: payload.search_text,
           page: payload.page,
@@ -248,7 +228,7 @@ export const actions = {
   },
   fetchUsersList({ commit }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
+      .$get(`/vendors/${payload.type}`, {
         params: {
           search_text: payload.search_text,
           page: payload.page,
@@ -267,7 +247,7 @@ export const actions = {
   },
   fetchMarketsList({ commit }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
+      .$get(`/vendors/${payload.type}`, {
         params: {
           search_text: payload.search_text,
           page: payload.page,
@@ -284,7 +264,7 @@ export const actions = {
   },
   fetchSuggestionsList({ commit }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
+      .$get(`/vendors/${payload.type}`, {
         params: {
           search_text: payload.search_text,
           page: payload.page,
@@ -299,26 +279,26 @@ export const actions = {
       })
       .catch((e) => {});
   },
-  fetchVendorsList({ commit }, payload) {
+  fetchMarketsList ({
+    commit
+  }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
+      .$get(`/vendors/${payload.type}`, {
         params: {
           search_text: payload.search_text,
           page: payload.page,
           orderBy: payload.orderBy,
           sort: payload.sort,
           perPage: payload.perPage,
-          per_page: payload.perPage,
-        },
-      })
-      .then((response) => {
-        commit("VENDORS", response.data);
-      })
-      .catch((e) => {});
+          per_page: payload.perPage
+        }
+      }).then((response) => {
+        commit('MARKETS', response.data)
+      }).catch((e) => {})
   },
   fetchBrandsList({ commit }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
+      .$get(`/vendors/${payload.type}`, {
         params: {
           search_text: payload.search_text,
           page: payload.page,
@@ -335,17 +315,22 @@ export const actions = {
   },
   showDetails({ commit }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type}/${payload.id}`)
-      .then((response) => {
-        commit("DETAILS", response.data);
-      })
-      .catch((e) => {});
+      .$get(`/vendors/${payload.type}/${payload.id}`).then((response) => {
+        commit('DETAILS', response.data)
+      }).catch((e) => {})
   },
   login({ commit }, payload) {
     return this.$axios
-      .$post("/dashboard/accounts/login", payload.formData)
-      .then((response) => {
-        commit("LOGIN", response.data);
+      .$post('/vendorss/accounts/login', payload.formData).then((response) => {
+        commit('LOGIN', response.data)
+      }).catch((e) => {})
+  },
+  fetchProfile ({
+    commit
+  }, payload) {
+    return this.$axios
+      .$get(`/vendors/accounts/${payload.type}`).then((response) => {
+        commit("PROFILE", response.data);
       })
       .catch((e) => {});
   },

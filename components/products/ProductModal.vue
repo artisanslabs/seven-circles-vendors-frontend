@@ -35,7 +35,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>الصنف الرئيسي</span>
-                <!-- <span class="red-color">{{ $t("v.star") }}</span> -->
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <!-- <v-combobox
                 v-model="form.category"
@@ -49,17 +49,16 @@
                 dense
                 clearable
                 @change="fetchSubcategories"
-              /> -->
-              <p>{{ form.category ? form.category.name : "" }}</p>
+              />
             </v-col>
 
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>الصنف الفرعي</span>
-                <!-- <span class="red-color">{{ $t("v.star") }}</span> -->
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
-              <!-- <v-combobox
-                v-model="form.subcategory"
+              <v-combobox
+                v-model="form.sub_category"
                 placeholder="اختر الصنف الفرعي"
                 :items="subcategories"
                 item-text="name"
@@ -70,16 +69,15 @@
                 dense
                 clearable
                 :disabled="!form.category"
-              /> -->
-              <p>{{ form.subcategory ? form.subcategory.name : "" }}</p>
+              />
             </v-col>
 
-            <v-col cols="12" sm="4">
+            <v-col cols="8" sm="4">
               <div class="text-start mb-2">
                 <span>الوزن</span>
-                <!-- <span class="red-color">{{ $t("v.star") }}</span> -->
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
-              <!-- <v-text-field
+              <v-text-field
                 v-model="form.weight"
                 placeholder="أدخل وزن المنتج"
                 type="number"
@@ -89,11 +87,10 @@
                 outlined
                 dense
                 required
-              /> -->
-              <p>{{ form.weight }}</p>
+              />
             </v-col>
 
-            <v-col cols="12" sm="4">
+            <v-col cols="4" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t("products.unit") }}</span>
                 <!-- <span class="red-color">{{ $t("v.star") }}</span> -->
@@ -116,7 +113,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>سعر التكلفة</span>
-                <!-- <span class="red-color">{{ $t("v.star") }}</span> -->
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <!-- <v-text-field
                 v-model="form.price"
@@ -210,6 +207,7 @@
                 <v-date-picker
                   v-model="form.production_date"
                   locale="ar"
+                  :min="today"
                   @input="production_date = false"
                 />
               </v-menu> -->
@@ -251,7 +249,7 @@
               </v-menu> -->
             </v-col>
 
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="3">
               <div class="text-start mb-2">
                 <span>{{ $t("products.qty") }}</span>
                 <!-- <span class="red-color">{{ $t("v.star") }}</span> -->
@@ -270,14 +268,12 @@
               /> -->
             </v-col>
 
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="3">
               <div class="text-start mb-2">
                 <span>أقصى كمية لكل عميل</span>
               </div>
-              <p>{{ form.notify_quantity }}</p>
-
-              <!-- <v-text-field
-                v-model="form.notify_quantity"
+              <v-text-field
+                v-model="form.max_items_per_user"
                 placeholder="كم أقصى كمية لكل عميل"
                 type="number"
                 hide-spin-buttons
@@ -287,13 +283,11 @@
               /> -->
             </v-col>
 
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="3">
               <div class="text-start mb-2">
                 <span>رمز gtin</span>
               </div>
-              <p>{{ form.gtin }}</p>
-
-              <!-- <v-text-field
+              <v-text-field
                 v-model="form.gtin"
                 placeholder="ادخل رمز gtin"
                 type="number"
@@ -302,26 +296,26 @@
                 outlined
                 dense
                 required
-              /> -->
+              />
             </v-col>
 
-            <v-col cols="12" sm="8">
+            <v-col cols="12" sm="3">
               <div class="text-start mb-2">
                 <span>رمز التخزين sku</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
-              <p>{{ form.sku }}</p>
-
-              <!-- <v-text-field
+              <v-text-field
                 v-model="form.sku"
+                :rules="[requiredRules]"
                 placeholder="ادخل رمز التخزين sku"
-                type="number"
+                type="text"
                 hide-spin-buttons
                 validate-on-blur
                 outlined
                 dense
                 min="10"
                 max="20"
-              /> -->
+              />
             </v-col>
 
             <v-col cols="12" sm="4">
@@ -365,75 +359,91 @@
               </v-radio-group>
             </v-col>
 
-            <v-col cols="12">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>{{ $t("products.main_image") }}</span>
-                <!-- <span class="red-color">{{ $t("v.star") }}</span> -->
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
-              <!-- <v-file-input
-                v-model="form.image"
+              <v-file-input
+                v-model="form.images"
                 placeholder="صور المنتج"
                 :rules="[requiredRules]"
                 outlined
                 dense
+                multiple
                 append-icon="mdi-file-image"
-              /> -->
-              <v-card>
-                <img
-                  :src="imagePreview"
-                  alt="Product Image"
-                  v-if="imagePreview"
-                  height="80"
-                  class="grey darken-4"
-                />
-              </v-card>
+                @change="onFileChange"
+              />
             </v-col>
 
-            <!-- <v-col cols="12" sm="2">
-              <v-card>
-                <img :src="imagePreview" alt="Product Image" v-if="imagePreview" height="80" class="grey darken-4" />
-              </v-card>
-            </v-col> -->
+            <v-col cols="12" sm="6" class="mb-5">
+              <v-row>
+                <v-col
+                  v-for="(image, index) in imageUrls"
+                  :key="index"
+                  cols="6"
+                  sm="4"
+                >
+                  <v-card>
+                    <v-img
+                      :src="image"
+                      class="white--text align-end mt-3"
+                      gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                      height="200px"
+                    >
+                      <v-card-title> صورة {{ index + 1 }} </v-card-title>
+                      <v-btn
+                        icon
+                        small
+                        class="close-btn"
+                        @click="removeImage(index)"
+                      >
+                        <v-icon>mdi-close</v-icon>
+                      </v-btn>
+                    </v-img>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-col>
 
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>رابط مقطع فيديو</span>
               </div>
-              <p>{{ form.video }}</p>
-
-              <!-- <v-text-field
+              <v-text-field
                 v-model="form.video"
                 placeholder="ادخل رابط مقطع الفيديو"
                 type="text"
                 outlined
                 dense
-              /> -->
+              />
             </v-col>
 
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="6">
               <div class="text-start mb-2">
                 <span>الماركة التجارية</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
-              <p>{{ form.brand }}</p>
-              <!-- <v-combobox
+
+              <v-combobox
                 v-model="form.brand"
                 placeholder="اختر الماركة التجارية"
+                :rules="[requiredRules]"
                 :items="brands"
                 item-text="name"
                 item-value="id"
                 outlined
                 dense
                 clearable
-              /> -->
+              />
             </v-col>
 
             <v-col cols="12" sm="2">
               <div class="text-start mb-2">
                 <span>لون المنتج</span>
               </div>
-              <p>{{ form.colors }}</p>
 
-              <!-- <v-row v-if="form.colors" class="my-2">
+              <v-row v-if="form.colors && form.colors.length" class="my-2">
                 <v-col
                   v-for="(color, index) in form.colors"
                   :key="index"
@@ -442,18 +452,17 @@
                 >
                   <v-chip
                     close
-                    @click:close="removeColor(index)"
-                    :color="color.hex"
+                    :color="color"
                     text-color="white"
+                    @click:close="removeColor(index)"
                   >
-                    {{ color.hex }}
+                    {{ color }}
                   </v-chip>
                 </v-col>
               </v-row>
 
               <v-color-picker
                 v-model="newColor"
-                multiple
                 hide-inputs
                 validate-on-blur
                 outlined
@@ -463,7 +472,7 @@
                 show-swatches
                 style="max-width: 100% !important"
                 @input="addColor"
-              ></v-color-picker> -->
+              />
             </v-col>
 
             <v-col cols="12">
@@ -521,13 +530,13 @@ export default {
         return [];
       },
     },
-    categories: {
+    brands: {
       type: Array,
       default: () => {
         return [];
       },
     },
-    brands: {
+    categories: {
       type: Array,
       default: () => {
         return [];
@@ -536,16 +545,18 @@ export default {
   },
   data() {
     return {
-      imagePreview: null,
-      medias: [],
+      images: [],
+      imageUrls: [],
       expiration_date: false,
       production_date: false,
       sale_end: false,
       showModal: false,
+      today: new Date().toISOString().split("T")[0],
       clickedBtn: "cancel",
       loading: false,
       form: {
         colors: [],
+        images: [],
       },
       oldForm: {},
       newColor: null,
@@ -585,13 +596,44 @@ export default {
     },
     product() {
       if (this.title !== "add product") {
-        this.form = { ...this.product };
-        this.form.category = this.product.category;
-        this.form.unit = this.product.unit;
-        this.oldForm = { ...this.product };
-        this.oldForm.category = this.product.category;
+        // Create a deep copy of the product to avoid mutating the store
+        const productCopy = JSON.parse(JSON.stringify(this.product));
+
+        this.form = { ...productCopy };
+        this.form.category = productCopy.category;
+        this.form.unit = productCopy.unit;
+        this.form.sub_category = productCopy.sub_category;
+        this.form.price = productCopy.price / productCopy.quantity;
+        this.form.status = productCopy.status ? 1 : 0;
+        this.form.requires_shipping = productCopy.requires_shipping ? 1 : 0;
+        this.form.is_taxable = productCopy.is_taxable ? 1 : 0;
+
+        this.oldForm = { ...productCopy };
+        this.oldForm.category = productCopy.category;
+
+        // Initialize colors array
+        if (productCopy.colors) {
+          this.form.colors = Array.isArray(productCopy.colors)
+            ? [...productCopy.colors]
+            : [productCopy.colors];
+        } else {
+          this.form.colors = [];
+        }
+
+        // Initialize images array
+        if (productCopy.media) {
+          this.form.images = Array.isArray(productCopy.media)
+            ? [...productCopy.media]
+            : [productCopy.media];
+        } else {
+          this.form.images = [];
+        }
+
+        this.imageUrls = productCopy.media.map((m) => m.url);
       } else {
         this.form.colors = [];
+        this.form.images = [];
+        this.imageUrls = [];
       }
     },
     'form.image'(newImage) {
@@ -612,24 +654,39 @@ export default {
           if (
             this.form[key] !== this.oldForm[key] &&
             key !== "unit" &&
-            key !== "image" &&
-            key !== "category"
+            key !== "brand" &&
+            key !== "images" &&
+            key !== "category" &&
+            key !== "sub_category" &&
+            key !== "colors"
           ) {
             formData.append(key, this.form[key]);
           }
         }
 
-        // for (const key in this.images) {
-        //   formData.append(`media[${key}]`, this.images[key]);
-        // }
-        formData.append(`media[]`, this.form.image);
+        // Handle images properly
+        if (this.form.images && this.form.images.length > 0) {
+          // If images are File objects (new uploads)
+          if (this.form.images[0] instanceof File) {
+            this.form.images.forEach((file, index) => {
+              formData.append(`images[${index}]`, file);
+            });
+          } else if (typeof this.form.images[0] === "string") {
+            this.form.images.forEach((url, index) => {
+              formData.append(`images[${index}]`, url);
+            });
+          }
+        }
 
-        formData.append("unit_id", this.form.unit.id);
+        formData.append("product_unit_id", this.form.unit.id);
         formData.append("category_id", this.form.category.id);
-        formData.append(
-          "wholesale_price",
-          this.form.price * this.form.quantity
-        );
+        formData.append("sub_category_id", this.form.sub_category.id);
+        formData.append("brand_id", this.form.brand.id);
+        formData.append("price", this.form.price * this.form.quantity);
+
+        for (const key in this.form.colors) {
+          formData.append(`colors[${key}]`, this.form.colors[key]);
+        }
 
         const payload = { formData, type: "products" };
         let action = "create";
@@ -653,11 +710,18 @@ export default {
 
     resetForm() {
       this.$refs.form.reset();
+      this.imageUrls = [];
     },
 
     addColor() {
-      if (this.form.colors) {
-        this.form.colors.push(this.newColor);
+      if (this.newColor && this.newColor.hex) {
+        if (!this.form.colors) {
+          this.form.colors = [];
+        }
+        // Check if color already exists
+        if (!this.form.colors.includes(this.newColor.hex)) {
+          this.form.colors.push(this.newColor.hex);
+        }
       }
       this.newColor = null;
     },
@@ -672,6 +736,22 @@ export default {
           category_id: category ? category.id : "",
         })
         .then(() => {});
+    },
+
+    onFileChange(files) {
+      if (files) {
+        this.form.images = files;
+        this.imageUrls = files.map((file) => URL.createObjectURL(file));
+      }
+    },
+
+    removeImage(index) {
+      this.form.images.splice(index, 1);
+      this.imageUrls.splice(index, 1);
+    },
+
+    getFileNameFromUrl(url) {
+      return url.substring(url.lastIndexOf("/") + 1);
     },
   },
 };

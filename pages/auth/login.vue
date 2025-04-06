@@ -14,7 +14,7 @@
               height="140"
               alt="Overleck Logo"
               class="mx-auto avatar"
-            >
+            />
           </div>
           <div class="d-sm-flex d-none">
             <div class="vertical" />
@@ -24,14 +24,14 @@
         <v-col cols="6">
           <div class="px-5 px-sm-10 pb-8 form">
             <h3 class="mt-12 mb-6 title-color">
-              {{ $t('v.login_to_control_panel') }}
+              {{ $t("v.login_to_control_panel") }}
             </h3>
             <v-form ref="form" lazy-validation>
               <div class="text-start mb-2">
                 <span class="black-color label">{{
-                  $t('register.email')
+                  $t("register.email")
                 }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-text-field
                 v-model="form.email"
@@ -47,9 +47,9 @@
               />
               <div class="text-start mb-2">
                 <span class="black-color label">{{
-                  $t('register.password')
+                  $t("register.password")
                 }}</span>
-                <span class="red-color">{{ $t('v.star') }}</span>
+                <span class="red-color">{{ $t("v.star") }}</span>
               </div>
               <v-text-field
                 v-model="form.password"
@@ -64,7 +64,7 @@
                 @blur="() => $refs.form.resetValidation()"
               />
               <v-btn :loading="loading" class="mt-6 login-btn" @click="login">
-                {{ $t('register.login') }}
+                {{ $t("register.login") }}
               </v-btn>
             </v-form>
           </div>
@@ -76,69 +76,70 @@
 <script>
 // import GlobalServices from '~/services/global.js'
 export default {
-  name: 'LoginPage',
-  layout: 'pages',
-  data () {
+  name: "LoginPage",
+  layout: "pages",
+  data() {
     return {
       form: {
-        email: '',
-        password: ''
+        email: "",
+        password: "",
       },
       loading: false,
       emailRules: [
-        v => !!v || this.$t('v.field_required'),
-        v =>
+        (v) => !!v || this.$t("v.field_required"),
+        (v) =>
           /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()\\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
             v
-          ) || `${this.$t('register.email')} ${this.$t('v.valid')}`
+          ) || `${this.$t("register.email")} ${this.$t("v.valid")}`,
       ],
       passwordRules: [
-        v => !!v || this.$t('v.field_required'),
-        v => v.length >= 6 || this.$t('v.password_length')
-      ]
-    }
+        (v) => !!v || this.$t("v.field_required"),
+        (v) => v.length >= 6 || this.$t("v.password_length"),
+      ],
+    };
   },
   head: {
-    title: 'تسجيل الدخول'
+    title: "تسجيل الدخول",
   },
   methods: {
-    async login () {
-      const valid = await this.$refs.form.validate()
+    async login() {
+      const valid = await this.$refs.form.validate();
       if (valid) {
-        this.loading = true
+        this.loading = true;
         await this.$auth
-          .loginWith('local', {
-            data: this.form
+          .loginWith("local", {
+            data: this.form,
           })
           .then((res) => {
-            this.setAlertData(res.data)
+            console.log("ddd", res);
+            this.setAlertData(res.data);
             // go to Home Page with update data
-            this.$router.push(this.localePath({ name: 'index' }))
+            this.$router.push(this.localePath({ name: "index" }));
           })
           .catch((e) => {
-            this.setAlertData(e.response.data)
-          })
-        this.loading = false
+            this.setAlertData(e.response.data);
+          });
+        this.loading = false;
       }
     },
-    checkEmail (value) {
-      if (value.includes('@')) {
+    checkEmail(value) {
+      if (value.includes("@")) {
         return /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()\\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
           value
-        )
+        );
       } else {
-        return value
+        return value;
       }
     },
-    isSupported () {
+    isSupported() {
       return (
-        'Notification' in window &&
-        'serviceWorker' in navigator &&
-        'PushManager' in window
-      )
-    }
-  }
-}
+        "Notification" in window &&
+        "serviceWorker" in navigator &&
+        "PushManager" in window
+      );
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

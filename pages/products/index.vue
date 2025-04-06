@@ -27,8 +27,8 @@
           :no-data-text="$t('v.no_data')"
           class="mx-auto mb-5 pa-4 table-style"
           hide-default-footer
-          @click:row="show"
         >
+          <!-- @click:row="show" -->
           <template #top>
             <div class="d-flex flex-wrap">
               <v-text-field
@@ -47,7 +47,7 @@
               />
               <v-combobox
                 v-model="selectedUnit"
-                :items="units"
+                :items="unitsList"
                 item-text="name"
                 item-value="id"
                 label="اختر الوحدة"
@@ -63,7 +63,7 @@
               />
               <v-combobox
                 v-model="selectedCategory"
-                :items="categoriesList"
+                :items="categories"
                 item-text="name"
                 item-value="id"
                 label="اختر الصنف"
@@ -101,13 +101,11 @@
           <template #[`item.unit`]="{ item }">
             <span>{{ item.unit.name }}</span>
           </template>
+          <template #[`item.price`]="{ item }">
+            <span>{{ item.price }} ر.س</span>
+          </template>
           <template #[`item.status`]="{ item }">
-            <v-chip
-              v-if="item.is_published"
-              class="ma-2"
-              color="success"
-              outlined
-            >
+            <v-chip v-if="item.status" class="ma-2" color="success" outlined>
               <v-icon left> mdi-checkbox-marked-circle-outline </v-icon>
               مفعل
             </v-chip>
@@ -125,7 +123,7 @@
                 @click.stop="openActivateDialogs(item)"
               />
               <v-btn tile icon @click.stop="handleEdit(item)">
-                <v-icon class="mt-6" size="20"> mdi-eye </v-icon>
+                <v-icon class="mt-6" size="20"> mdi-pencil </v-icon>
               </v-btn>
               <!-- <v-btn tile icon @click.stop="openDeleteDialogs(item)">
                 <v-icon class="mt-6" size="20">
@@ -167,7 +165,8 @@
       :dialog-visible="showModal"
       :title="modalTitle"
       :product="modalData"
-      :units="units"
+      :units="unitsList"
+      :brands="brandsList"
       :categories="categoriesList"
       @closeModal="isModalClosed"
     />
@@ -196,7 +195,6 @@ export default {
     return {
       selectedUnit: "",
       selectedCategory: "",
-      selectedStatus: "",
       perPage: false,
       item: {},
       activateItem: false,
@@ -209,10 +207,9 @@ export default {
       filters: {
         search_text: "",
         page: 1,
-        order_by: "",
+        orderBy: "",
         sort: "desc",
-        per_page: 10,
-        status: "",
+        perPage: 10,
       },
       statusList: [
         { id: 1, name: "مفعل" },
@@ -231,7 +228,7 @@ export default {
         },
         {
           text: this.$t("products.price"),
-          value: "retail_price",
+          value: "price",
           sortable: false,
         },
         {
@@ -261,8 +258,14 @@ export default {
     await store.dispatch("support/fetchCategoriesList", {
       type: "main",
     });
-    await store.dispatch("global/fetchUnitsList", {
+    await store.dispatch("support/fetchCategories", {
+      type: "categories",
+    });
+    await store.dispatch("support/fetchUnitsList", {
       type: "units",
+    });
+    await store.dispatch("support/fetchBrandsList", {
+      type: "brands",
     });
   },
   head: {
@@ -285,14 +288,23 @@ export default {
     units() {
       return this.$store.state.global.units.units;
     },
+    brands() {
+      return this.$store.state.global.brands.brands;
+    },
     categories() {
-      return this.$store.state.global.categories.categories;
+      return this.$store.state.support.categories;
     },
     categoriesFilter() {
       return this.$store.state.support.categories;
     },
     categoriesList() {
       return this.$store.state.support.categoriesList;
+    },
+    brandsList() {
+      return this.$store.state.support.brands;
+    },
+    unitsList() {
+      return this.$store.state.support.units;
     },
   },
   watch: {
@@ -345,26 +357,20 @@ export default {
       }
       this.showModal = false;
     },
-    show(item) {
-      this.$router.push(
-        this.localePath({
-          name: "products-id",
-          params: { id: item.id },
-        })
-      );
-    },
+    // show(item) {
+    //   this.$router.push(
+    //     this.localePath({
+    //       name: "products-id",
+    //       params: { id: item.id },
+    //     })
+    //   );
+    // },
     fetch(pageNum) {
-      console.log("this.selectedStatus", this.selectedStatus);
       this.loading = true;
       this.filters.page = pageNum || this.response.current_page;
       this.filters.unit_id = this.selectedUnit ? this.selectedUnit.id : "";
       this.filters.category_id = this.selectedCategory
         ? this.selectedCategory.id
-        : "";
-      this.filters.status = this.selectedStatus
-        ? this.selectedStatus.id
-          ? "true"
-          : "false"
         : "";
       this.filters.search_text = this.filters.search_text || "";
       this.filters.page = this.perPage
@@ -383,7 +389,7 @@ export default {
     sortTable() {
       const { sortBy, sortDesc } = this.options;
       if (sortBy.length === 1 && sortDesc.length === 1) {
-        this.filters.order_by = sortBy[0];
+        this.filters.orderBy = sortBy[0];
         this.filters.sort = sortDesc[0] ? "desc" : "asc";
         this.fetch();
       }

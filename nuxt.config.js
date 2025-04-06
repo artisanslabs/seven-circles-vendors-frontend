@@ -89,16 +89,16 @@ export default {
         },
         endpoints: {
           login: {
-            url: '/dashboard/accounts/login',
+            url: '/vendors/accounts/login',
             method: 'post',
             propertyName: 'data.token'
           },
           logout: {
-            url: '/dashboard/accounts/logout',
+            url: '/vendors/accounts/logout',
             method: 'get'
           },
           user: {
-            url: '/dashboard/accounts/me',
+            url: '/vendors/accounts/profile',
             method: 'get',
             propertyName: 'data'
           }

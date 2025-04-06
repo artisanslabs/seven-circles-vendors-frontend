@@ -1,6 +1,10 @@
 <template>
   <div class="d-flex justify-end update-info align-center">
-    <profile-modal :dialog-visible="showModal" :user="modalData" @closeModal="isModalClosed" />
+    <profile-modal
+      :dialog-visible="showModal"
+      :user="modalData"
+      @closeModal="isModalClosed"
+    />
     <v-menu
       offset-y
       transition="slide-y-transition"
@@ -8,15 +12,9 @@
       style="top: 57px; left: 185px"
     >
       <template #activator="{ on, attrs }">
-        <v-btn
-          text
-          v-bind="attrs"
-          color="#0F6D39"
-          class="me-n1"
-          v-on="on"
-        >
-          <!-- {{ user.full_name }} -->
-          <v-icon>
+        <v-btn text v-bind="attrs" color="#0F6D39" v-on="on">
+          {{ user.name }}
+          <v-icon class="ms-1">
             mdi-chevron-down
           </v-icon>
         </v-btn>
@@ -41,71 +39,71 @@
   </div>
 </template>
 <script>
-import GlobalServices from '~/services/global.js'
-import ProfileModal from '~/components/shared/ProfileModal.vue'
+import GlobalServices from "~/services/global.js";
+import ProfileModal from "~/components/shared/ProfileModal.vue";
 export default {
-  name: 'ProfileMenu',
+  name: "ProfileMenu",
   components: {
-    ProfileModal
+    ProfileModal,
   },
-  data () {
+  data() {
     return {
       showProfile: false,
       modalData: {},
-      showModal: false
-    }
+      showModal: false,
+    };
   },
   computed: {
-    loggedIn () {
-      return this.$auth.loggedIn
+    loggedIn() {
+      return this.$auth.loggedIn;
     },
-    user () {
-      return this.$auth.user
-    }
+    user() {
+      return this.$auth.user;
+    },
   },
   watch: {
-    '$i18n.locale': {
-      handler () {
-        this.$vuetify.rtl = this.$i18n.locale === 'ar'
-        this.setRreferencesLocale()
-        const body = document.body
-        this.$i18n.locale === 'ar'
-          ? body.classList.add('ar')
-          : body.classList.remove('ar')
-      }
-    }
+    "$i18n.locale": {
+      handler() {
+        this.$vuetify.rtl = this.$i18n.locale === "ar";
+        this.setRreferencesLocale();
+        const body = document.body;
+        this.$i18n.locale === "ar"
+          ? body.classList.add("ar")
+          : body.classList.remove("ar");
+      },
+    },
   },
-  created () {
+  created() {
     // eslint-disable-next-line nuxt/no-globals-in-created
-    const body = document.body
-    this.$i18n.locale === 'ar'
-      ? body.classList.add('ar')
-      : body.classList.remove('ar')
+    const body = document.body;
+    this.$i18n.locale === "ar"
+      ? body.classList.add("ar")
+      : body.classList.remove("ar");
   },
   methods: {
-    async logout () {
-      await this.$auth.logout()
+    async logout() {
+      await this.$auth.logout();
     },
-    setRreferencesLocale () {
+    setRreferencesLocale() {
       GlobalServices.setRreferencesLocale(this.$axios, {
-        locale: this.$i18n.locale
-      })
+        locale: this.$i18n.locale,
+      });
     },
-    handleEdit () {
-      this.showModal = true
-      this.modalData = { ...this.user }
+    handleEdit() {
+      this.showModal = true;
+      this.modalData = { ...this.user };
     },
-    isModalClosed (payload) {
-      if (payload.clickedBtn === 'save') {
-        this.fetch()
+    isModalClosed(payload) {
+      if (payload.clickedBtn === "save") {
+        this.fetch();
       }
-      this.showModal = false
-    }
-  }
-}
+      this.showModal = false;
+    },
+  },
+};
 </script>
 <style lang="scss">
-@import '~/assets/scss/_variables.scss';
+@import "~/assets/scss/_variables.scss";
 .profile-menu {
   .v-list-item {
     color: #000000 !important;

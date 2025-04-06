@@ -4,79 +4,111 @@ export const state = () => ({
   vehicles: [],
   categories: [],
   orders: [],
-  categoriesList: []
-})
+  categoriesList: [],
+  units: [],
+  brands: [],
+});
 export const mutations = {
-  CURRENCIES (state, payload) {
-    state.currencies = payload
+  CURRENCIES(state, payload) {
+    state.currencies = payload;
   },
-  PRODUCTS (state, payload) {
-    state.products = payload
+  PRODUCTS(state, payload) {
+    state.products = payload;
   },
-  VEHICLES (state, payload) {
-    state.vehicles = payload
+  VEHICLES(state, payload) {
+    state.vehicles = payload;
   },
-  CATEGORIES (state, payload) {
-    state.categories = payload
+  CATEGORIES(state, payload) {
+    state.categories = payload;
   },
-  CATEGORIESLIST (state, payload) {
-    state.categoriesList = payload
+  CATEGORIESLIST(state, payload) {
+    state.categoriesList = payload;
   },
-  ORDERS (state, payload) {
-    state.orders = payload
-  }
-}
+  UNITS(state, payload) {
+    state.units = payload;
+  },
+  ORDERS(state, payload) {
+    state.orders = payload;
+  },
+  BRANDS(state, payload) {
+    state.brands = payload;
+  },
+};
 export const actions = {
-  fetchProducts ({ commit }, payload) {
+  fetchProducts({ commit }, payload) {
     return this.$axios
-      .$get(`/support/lists/${payload.type}`, {}).then((response) => {
-        commit('PRODUCTS', response.data)
-      })
+      .$get(`/support/lists/${payload.type}`, {})
+      .then((response) => {
+        commit("PRODUCTS", response.data);
+      });
   },
-  fetchCurrencies ({ commit }, payload) {
+  fetchCurrencies({ commit }, payload) {
     return this.$axios
-      .$get(`/support/lists/${payload.type}`, {}).then((response) => {
-        commit('CURRENCIES', response.data)
-      })
+      .$get(`/support/lists/${payload.type}`, {})
+      .then((response) => {
+        commit("CURRENCIES", response.data);
+      });
   },
-  fetchEventTypes ({ commit }) {
+  fetchEventTypes({ commit }) {
     return this.$axios
-      .$get('/support/lists/event-types', {}).then((response) => {
-        commit('EVENTTYPES', response.data)
-      })
+      .$get("/support/lists/event-types", {})
+      .then((response) => {
+        commit("EVENTTYPES", response.data);
+      });
   },
-  fetchVehicles ({ commit }, payload) {
+  fetchVehicles({ commit }, payload) {
     return this.$axios
-      .$get(`/support/lists/${payload.type}`, {}).then((response) => {
-        commit('VEHICLES', response.data)
-      })
+      .$get(`/support/lists/${payload.type}`, {})
+      .then((response) => {
+        commit("VEHICLES", response.data);
+      });
   },
-  fetchCategories ({ commit }, payload) {
+  fetchCategories({ commit }, payload) {
     return this.$axios
-      .$get(`/support/lists/${payload.type}`, {}).then((response) => {
-        commit('CATEGORIES', response.data)
-      })
+      .$get(`/support/lists/${payload.type}`, {})
+      .then((response) => {
+        commit("CATEGORIES", response.data);
+      });
   },
-  fetchCategoriesList ({ commit }, payload) {
+  fetchCategoriesList({ commit }, payload) {
     return this.$axios
-      .$get(`/support/lists/categories/${payload.type}`, {}).then((response) => {
-        commit('CATEGORIESLIST', response.data)
-      })
+      .$get(`/support/lists/categories/${payload.type}`, {})
+      .then((response) => {
+        commit("CATEGORIESLIST", response.data);
+      });
   },
-  fetchSubCategoriesList ({ commit }, payload) {
+  fetchSubCategoriesList({ commit }, payload) {
     return this.$axios
       .$get(`/support/lists/categories`, {
         params: {
-          parent_id: payload.category_id
-        }
-      }).then((response) => {
-        commit('CATEGORIESLIST', response.data)
+          parent_id: payload.category_id,
+        },
       })
+      .then((response) => {
+        commit("CATEGORIESLIST", response.data);
+      });
   },
-  fetchOrders ({ commit }, payload) {
+  fetchUnitsList({ commit }, payload) {
     return this.$axios
-      .$get(`/support/lists/${payload.type}`, {}).then((response) => {
-        commit('ORDERS', response.data)
+      .$get(`/support/lists/units`, {
+        params: {
+          parent_id: payload.category_id,
+        },
       })
-  }
-}
+      .then((response) => {
+        commit("UNITS", response.data);
+      });
+  },
+  fetchOrders({ commit }, payload) {
+    return this.$axios
+      .$get(`/support/lists/${payload.type}`, {})
+      .then((response) => {
+        commit("ORDERS", response.data);
+      });
+  },
+  fetchBrandsList({ commit }, payload) {
+    return this.$axios.$get(`/support/lists/brands`, {}).then((response) => {
+      commit("BRANDS", response.data);
+    });
+  },
+};

@@ -75,24 +75,17 @@ export default {
     },
   },
   methods: {
-    async confirm() {
-      this.loading = true;
-      const formData = new FormData();
-      formData.append("_method", "patch");
-      const payload = {
-        id: this.item.id,
-        statusType: this.item.is_published ? "un-publish" : "publish",
-        formData,
-        type: "products",
-      };
-      await GlobalServices.updateStatus(this.$axios, payload).then(
-        (resData) => {
-          this.$emit("fecthData", { value: true });
-          this.setAlertDataGlobal(resData);
-          this.showAlert = false;
-        }
-      );
-      this.loading = false;
+    async confirm () {
+      this.loading = true
+      const formData = new FormData()
+      formData.append('_method', 'patch')
+      const payload = { id: this.item.id, statusType: this.item.status ? 'publish' : 'un-publish', formData, type: 'products' }
+      await GlobalServices.updateStatus(this.$axios, payload).then((resData) => {
+        this.$emit('fecthData', { value: true })
+        this.setAlertDataGlobal(resData)
+        this.showAlert = false
+      })
+      this.loading = false
     },
     cancel() {
       this.showAlert = false;
