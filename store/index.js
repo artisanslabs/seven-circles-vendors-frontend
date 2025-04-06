@@ -23,7 +23,7 @@ export const actions = {
     commit
   }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type}`, {
+      .$get(`/vendors/${payload.type}`, {
         params: {
           search_text: payload.search_text,
           page: payload.page,
@@ -40,7 +40,7 @@ export const actions = {
     commit
   }, payload) {
     return this.$axios
-      .$get(`/dashboard/${payload.type}/${payload.id}`).then((response) => {
+      .$get(`/vendors/${payload.type}/${payload.id}`).then((response) => {
         commit('DETAILS', response.data)
       }).catch((e) => {})
   }

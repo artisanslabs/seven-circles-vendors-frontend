@@ -71,7 +71,7 @@ export default {
       this.loading = true
       const formData = new FormData()
       formData.append('_method', 'patch')
-      const payload = { id: this.item.id, statusType: this.item.status ? 'activate' : 'deactivate', formData, type: 'products' }
+      const payload = { id: this.item.id, statusType: this.item.status ? 'publish' : 'un-publish', formData, type: 'products' }
       await GlobalServices.updateStatus(this.$axios, payload).then((resData) => {
         this.$emit('fecthData', { value: true })
         this.setAlertDataGlobal(resData)

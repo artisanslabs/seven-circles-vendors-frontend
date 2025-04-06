@@ -7,16 +7,19 @@
         "admins": "المشرفون",
         "notifications": "الإشعارات",
         "cities": "المدن",
+        "brands": "الماركات التجارية",
         "products": "المنتجات",
         "customers": "العملاء",
         "orders": "الطلبات",
         "countries": "الدول",
-        "categories": "الأصناف",
+        "categories": "الأصناف الرئيسية",
+        "subCategories": "الأصناف الفرعية",
         "units": "الوحدات",
         "drivers": "السائقين",
         "vehicles": "المركبات",
         "cutbacks": "التخفيضات",
-        "suggestions": "الشكاوي والمقترحات"
+        "suggestions": "الشكاوي والمقترحات",
+        "vendors": "الموردين"
     },
     "btn": {
         "save": "حفظ",
@@ -140,6 +143,12 @@
     "users": {
         "create": "إضافة مستخدم",
         "update": "تحديث بيانات مستخدم",
+        "age": "العمر",
+        "authority": "الصلاحية"
+    },
+    "vendors": {
+        "create": "إضافة مورد",
+        "update": "تحديث بيانات مورد",
         "age": "العمر",
         "authority": "الصلاحية"
     },

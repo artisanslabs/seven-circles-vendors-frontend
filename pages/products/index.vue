@@ -1,14 +1,11 @@
 <template>
   <div class="list">
     <v-row>
-      <v-col
-        cols="12"
-        class="mt-10"
-      >
+      <v-col cols="12" class="mt-10">
         <div class="d-flex justify-space-between">
           <div>
             <h1 class="second-font-color">
-              {{ $t('links.products') }}
+              {{ $t("links.products") }}
             </h1>
           </div>
           <v-btn class="add-btn" dark @click="handleCreate">
@@ -30,8 +27,8 @@
           :no-data-text="$t('v.no_data')"
           class="mx-auto mb-5 pa-4 table-style"
           hide-default-footer
-          @click:row="show"
         >
+          <!-- @click:row="show" -->
           <template #top>
             <div class="d-flex flex-wrap">
               <v-text-field
@@ -50,7 +47,7 @@
               />
               <v-combobox
                 v-model="selectedUnit"
-                :items="units"
+                :items="unitsList"
                 item-text="name"
                 item-value="id"
                 label="اختر الوحدة"
@@ -66,7 +63,7 @@
               />
               <v-combobox
                 v-model="selectedCategory"
-                :items="categoriesFilter"
+                :items="categories"
                 item-text="name"
                 item-value="id"
                 label="اختر الصنف"
@@ -88,27 +85,16 @@
           <template #[`item.unit`]="{ item }">
             <span>{{ item.unit.name }}</span>
           </template>
+          <template #[`item.price`]="{ item }">
+            <span>{{ item.price }} ر.س</span>
+          </template>
           <template #[`item.status`]="{ item }">
-            <v-chip
-              v-if="item.status"
-              class="ma-2"
-              color="success"
-              outlined
-            >
-              <v-icon left>
-                mdi-checkbox-marked-circle-outline
-              </v-icon>
+            <v-chip v-if="item.status" class="ma-2" color="success" outlined>
+              <v-icon left> mdi-checkbox-marked-circle-outline </v-icon>
               مفعل
             </v-chip>
-            <v-chip
-              v-else
-              class="ma-2"
-              color="error"
-              outlined
-            >
-              <v-icon left>
-                mdi-alert-circle-outline
-              </v-icon>
+            <v-chip v-else class="ma-2" color="error" outlined>
+              <v-icon left> mdi-alert-circle-outline </v-icon>
               غير مفعل
             </v-chip>
           </template>
@@ -121,9 +107,7 @@
                 @click.stop="openActivateDialogs(item)"
               />
               <v-btn tile icon @click.stop="handleEdit(item)">
-                <v-icon class="mt-6" size="20">
-                  mdi-pencil
-                </v-icon>
+                <v-icon class="mt-6" size="20"> mdi-pencil </v-icon>
               </v-btn>
               <!-- <v-btn tile icon @click.stop="openDeleteDialogs(item)">
                 <v-icon class="mt-6" size="20">
@@ -145,15 +129,17 @@
           </v-col>
           <v-col cols="6" class="d-flex justify-start">
             <div class="d-flex justify-center mt-2 pagination-row">
-              <small class="font-style">{{ $t('v.no_of_rows') }} : </small>
+              <small class="font-style">{{ $t("v.no_of_rows") }} : </small>
               <v-select
                 v-model="filters.perPage"
                 :items="[10, 15, 20, 30]"
                 :class="$vuetify.rtl ? 'show-pages' : 'show-pages-en'"
                 @change="changePerPage"
               />
-              <small class="font-style">{{ tableData.length }} {{ $t('v.of') }}
-                {{ response.total }}</small>
+              <small class="font-style"
+                >{{ tableData.length }} {{ $t("v.of") }}
+                {{ response.total }}</small
+              >
             </div>
           </v-col>
         </v-row>
@@ -161,12 +147,11 @@
     </v-row>
     <product-modal
       :dialog-visible="showModal"
-      :countries="countries"
       :title="modalTitle"
       :product="modalData"
-      :units="units"
-      :categories="categories"
-      :currencies="currencies"
+      :units="unitsList"
+      :brands="brandsList"
+      :categories="categoriesList"
       @closeModal="isModalClosed"
     />
     <delete-alert
@@ -183,17 +168,17 @@
   </div>
 </template>
 <script>
-import ProductModal from '~/components/products/ProductModal.vue'
-import ActivateDialog from '~/components/products/ConfirmActivate.vue'
-import DeleteAlert from '~/components/shared/DeleteAlert.vue'
-import GlobalServices from '~/services/global'
+import ProductModal from "~/components/products/ProductModal.vue";
+import ActivateDialog from "~/components/products/ConfirmActivate.vue";
+import DeleteAlert from "~/components/shared/DeleteAlert.vue";
+import GlobalServices from "~/services/global";
 export default {
-  name: 'ProductsPage',
+  name: "ProductsPage",
   components: { ProductModal, DeleteAlert, ActivateDialog },
-  data () {
+  data() {
     return {
-      selectedUnit: '',
-      selectedCategory: '',
+      selectedUnit: "",
+      selectedCategory: "",
       perPage: false,
       item: {},
       activateItem: false,
@@ -201,191 +186,204 @@ export default {
       openDeleteDialog: false,
       showModal: false,
       loading: false,
-      modalTitle: '',
+      modalTitle: "",
       modalData: {},
       filters: {
-        search_text: '',
+        search_text: "",
         page: 1,
-        orderBy: '',
-        sort: 'desc',
-        perPage: 10
+        orderBy: "",
+        sort: "desc",
+        perPage: 10,
       },
       headers: [
         {
-          text: this.$t('v.name'),
+          text: this.$t("v.name"),
           sortable: true,
-          value: 'name'
+          value: "name",
         },
         {
-          text: this.$t('products.category'),
-          value: 'category',
-          sortable: false
+          text: this.$t("products.category"),
+          value: "category",
+          sortable: false,
         },
         {
-          text: this.$t('products.price'),
-          value: 'retail_price',
-          sortable: false
+          text: this.$t("products.price"),
+          value: "price",
+          sortable: false,
         },
         {
-          text: this.$t('products.qty'),
-          value: 'quantity',
-          sortable: false
+          text: this.$t("products.qty"),
+          value: "quantity",
+          sortable: false,
         },
         {
-          text: 'الوحدة',
-          value: 'unit',
-          sortable: false
+          text: "الوحدة",
+          value: "unit",
+          sortable: false,
         },
         {
-          text: 'الحالة',
-          value: 'status',
-          sortable: false
+          text: "الحالة",
+          value: "status",
+          sortable: false,
         },
-        { text: '', value: 'actions', sortable: false }
+        { text: "", value: "actions", sortable: false },
       ],
-      options: {}
-    }
+      options: {},
+    };
   },
-  async fetch ({ store, params }) {
-    await store.dispatch('global/fetchProductsList', {
-      type: 'products'
-    })
-    await store.dispatch('support/fetchCategories', {
-      type: 'categories'
-    })
-    await store.dispatch('support/fetchCountries', {
-      type: 'countries'
-    })
-    await store.dispatch('support/fetchCurrencies', {
-      type: 'currencies'
-    })
-    await store.dispatch('global/fetchUnitsList', {
-      type: 'units'
-    })
-    await store.dispatch('global/fetchCategoriesList', {
-      type: 'categories'
-    })
+  async fetch({ store, params }) {
+    await store.dispatch("global/fetchProductsList", {
+      type: "products",
+    });
+    await store.dispatch("support/fetchCategoriesList", {
+      type: "main",
+    });
+    await store.dispatch("support/fetchCategories", {
+      type: "categories",
+    });
+    await store.dispatch("support/fetchUnitsList", {
+      type: "units",
+    });
+    await store.dispatch("support/fetchBrandsList", {
+      type: "brands",
+    });
   },
   head: {
-    title: 'المنتجات'
+    title: "المنتجات",
   },
   computed: {
-    response () {
-      return { ...this.$store.state.global.products }
+    response() {
+      return { ...this.$store.state.global.products };
     },
-    tableData () {
+    tableData() {
       // return [...this.response.products]
-      const arr = []
+      const arr = [];
       if (this.response.products) {
         this.response.products.forEach((e) => {
-          arr.push({ ...e })
-        })
+          arr.push({ ...e });
+        });
       }
-      return arr
+      return arr;
     },
-    countries () {
-      return this.$store.state.support.countries
+    units() {
+      return this.$store.state.global.units.units;
     },
-    currencies () {
-      return this.$store.state.support.currencies
+    brands() {
+      return this.$store.state.global.brands.brands;
     },
-    units () {
-      return this.$store.state.global.units.units
+    categories() {
+      return this.$store.state.support.categories;
     },
-    categories () {
-      return this.$store.state.global.categories.categories
+    categoriesFilter() {
+      return this.$store.state.support.categories;
     },
-    categoriesFilter () {
-      return this.$store.state.support.categories
-    }
+    categoriesList() {
+      return this.$store.state.support.categoriesList;
+    },
+    brandsList() {
+      return this.$store.state.support.brands;
+    },
+    unitsList() {
+      return this.$store.state.support.units;
+    },
   },
   watch: {
     options: {
-      handler () {
-        this.sortTable()
+      handler() {
+        this.sortTable();
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   methods: {
-    handleCreate () {
-      this.showModal = true
-      this.modalTitle = 'add product'
+    handleCreate() {
+      this.showModal = true;
+      this.modalTitle = "add product";
     },
-    handleEdit (item) {
-      this.showModal = true
-      this.modalTitle = 'edit product'
-      this.modalData = { ...item }
+    handleEdit(item) {
+      this.showModal = true;
+      this.modalTitle = "edit product";
+      this.modalData = { ...item };
     },
-    async handleDelete (payload) {
+    async handleDelete(payload) {
       if (payload.value) {
-        await GlobalServices.delete(this.$axios, { id: this.$route.params.id, item_id: this.deletedItem.id, type: 'products' }).then((resData) => {
+        await GlobalServices.delete(this.$axios, {
+          id: this.$route.params.id,
+          item_id: this.deletedItem.id,
+          type: "products",
+        }).then((resData) => {
           if (resData.success) {
-            this.fetch()
+            this.fetch();
           }
-          this.openDeleteDialog = false
-          this.setAlertDataGlobal(resData)
-        })
+          this.openDeleteDialog = false;
+          this.setAlertDataGlobal(resData);
+        });
       } else {
-        this.openDeleteDialog = false
+        this.openDeleteDialog = false;
       }
     },
-    openDeleteDialogs (item = -1) {
-      this.multiItems = true
+    openDeleteDialogs(item = -1) {
+      this.multiItems = true;
       if (item !== -1) {
-        this.multiItems = false
-        this.deletedItem = item
-        this.selectedItems = []
+        this.multiItems = false;
+        this.deletedItem = item;
+        this.selectedItems = [];
       }
-      this.openDeleteDialog = true
+      this.openDeleteDialog = true;
     },
-    isModalClosed (payload) {
-      if (payload.clickedBtn === 'save') {
-        this.fetch()
+    isModalClosed(payload) {
+      if (payload.clickedBtn === "save") {
+        this.fetch();
       }
-      this.showModal = false
+      this.showModal = false;
     },
-    show (item) {
-      this.$router.push(
-        this.localePath({
-          name: 'products-id',
-          params: { id: item.id }
-        })
-      )
-    },
-    fetch (pageNum) {
-      this.loading = true
-      this.filters.page = pageNum || this.response.current_page
-      this.filters.unit_id = this.selectedUnit ? this.selectedUnit.id : ''
-      this.filters.category_id = this.selectedCategory ? this.selectedCategory.id : ''
-      this.filters.search_text = this.filters.search_text || ''
+    // show(item) {
+    //   this.$router.push(
+    //     this.localePath({
+    //       name: "products-id",
+    //       params: { id: item.id },
+    //     })
+    //   );
+    // },
+    fetch(pageNum) {
+      this.loading = true;
+      this.filters.page = pageNum || this.response.current_page;
+      this.filters.unit_id = this.selectedUnit ? this.selectedUnit.id : "";
+      this.filters.category_id = this.selectedCategory
+        ? this.selectedCategory.id
+        : "";
+      this.filters.search_text = this.filters.search_text || "";
       this.filters.page = this.perPage
         ? (this.filters.page = 1)
-        : this.filters.page
-      this.$store.dispatch('global/fetchProductsList', { type: 'products', ...this.filters }).then(() => {
-        this.loading = false
-        this.perPage = false
-      })
+        : this.filters.page;
+      this.$store
+        .dispatch("global/fetchProductsList", {
+          type: "products",
+          ...this.filters,
+        })
+        .then(() => {
+          this.loading = false;
+          this.perPage = false;
+        });
     },
-    sortTable () {
-      const { sortBy, sortDesc } = this.options
+    sortTable() {
+      const { sortBy, sortDesc } = this.options;
       if (sortBy.length === 1 && sortDesc.length === 1) {
-        this.filters.orderBy = sortBy[0]
-        this.filters.sort = sortDesc[0] ? 'desc' : 'asc'
-        this.fetch()
+        this.filters.orderBy = sortBy[0];
+        this.filters.sort = sortDesc[0] ? "desc" : "asc";
+        this.fetch();
       }
     },
-    changePerPage (val) {
-      this.perPage = true
-      this.fetch(val)
+    changePerPage(val) {
+      this.perPage = true;
+      this.fetch(val);
     },
-    openActivateDialogs (item) {
-      this.item = item
-      this.activateItem = true
-    }
-  }
-}
+    openActivateDialogs(item) {
+      this.item = item;
+      this.activateItem = true;
+    },
+  },
+};
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
