@@ -3,7 +3,8 @@
     <v-card class="text-center px-8 py-4 modal-card">
       <div class="flex-between">
         <h2 class="text-start fs-20 title-color">
-          {{ pageTitle }}
+          <!-- {{ pageTitle }} -->
+          تفاصيل المنتج
         </h2>
         <v-btn icon dark class="close-dialog-icon" @click="showModal = false">
           <v-icon>mdi-close</v-icon>
@@ -15,18 +16,20 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t("v.name") }}</span>
-                <span class="red-color">{{ $t("v.star") }}</span>
+                <!-- <span class="red-color">{{ $t("v.star") }}</span> -->
               </div>
-              <v-text-field
+              <!-- <v-text-field
                 v-model="form.name"
                 placeholder="أدخل اسم المنتج"
                 type="text"
-                :rules="[requiredRules]"
-                validate-on-blur
+                :rules="[requiredRules, maxLength]"
+                :counter="255"
                 outlined
                 dense
                 required
-              />
+              /> -->
+
+              <p>{{ form.name }}</p>
             </v-col>
 
             <v-col cols="12" sm="4">
@@ -34,7 +37,7 @@
                 <span>الصنف الرئيسي</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
               </div>
-              <v-combobox
+              <!-- <v-combobox
                 v-model="form.category"
                 placeholder="اختر الصنف الرئيسي"
                 :items="categories"
@@ -90,9 +93,9 @@
             <v-col cols="4" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t("products.unit") }}</span>
-                <span class="red-color">{{ $t("v.star") }}</span>
+                <!-- <span class="red-color">{{ $t("v.star") }}</span> -->
               </div>
-              <v-combobox
+              <!-- <v-combobox
                 v-model="form.unit"
                 placeholder="اختر الوحدة"
                 :items="units"
@@ -103,7 +106,8 @@
                 outlined
                 dense
                 clearable
-              />
+              /> -->
+              <p>{{ form.unit ? form.unit.name : "" }}</p>
             </v-col>
 
             <v-col cols="12" sm="4">
@@ -111,7 +115,7 @@
                 <span>سعر التكلفة</span>
                 <span class="red-color">{{ $t("v.star") }}</span>
               </div>
-              <v-text-field
+              <!-- <v-text-field
                 v-model="form.price"
                 hide-spin-buttons
                 placeholder="أدخل سعر تكلفة المنتج"
@@ -121,14 +125,15 @@
                 outlined
                 dense
                 required
-              />
+              /> -->
+              <p>{{ form.price }}</p>
             </v-col>
 
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>السعر المخفض</span>
               </div>
-              <v-text-field
+              <!-- <v-text-field
                 v-model="form.sale_price"
                 hide-spin-buttons
                 placeholder="أدخل السعر المخفض"
@@ -136,14 +141,16 @@
                 validate-on-blur
                 outlined
                 dense
-              />
+              /> -->
+              <p>{{ form.sale_price }}</p>
             </v-col>
 
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>تاريخ نهاية التخفيض</span>
               </div>
-              <v-menu
+              <p>{{ form.sale_end }}</p>
+              <!-- <v-menu
                 v-model="sale_end"
                 :close-on-content-click="false"
                 :nudge-right="40"
@@ -168,16 +175,16 @@
                   locale="ar"
                   @input="sale_end = false"
                 />
-              </v-menu>
+              </v-menu> -->
             </v-col>
 
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t("products.production_date") }}</span>
-                <span class="red-color">{{ $t("v.star") }}</span>
+                <!-- <span class="red-color">{{ $t("v.star") }}</span> -->
               </div>
-
-              <v-menu
+              <p>{{ form.production_date }}</p>
+              <!-- <v-menu
                 v-model="production_date"
                 :close-on-content-click="false"
                 :nudge-right="40"
@@ -203,15 +210,16 @@
                   :min="today"
                   @input="production_date = false"
                 />
-              </v-menu>
+              </v-menu> -->
             </v-col>
 
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t("products.expiration_date") }}</span>
-                <span class="red-color">{{ $t("v.star") }}</span>
+                <!-- <span class="red-color">{{ $t("v.star") }}</span> -->
               </div>
-              <v-menu
+              <p>{{ form.expiration_date }}</p>
+              <!-- <v-menu
                 v-model="expiration_date"
                 :close-on-content-click="false"
                 :nudge-right="40"
@@ -238,15 +246,16 @@
                   :min="form.production_date"
                   @input="expiration_date = false"
                 />
-              </v-menu>
+              </v-menu> -->
             </v-col>
 
             <v-col cols="12" sm="3">
               <div class="text-start mb-2">
                 <span>{{ $t("products.qty") }}</span>
-                <span class="red-color">{{ $t("v.star") }}</span>
+                <!-- <span class="red-color">{{ $t("v.star") }}</span> -->
               </div>
-              <v-text-field
+              <p>{{ form.quantity }}</p>
+              <!-- <v-text-field
                 v-model="form.quantity"
                 placeholder="ادخل كمية المنتج"
                 type="number"
@@ -256,7 +265,7 @@
                 outlined
                 dense
                 required
-              />
+              /> -->
             </v-col>
 
             <v-col cols="12" sm="3">
@@ -271,7 +280,7 @@
                 validate-on-blur
                 outlined
                 dense
-              />
+              /> -->
             </v-col>
 
             <v-col cols="12" sm="3">
@@ -312,7 +321,7 @@
             <v-col cols="12" sm="4">
               <div class="text-start mb-2">
                 <span>{{ $t("products.appear_status") }}</span>
-                <span class="red-color">{{ $t("v.star") }}</span>
+                <!-- <span class="red-color">{{ $t("v.star") }}</span> -->
               </div>
               <v-radio-group v-model="form.status" row class="ms-n4">
                 <v-radio
@@ -429,7 +438,7 @@
               />
             </v-col>
 
-            <v-col cols="12">
+            <v-col cols="12" sm="2">
               <div class="text-start mb-2">
                 <span>لون المنتج</span>
               </div>
@@ -470,19 +479,22 @@
               <div class="text-start mb-2">
                 <span>{{ $t("products.details") }}</span>
               </div>
-              <v-textarea
+              <p>{{ form.description }}</p>
+              <!-- <v-textarea
                 v-model="form.description"
                 name="input-7-1"
+                :rules="[max1500Length]"
+                :counter="1500"
                 placeholder="ادخل تفاصيل المنتج"
                 outlined
                 dense
-              />
+              /> -->
             </v-col>
 
             <v-col cols="12" class="modal-btns mt-4 mb-6 d-flex justify-end">
-              <v-btn :loading="loading" class="py-6 px-10 mx-2" @click="submit">
+              <!-- <v-btn :loading="loading" class="py-6 px-10 mx-2" @click="submit">
                 {{ $t("btn.save") }}
-              </v-btn>
+              </v-btn> -->
               <v-btn class="py-6 px-10 cancel-btn" @click="showModal = false">
                 {{ $t("btn.cancel") }}
               </v-btn>
@@ -549,6 +561,13 @@ export default {
       oldForm: {},
       newColor: null,
       requiredRules: (v) => !!v || this.$t("v.field_required"),
+      minLength: v => (v ? v.length >= 3 || this.$t('v.text_min_length') : ''),
+      maxLength: v => (v ? v.length <= 255 || this.$t('v.text_max_length') : ''),
+      max1500Length: v => (v ? v.length <= 1500 || this.$t('v.text_max_1500_length') : ''),
+      min10Length: v => (v ? v.length >= 10 || this.$t('v.text_min_10_length') : ''),
+      max20Length: v => (v ? v.length <= 20 || this.$t('v.text_max_20_length') : ''),
+      min8Length: v => (v ? v.length >= 8 || this.$t('v.text_min_8_length') : ''),
+      max14Length: v => (v ? v.length <= 14 || this.$t('v.text_max_14_length') : ''),
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
@@ -617,6 +636,13 @@ export default {
         this.imageUrls = [];
       }
     },
+    'form.image'(newImage) {
+      if (newImage) {
+        this.imagePreview = URL.createObjectURL(newImage);
+      } else {
+        this.imagePreview = null;
+      }
+    }
   },
   methods: {
     async submit() {
@@ -732,12 +758,12 @@ export default {
 </script>
 
 <style lang="scss">
-.theme--light.v-file-input .v-file-input__text--placeholder {
-  color: rgb(132 151 173);
-  font-size: 12px;
-}
+  .theme--light.v-file-input .v-file-input__text--placeholder {
+    color: rgb(132 151 173);
+    font-size: 12px;
+  }
 
-.v-input--radio-group.v-input--radio-group--row .v-radio {
-  align-items: flex-start;
-}
+  .v-input--radio-group.v-input--radio-group--row .v-radio {
+    align-items: flex-start;
+  }
 </style>

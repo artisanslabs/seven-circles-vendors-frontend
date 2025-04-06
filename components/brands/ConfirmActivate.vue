@@ -7,24 +7,24 @@
       persistent
     >
       <v-card class="pa-5 activation-alert">
-        <div v-if="!item.is_published" class="text-center pt-6 mb-6">
-          <p class="mb-n4">تأكيد إعادة تفعيل المنتج ؟</p>
+        <div v-if="item.status" class="text-center pt-6 mb-6">
+          <p class="mb-n4">تأكيد إعادة تفعيل العلامة التجارية ؟</p>
           <br />
           <!-- <small class="note">
-            {{ $t('admins.active_label') }}
-          </small> -->
+              {{ $t('admins.active_label') }}
+            </small> -->
         </div>
         <div v-else class="text-center pt-6 mb-6">
-          <p class="mb-n4">تأكيد إلغاء تفعيل المنتج ؟</p>
+          <p class="mb-n4">تأكيد إلغاء تفعيل العلامة التجارية ؟</p>
           <br />
           <!-- <small class="note">
-            {{ $t('admins.deactive_label') }}
-          </small> -->
+              {{ $t('admins.deactive_label') }}
+            </small> -->
         </div>
         <v-card-actions class="action-btns">
           <v-spacer />
           <v-btn
-            :class="item.is_published ? 'deactive' : 'active'"
+            :class="item.status ? 'active' : 'deactive'"
             class="add-btn"
             :loading="loading"
             @click="confirm"
@@ -75,17 +75,24 @@ export default {
     },
   },
   methods: {
-    async confirm () {
-      this.loading = true
-      const formData = new FormData()
-      formData.append('_method', 'patch')
-      const payload = { id: this.item.id, statusType: this.item.status ? 'publish' : 'un-publish', formData, type: 'products' }
-      await GlobalServices.updateStatus(this.$axios, payload).then((resData) => {
-        this.$emit('fecthData', { value: true })
-        this.setAlertDataGlobal(resData)
-        this.showAlert = false
-      })
-      this.loading = false
+    async confirm() {
+      this.loading = true;
+      const formData = new FormData();
+      formData.append("_method", "patch");
+      const payload = {
+        id: this.item.id,
+        statusType: this.item.status ? "activate" : "deactivate",
+        formData,
+        type: "brands",
+      };
+      await GlobalServices.updateStatus(this.$axios, payload).then(
+        (resData) => {
+          this.$emit("fecthData", { value: true });
+          this.setAlertDataGlobal(resData);
+          this.showAlert = false;
+        }
+      );
+      this.loading = false;
     },
     cancel() {
       this.showAlert = false;
@@ -130,7 +137,7 @@ export default {
 }
 
 .active {
-  background: #0f6d39 !important;
+  background: #7fb712 !important;
 }
 
 .deactive {

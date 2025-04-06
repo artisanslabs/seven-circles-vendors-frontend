@@ -8,11 +8,11 @@
               {{ $t("links.products") }}
             </h1>
           </div>
-          <v-btn class="add-btn" dark @click="handleCreate">
+          <!-- <v-btn class="add-btn" dark @click="handleCreate">
             <span class="btn-text white--text">
               {{ $t("products.create") }}
             </span>
-          </v-btn>
+          </v-btn> -->
         </div>
       </v-col>
       <v-col cols="12">
@@ -77,6 +77,22 @@
                 clearable
                 @change="fetch(1)"
               />
+              <v-combobox
+                v-model="selectedStatus"
+                :items="statusList"
+                item-text="name"
+                item-value="id"
+                label="اختر الحالة"
+                style="max-width: 185px"
+                class="me-4 mb-2"
+                outlined
+                height="44px"
+                background-color="#fff"
+                dense
+                hide-details
+                clearable
+                @change="fetch(1)"
+              />
             </div>
           </template>
           <template #[`item.category`]="{ item }">
@@ -102,7 +118,7 @@
             <div class="d-flex justify-center">
               <v-switch
                 v-model="item.status"
-                color="#0f6d39"
+                :color="item.is_published ? 'red' : '#0f6d39'"
                 inset
                 @click.stop="openActivateDialogs(item)"
               />
@@ -131,7 +147,7 @@
             <div class="d-flex justify-center mt-2 pagination-row">
               <small class="font-style">{{ $t("v.no_of_rows") }} : </small>
               <v-select
-                v-model="filters.perPage"
+                v-model="filters.per_page"
                 :items="[10, 15, 20, 30]"
                 :class="$vuetify.rtl ? 'show-pages' : 'show-pages-en'"
                 @change="changePerPage"
@@ -195,6 +211,10 @@ export default {
         sort: "desc",
         perPage: 10,
       },
+      statusList: [
+        { id: 1, name: "مفعل" },
+        { id: 0, name: "غير مفعل" },
+      ],
       headers: [
         {
           text: this.$t("v.name"),

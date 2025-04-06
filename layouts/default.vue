@@ -20,30 +20,30 @@
 </template>
 
 <script>
-import MainHeader from '~/components/core/MainHeader.vue'
-import VerticalNav from '~/components/core/VerticalNav.vue'
+import MainHeader from "~/components/core/MainHeader.vue";
+import VerticalNav from "~/components/core/VerticalNav.vue";
 export default {
-  name: 'DefaultLayout',
+  name: "DefaultLayout",
   components: {
     MainHeader,
-    VerticalNav
+    VerticalNav,
   },
-  middleware: ['auth'],
-  data () {
-    return {}
+  middleware: ["auth"],
+  data() {
+    return {};
   },
   computed: {
-    showAlertGlobal () {
-      return this.$store.state.showAlert
+    showAlertGlobal() {
+      return this.$store.state.showAlert;
     },
-    alertDataGlobal () {
-      return this.$store.state.alertData
-    }
+    alertDataGlobal() {
+      return this.$store.state.alertData;
+    },
   },
-  created () {
-    this.$vuetify.rtl = this.$i18n.locale === 'ar'
-  }
-}
+  created() {
+    this.$vuetify.rtl = this.$i18n.locale === "ar";
+  },
+};
 </script>
 
 <style scoped lang="scss">
