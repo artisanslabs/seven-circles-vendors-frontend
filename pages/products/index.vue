@@ -8,11 +8,11 @@
               {{ $t("links.products") }}
             </h1>
           </div>
-          <!-- <v-btn class="add-btn" dark @click="handleCreate">
+          <v-btn class="add-btn" dark @click="handleCreate">
             <span class="btn-text white--text">
               {{ $t("products.create") }}
             </span>
-          </v-btn> -->
+          </v-btn>
         </div>
       </v-col>
       <v-col cols="12">
@@ -67,22 +67,6 @@
                 item-text="name"
                 item-value="id"
                 label="اختر الصنف"
-                style="max-width: 185px"
-                class="me-4 mb-2"
-                outlined
-                height="44px"
-                background-color="#fff"
-                dense
-                hide-details
-                clearable
-                @change="fetch(1)"
-              />
-              <v-combobox
-                v-model="selectedStatus"
-                :items="statusList"
-                item-text="name"
-                item-value="id"
-                label="اختر الحالة"
                 style="max-width: 185px"
                 class="me-4 mb-2"
                 outlined
@@ -211,10 +195,6 @@ export default {
         sort: "desc",
         perPage: 10,
       },
-      statusList: [
-        { id: 1, name: "مفعل" },
-        { id: 0, name: "غير مفعل" },
-      ],
       headers: [
         {
           text: this.$t("v.name"),

@@ -12,7 +12,7 @@
             <img
               src="~/assets/images/Logo.png"
               height="140"
-              alt="Overleck Logo"
+              alt="Seven Circle Logo"
               class="mx-auto avatar"
             />
           </div>
@@ -111,7 +111,6 @@ export default {
             data: this.form,
           })
           .then((res) => {
-            console.log("ddd", res);
             this.setAlertData(res.data);
             // go to Home Page with update data
             this.$router.push(this.localePath({ name: "index" }));

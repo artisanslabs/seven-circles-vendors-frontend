@@ -56,21 +56,15 @@ export const mutations = {
   MARKETS(state, payload) {
     state.markets = payload;
   },
-  MARKETS (state, payload) {
-    state.markets = payload
-  },
   VENDORS(state, payload) {
     state.vendors = payload;
-  },
-  BRANDS(state, payload) {
-    state.brands = payload;
   },
   LOGIN (state, payload) {
     state.login = payload
   },
   PROFILE (state, payload) {
     state.profile = payload
-  }
+  },
 }
 export const actions = {
   fetchList({ commit }, payload) {
@@ -279,40 +273,6 @@ export const actions = {
       })
       .catch((e) => {});
   },
-  fetchMarketsList ({
-    commit
-  }, payload) {
-    return this.$axios
-      .$get(`/vendors/${payload.type}`, {
-        params: {
-          search_text: payload.search_text,
-          page: payload.page,
-          orderBy: payload.orderBy,
-          sort: payload.sort,
-          perPage: payload.perPage,
-          per_page: payload.perPage
-        }
-      }).then((response) => {
-        commit('MARKETS', response.data)
-      }).catch((e) => {})
-  },
-  fetchBrandsList({ commit }, payload) {
-    return this.$axios
-      .$get(`/vendors/${payload.type}`, {
-        params: {
-          search_text: payload.search_text,
-          page: payload.page,
-          orderBy: payload.orderBy,
-          sort: payload.sort,
-          perPage: payload.perPage,
-          per_page: payload.perPage,
-        },
-      })
-      .then((response) => {
-        commit("BRANDS", response.data);
-      })
-      .catch((e) => {});
-  },
   showDetails({ commit }, payload) {
     return this.$axios
       .$get(`/vendors/${payload.type}/${payload.id}`).then((response) => {
@@ -331,6 +291,22 @@ export const actions = {
     return this.$axios
       .$get(`/vendors/accounts/${payload.type}`).then((response) => {
         commit("PROFILE", response.data);
+      })
+      .catch((e) => {});
+  },
+  fetchProductsList({ commit }, payload) {
+    return this.$axios
+      .$get(`/vendors/${payload.type}`, {
+        params: {
+          search_text: payload.search_text,
+          page: payload.page,
+          orderBy: payload.orderBy,
+          sort: payload.sort,
+          per_page: payload.perPage,
+        },
+      })
+      .then((response) => {
+        commit("PRODUCTS", response.data);
       })
       .catch((e) => {});
   },
